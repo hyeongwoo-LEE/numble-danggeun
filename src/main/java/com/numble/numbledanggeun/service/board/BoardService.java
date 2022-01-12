@@ -15,4 +15,6 @@ public interface BoardService {
 
     void modifyPostState(Long boardId, PostState postState);
 
+    void remove(Long boardId);
+
 }

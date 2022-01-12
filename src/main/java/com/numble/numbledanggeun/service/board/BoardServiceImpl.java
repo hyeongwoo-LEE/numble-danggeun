@@ -88,6 +88,25 @@ public class BoardServiceImpl implements BoardService{
         board.changePostState(postState);
     }
 
+    /**
+     * 글 삭제
+     */
+    @Transactional
+    @Override
+    public void remove(Long boardId) {
+
+        Board board = boardRepository.findById(boardId).orElseThrow(() ->
+                new IllegalStateException("존재하지 않는 글입니다."));
+
+        //서버 컴퓨터에서 글 사진파일 삭제 -> boardImg 삭제 -> board 삭제 (cascade - comment, heart)
+        List<BoardImg> boardImgList = boardImgRepository.findBoardImgByBoard(board);
+        fileRemove(boardImgList);
+
+        boardImgRepository.deleteByBoard(board);
+
+        boardRepository.deleteById(boardId);
+    }
+
     private BoardImg toBoardImg(Board board, ResultFileStore resultFileStore) {
 
         return BoardImg.builder()

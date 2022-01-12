@@ -3,6 +3,7 @@ package com.numble.numbledanggeun.domain.board;
 import com.numble.numbledanggeun.domain.BaseEntity;
 import com.numble.numbledanggeun.domain.category.Category;
 import com.numble.numbledanggeun.domain.comment.Comment;
+import com.numble.numbledanggeun.domain.heart.Heart;
 import com.numble.numbledanggeun.domain.member.Member;
 import lombok.*;
 
@@ -47,6 +48,10 @@ public class Board extends BaseEntity {
     @Builder.Default
     @OneToMany(mappedBy = "board",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Comment> commentList = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "board",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Heart> heartList = new ArrayList<>();
 
     public void changeCategory(Category category){
         this.category = category;
