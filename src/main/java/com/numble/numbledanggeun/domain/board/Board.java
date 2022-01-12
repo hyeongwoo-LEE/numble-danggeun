@@ -47,4 +47,28 @@ public class Board extends BaseEntity {
     @Builder.Default
     @OneToMany(mappedBy = "board",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Comment> commentList = new ArrayList<>();
+
+    public void changeCategory(Category category){
+        this.category = category;
+    }
+
+    public void changeTitle(String title){
+        this.title = title;
+    }
+
+    public void changeContent(String content){
+        this.content = content;
+    }
+
+    public void changePrice(int price){
+        if (price < 0){
+            throw new IllegalStateException("가격이 0원 미만일 수 없습니다.");
+        }else{
+            this.price = price;
+        }
+    }
+
+    public void changePostState(PostState postState){
+        this.postState = postState;
+    }
 }
