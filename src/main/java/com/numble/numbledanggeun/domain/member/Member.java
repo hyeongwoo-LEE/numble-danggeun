@@ -4,6 +4,9 @@ import com.numble.numbledanggeun.domain.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 @Builder
 @AllArgsConstructor
@@ -34,4 +37,10 @@ public class Member extends BaseEntity {
     private String folderPath;
 
     private String filename;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(joinColumns = @JoinColumn(name = "member_id"))
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
+    private Set<MemberRole> roleSet = new HashSet<MemberRole>(Arrays.asList(MemberRole.USER));
 }
