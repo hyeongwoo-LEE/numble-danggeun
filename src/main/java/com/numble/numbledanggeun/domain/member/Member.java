@@ -1,12 +1,11 @@
 package com.numble.numbledanggeun.domain.member;
 
 import com.numble.numbledanggeun.domain.BaseEntity;
+import com.numble.numbledanggeun.domain.heart.Heart;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Builder
 @AllArgsConstructor
@@ -37,6 +36,10 @@ public class Member extends BaseEntity {
     private String folderPath;
 
     private String filename;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "member",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Heart> heartList = new ArrayList<>();
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(joinColumns = @JoinColumn(name = "member_id"))
