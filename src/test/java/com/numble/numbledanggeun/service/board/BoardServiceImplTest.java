@@ -122,6 +122,41 @@ class BoardServiceImplTest {
 
     }
 
+    @Test
+    void 중고거래글_수정_price_0미만() throws Exception{
+        //given
+        Board board = boardRepository.findAll().get(0);
+
+        Category updateCategory = createCategory("updateCategory");
+
+        List<MultipartFile> imgFiles = new ArrayList<>();
+        MultipartFile file = createImage("updateFile", "updateFilename.jpeg");
+        imgFiles.add(file);
+
+        BoardUpdateDTO boardUpdateDTO = createBoardUpdateDTO(board.getBoardId(), updateCategory, "updateTile", "updateContent",
+                0, imgFiles);
+
+        //when
+        IllegalStateException e = assertThrows(IllegalStateException.class,
+                () -> boardService.modify(boardUpdateDTO));
+
+        //then
+        assertThat(e.getMessage()).isEqualTo("가격이 0원 미만일 수 없습니다.");
+    }
+
+    @Test
+    void 중고거래글_게시상태_수정() throws Exception{
+        //given
+        Board board = boardRepository.findAll().get(0);
+
+        //when
+        //SALE -> COMPLETION 으로 변경
+        boardService.modifyPostState(board.getBoardId(), PostState.COMPLETION);
+
+        //then
+        assertThat(board.getPostState()).isEqualTo(PostState.COMPLETION);
+    }
+
     private BoardUpdateDTO createBoardUpdateDTO(Long boardId,Category category, String title, String content, int price, List<MultipartFile> imageFiles) {
         return BoardUpdateDTO.builder()
                 .boardId(boardId)
