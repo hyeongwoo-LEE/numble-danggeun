@@ -5,6 +5,7 @@ import com.numble.numbledanggeun.domain.board.BoardRepository;
 import com.numble.numbledanggeun.domain.comment.Comment;
 import com.numble.numbledanggeun.domain.comment.CommentRepository;
 import com.numble.numbledanggeun.dto.comment.CommentDTO;
+import com.numble.numbledanggeun.dto.comment.CommentUpdateDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,5 +43,17 @@ public class CommentServiceImpl implements CommentService{
         }
 
         return commentRepository.save(comment);
+    }
+
+    /**
+     * 댓글수정
+     */
+    @Transactional
+    @Override
+    public void modify(CommentUpdateDTO commentUpdateDTO) {
+        Comment comment = commentRepository.findById(commentUpdateDTO.getCommentId()).orElseThrow(() ->
+                new IllegalStateException("존재하지 않는 댓글입니다."));
+
+        comment.changeContent(commentUpdateDTO.getContent());
     }
 }

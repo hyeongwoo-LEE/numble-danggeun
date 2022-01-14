@@ -8,16 +8,22 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommentDTO {
 
+    @NotNull
     private Long boardId;
 
+    @NotBlank
     private String content;
 
+    @NotNull
     private Long parentId;
 
     public Comment toEntity(Board board, Long principalId, Comment parent){

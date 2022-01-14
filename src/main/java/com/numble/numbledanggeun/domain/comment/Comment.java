@@ -44,6 +44,15 @@ public class Comment extends BaseEntity {
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
     private List<Comment> childList  = new ArrayList<>();
 
+
+    public void changeContent(String content){
+        this.content = content;
+    }
+
+    public void removeComment(){
+        this.isExist = false;
+    }
+
     //연관관계 메서드
     public void setBoard(Board board){
         this.board = board;
