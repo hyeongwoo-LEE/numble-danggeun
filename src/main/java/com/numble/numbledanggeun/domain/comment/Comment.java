@@ -32,11 +32,26 @@ public class Comment extends BaseEntity {
     @Column(nullable = false)
     private String content = "";
 
+    @Column(nullable = false)
+    @Builder.Default
+    private Boolean isExist = true;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "parent_comment_id")
     private Comment parent;
 
     @Builder.Default
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
-    private List<Comment> child  = new ArrayList<>();
+    private List<Comment> childList  = new ArrayList<>();
+
+    //연관관계 메서드
+    public void setBoard(Board board){
+        this.board = board;
+        board.getCommentList().add(this);
+    }
+
+    public void setParent(Comment parent){
+        this.parent = parent;
+        parent.getChildList().add(this);
+    }
 }
