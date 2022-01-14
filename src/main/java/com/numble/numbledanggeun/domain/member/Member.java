@@ -46,4 +46,16 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Builder.Default
     private Set<MemberRole> roleSet = new HashSet<MemberRole>(Arrays.asList(MemberRole.USER));
+
+    public void changeNickname(String nickname){
+        this.nickname = nickname;
+    }
+
+    public void changeFolderPath(String folderPath){
+        this.folderPath = folderPath;
+    }
+
+    public void changeFilename(String filename){
+        this.filename = filename;
+    }
 }

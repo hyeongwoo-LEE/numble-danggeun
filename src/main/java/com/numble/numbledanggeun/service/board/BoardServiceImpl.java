@@ -61,6 +61,7 @@ public class BoardServiceImpl implements BoardService{
         board.changeContent(boardUpdateDTO.getContent());
         board.changePrice(boardUpdateDTO.getPrice());
 
+        //TODO 수정 필요 - 사진 변경 없을 시 imageFiles - null 값을 넘어옴
         /* 여기서부터 img 변경 */
         //기존 해당 사진 모두 삭제
         List<BoardImg> boardImgList = boardImgRepository.findBoardImgByBoard(board);
@@ -133,9 +134,9 @@ public class BoardServiceImpl implements BoardService{
 
         if(boardImgList != null && boardImgList.size() > 0 ){
 
-            for(BoardImg meetingImg: boardImgList){
-                String folderPath = meetingImg.getFolderPath();
-                String storeFileName = meetingImg.getFilename();
+            for(BoardImg boardImg: boardImgList){
+                String folderPath = boardImg.getFolderPath();
+                String storeFileName = boardImg.getFilename();
 
                 File file = new File(fileStore.getFullPath(folderPath, storeFileName));
                 file.delete();

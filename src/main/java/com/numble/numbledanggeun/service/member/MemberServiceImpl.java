@@ -1,13 +1,22 @@
 package com.numble.numbledanggeun.service.member;
 
+import com.numble.numbledanggeun.domain.baordImg.BoardImg;
+import com.numble.numbledanggeun.domain.board.Board;
 import com.numble.numbledanggeun.domain.member.Member;
 import com.numble.numbledanggeun.domain.member.MemberRepository;
+import com.numble.numbledanggeun.dto.member.MemberUpdateDTO;
 import com.numble.numbledanggeun.dto.member.SignupDTO;
+import com.numble.numbledanggeun.file.FileStore;
+import com.numble.numbledanggeun.file.ResultFileStore;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -17,6 +26,7 @@ public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final FileStore fileStore;
 
     /**
      * 닉네임 중복체크
@@ -59,5 +69,35 @@ public class MemberServiceImpl implements MemberService{
         return member;
     }
 
+    /**
+     * 회원 프로필 수정
+     */
+    @Transactional
+    @Override
+    public void modify(MemberUpdateDTO memberUpdateDTO, Long principalId) throws IOException {
 
+        Member member = memberRepository.findById(principalId).orElseThrow(() ->
+                new IllegalStateException("존재하지 않은 회원입니다."));
+
+        member.changeNickname(memberUpdateDTO.getNickname());
+
+        //TODO 기존 이미지 삭제 - 기본 이미지로 설정시 로직 필요
+        if (memberUpdateDTO.getImageFile() != null){
+            //서버에 컴퓨터에 저장된 사진 삭제
+            fileRemove(member);
+
+            //member - folderPath, filename 변경
+            ResultFileStore resultFileStore = fileStore.storeFile(memberUpdateDTO.getImageFile());
+            member.changeFolderPath(resultFileStore.getFolderPath());
+            member.changeFilename(resultFileStore.getStoreFilename());
+        }
+    }
+
+    private void fileRemove(Member member) {
+        String folderPath = member.getFolderPath();
+        String storeFileName = member.getFilename();
+
+        File file = new File(fileStore.getFullPath(folderPath, storeFileName));
+        file.delete();
+    }
 }
