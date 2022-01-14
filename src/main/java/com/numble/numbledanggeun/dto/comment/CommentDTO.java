@@ -23,7 +23,6 @@ public class CommentDTO {
     @NotBlank
     private String content;
 
-    @NotNull
     private Long parentId;
 
     public Comment toEntity(Board board, Long principalId, Comment parent){
