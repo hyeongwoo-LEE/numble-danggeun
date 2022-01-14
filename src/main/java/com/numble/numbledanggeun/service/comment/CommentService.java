@@ -10,4 +10,6 @@ public interface CommentService {
 
     void modify(CommentUpdateDTO commentUpdateDTO);
 
+    void remove(Long commentId);
+
 }

@@ -56,4 +56,16 @@ public class CommentServiceImpl implements CommentService{
 
         comment.changeContent(commentUpdateDTO.getContent());
     }
+
+    /**
+     * 댓글삭제 - isExist -> false로 변경 (실제로 데이터 삭제x)
+     */
+    @Transactional
+    @Override
+    public void remove(Long commentId) {
+        Comment comment = commentRepository.findById(commentId).orElseThrow(() ->
+                new IllegalStateException("존재하지 않는 댓글입니다."));
+
+        comment.removeComment();
+    }
 }

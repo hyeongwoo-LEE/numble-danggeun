@@ -21,7 +21,7 @@ public class Comment extends BaseEntity {
     private Long commentId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id", nullable = false)
+    @JoinColumn(name = "member_id") //회원탈퇴시 null 값 가질 수 있음.
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
