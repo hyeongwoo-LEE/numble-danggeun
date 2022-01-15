@@ -182,23 +182,24 @@ class CommentServiceImplTest {
                 .content(content)
                 .build();
     }
-    private Comment createComment(Member member, Board board, String content, Comment parent) {
-        Comment comment = Comment.builder()
-                .member(member)
-                .board(board)
-                .content(content)
-                .parent(parent)
-                .isExist(true)
-                .build();
-        return commentRepository.save(comment);
-    }
     private Comment createComment(Member member, Board board, String content) {
         Comment comment = Comment.builder()
                 .member(member)
-                .board(board)
                 .content(content)
                 .isExist(true)
                 .build();
+        comment.setBoard(board);
+        return commentRepository.save(comment);
+    }
+
+    private Comment createComment(Member member, Board board, String content, Comment parent) {
+        Comment comment = Comment.builder()
+                .member(member)
+                .content(content)
+                .isExist(true)
+                .build();
+        comment.setBoard(board);
+        comment.setParent(parent);
         return commentRepository.save(comment);
     }
 
@@ -231,6 +232,7 @@ class CommentServiceImplTest {
                 .category(category)
                 .title(title)
                 .content(content)
+                .price(1000)
                 .build();
         boardRepository.save(board);
         return board;

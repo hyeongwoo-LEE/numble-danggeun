@@ -78,10 +78,9 @@ class HeartServiceImplTest {
     }
 
     private Heart createHeart(Member member, Board board) {
-        Heart heart = Heart.builder()
-                .member(member)
-                .board(board)
-                .build();
+        Heart heart = new Heart();
+        heart.setMember(member);
+        heart.setBoard(board);
         heartRepository.save(heart);
         return heart;
     }
@@ -100,6 +99,7 @@ class HeartServiceImplTest {
                 .category(category)
                 .title(title)
                 .content(content)
+                .price(1000)
                 .build();
         boardRepository.save(board);
         return board;

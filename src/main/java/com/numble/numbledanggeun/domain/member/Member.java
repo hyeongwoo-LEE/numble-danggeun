@@ -3,6 +3,7 @@ package com.numble.numbledanggeun.domain.member;
 import com.numble.numbledanggeun.domain.BaseEntity;
 import com.numble.numbledanggeun.domain.heart.Heart;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import java.util.*;

@@ -197,6 +197,7 @@ class BoardServiceImplTest {
                 .category(category)
                 .title(title)
                 .content(content)
+                .price(1000)
                 .build();
         boardRepository.save(board);
         return board;
@@ -217,11 +218,10 @@ class BoardServiceImplTest {
     private BoardImg createBoardImg(Board board, String filename, String folderPath) {
 
         BoardImg boardImg = BoardImg.builder()
-                .board(board)
                 .folderPath(folderPath)
                 .filename(filename)
                 .build();
-
+        boardImg.setBoard(board);
         boardImgRepository.save(boardImg);
 
         return boardImg;

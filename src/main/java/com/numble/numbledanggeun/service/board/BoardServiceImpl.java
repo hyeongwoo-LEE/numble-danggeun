@@ -5,8 +5,13 @@ import com.numble.numbledanggeun.domain.baordImg.BoardImgRepository;
 import com.numble.numbledanggeun.domain.board.Board;
 import com.numble.numbledanggeun.domain.board.BoardRepository;
 import com.numble.numbledanggeun.domain.board.PostState;
+import com.numble.numbledanggeun.domain.heart.Heart;
+import com.numble.numbledanggeun.domain.member.Member;
 import com.numble.numbledanggeun.dto.board.BoardDTO;
+import com.numble.numbledanggeun.dto.board.BoardResDTO;
 import com.numble.numbledanggeun.dto.board.BoardUpdateDTO;
+import com.numble.numbledanggeun.dto.boardImg.BoardImgDTO;
+import com.numble.numbledanggeun.dto.page.SearchDTO;
 import com.numble.numbledanggeun.file.FileStore;
 import com.numble.numbledanggeun.file.ResultFileStore;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +21,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Transactional
@@ -108,17 +116,26 @@ public class BoardServiceImpl implements BoardService{
         boardRepository.deleteById(boardId);
     }
 
-    private BoardImg toBoardImg(Board board, ResultFileStore resultFileStore) {
+    /**
+     * 글 리스트 조회
+     */
+    @Transactional(readOnly = true)
+    @Override
+    public List<BoardResDTO> getAllBoardList(SearchDTO searchDTO, Long principalId) {
 
-        return BoardImg.builder()
-                .board(board)
-                .folderPath(resultFileStore.getFolderPath())
-                .filename(resultFileStore.getStoreFilename())
-                .build();
+        List<Object[]> result = boardRepository.getAllBoardList(searchDTO);
+
+        List<BoardResDTO> boardResDTOList = result.stream().map(arr -> new BoardResDTO(
+                (Board) arr[0], //중고글 엔티티
+                (int) arr[1], //댓글 수
+                (int) arr[2], //관심 수
+                principalId)) //사용자 유저 id
+                .collect(Collectors.toList());
+
+        return boardResDTOList;
     }
 
     private void saveImg(Board board, List<MultipartFile> imageFiles) throws IOException {
-
         if(imageFiles != null && imageFiles.size() > 0){
             List<ResultFileStore> resultFileStores = fileStore.storeFiles(imageFiles);
 
@@ -128,6 +145,16 @@ public class BoardServiceImpl implements BoardService{
                 boardImgRepository.save(boardImg);
             }
         }
+    }
+
+    private BoardImg toBoardImg(Board board, ResultFileStore resultFileStore) {
+        BoardImg boardImg = BoardImg.builder()
+                .folderPath(resultFileStore.getFolderPath())
+                .filename(resultFileStore.getStoreFilename())
+                .build();
+        boardImg.setBoard(board);
+
+        return boardImg;
     }
 
     private void fileRemove(List<BoardImg> boardImgList) {

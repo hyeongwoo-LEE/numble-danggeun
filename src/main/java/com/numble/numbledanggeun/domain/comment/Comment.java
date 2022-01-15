@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString(exclude = {"member","board"})
+@ToString(exclude = {"member","board","parent"})
 @Entity
 public class Comment extends BaseEntity {
 
