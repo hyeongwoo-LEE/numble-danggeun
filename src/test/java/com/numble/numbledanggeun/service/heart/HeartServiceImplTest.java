@@ -31,6 +31,9 @@ class HeartServiceImplTest {
     @Autowired HeartRepository heartRepository;
     @Autowired CategoryRepository categoryRepository;
 
+    private Member member;
+    private Board board;
+
     /**
      * member 1, category 1, board 1 생성
      */
@@ -38,15 +41,15 @@ class HeartServiceImplTest {
     void before(){
         Member member = createMember("beforeEmail@naver.com", "beforeName", "beforeNick", "010-1111-1111");
         Category category = createCategory("beforeCategory");
-        createBoard(member, category, "beforeTitle", "beforeContent");
+        Board board = createBoard(member, category, "beforeTitle", "beforeContent");
+
+        this.member = member;
+        this.board = board;
     }
 
     @Test
     void 관심_추가() throws Exception{
         //given
-        Member member = memberRepository.findAll().get(0);
-        Board board = boardRepository.findAll().get(0);
-
         //when
         Heart heart = heartService.heart(member.getMemberId(), board.getBoardId());
 
@@ -60,9 +63,6 @@ class HeartServiceImplTest {
     @Test
     void 관심_삭제() throws Exception{
         //given
-        Member member = memberRepository.findAll().get(0);
-        Board board = boardRepository.findAll().get(0);
-
         //heart 생성
         Heart heart = createHeart(member, board);
 
