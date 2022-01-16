@@ -13,14 +13,13 @@ import com.numble.numbledanggeun.domain.heart.Heart;
 import com.numble.numbledanggeun.domain.heart.HeartRepository;
 import com.numble.numbledanggeun.domain.member.Member;
 import com.numble.numbledanggeun.domain.member.MemberRepository;
+import com.numble.numbledanggeun.dto.board.BoardPreviewDTO;
 import com.numble.numbledanggeun.dto.board.BoardResDTO;
 import com.numble.numbledanggeun.dto.page.SearchDTO;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -30,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Transactional
 @SpringBootTest
-public class BoardServiceReadTest {
+public class BoardServiceReadByMemberConditionTest {
 
     @Autowired BoardService boardService;
     @Autowired BoardRepository boardRepository;
@@ -41,85 +40,131 @@ public class BoardServiceReadTest {
     @Autowired CommentRepository commentRepository;
 
     //현재 사용자 memberId
-    Long presentId;
+    private Long loginMemberId;
+    private Long viewBoardId;
 
     /**
-     * board1,2 (디지털기기), board3,5(게임/취미)
-     * board1,3,5 title = ~닌텐도~
-     * board 3만 게시글상태 - 완료, 나머진 모두 판매중
-     * board1 이미지 2개, 댓글 2개, 하트 1개 -게시글작성자
+     * board 1,2,3,4,5 모두 한명이 작성 - 현재 로그인 사용자라고 가정.
+     * borad 6 - NoMember 가 작성
+     * board 1,2,5 - 판매중, board 3 - 거래완료, board 4 - 예약중
+     * board1 이미지 2개, 댓글 2개, 하트 2개 (게시글작성자,NoMember)
      */
     @BeforeEach
     void before(){
+        Member member = createMember("email@naver.com", "username", "nickname");
+        loginMemberId = member.getMemberId();
+        Category category = createCategory("testCategory");
+
         IntStream.rangeClosed(1,5).forEach(i -> {
-            Member member = createMember("email" + i + "naver.com", "username" + i, "nickname" + i);
-            Category category = createCategory("test" + i);
             createBoard(member, category, "Title" + i, "content");
         });
 
         List<Board> boardList = boardRepository.findAll();
 
         Board board1 = boardList.get(0);
-        presentId = board1.getMember().getMemberId(); //board1 작성자를 현재 사용자라고 가정.
         Board board2 = boardList.get(1);
+        viewBoardId = board2.getBoardId();
         Board board3 = boardList.get(2);
+        Board board4 = boardList.get(3);
         Board board5 = boardList.get(4);
 
-        Category categoryA = categoryRepository.save(createCategory("디지털기기"));
-        Category categoryB = categoryRepository.save(createCategory("게임/취미"));
-
-        board1.changeCategory(categoryA);
-        board2.changeCategory(categoryA);
-        board3.changeCategory(categoryB);
-        board5.changeCategory(categoryB);
-
-        board1.changeTitle("닌텐도 팔아요!");
-        board3.changeTitle("닌텐도 같이할 사람~");
-        board5.changeTitle("싸게 사고 싶어요, 닌텐도...");
-
         board3.changePostState(PostState.COMPLETION);
+        board4.changePostState(PostState.RESERVATION);
 
         createBoardImg(board1,"sfio_이미지.jpeg","2022/01/16");
-        createBoardImg(board2,"sfio_이미지.jpeg","2022/01/16");
+        createBoardImg(board1,"asdf12D_이미지.jpeg","2022/01/16");
 
         Comment parentComment = createComment(board2.getMember(), board1, "깍아주세요");
         createComment(board1.getMember(),board1,"좋아요",parentComment);
 
         createHeart(board1.getMember(),board1);
+
+        //회원별 판매글 리스트 조회시 출력되면 안되는 게시글 생성
+        Member NoMember = createMember("NoEmail@naver.com", "NoUsername", "NoNickname");
+        Category testCategory = createCategory("NoCategory");
+        Board board6 = createBoard(NoMember, testCategory, "출력되면 안돼요", "출력되면 안돼요");
+        createHeart(NoMember, board1); //NoMember 가 board1 게시글 관심 버튼 추가.
     }
 
     /**
-     * board1,2 (디지털기기), board3,5(게임/취미)
-     * board1,3,5 title = ~닌텐도~
-     * board 3만 게시글상태 - 완료, 나머진 모두 판매중
-     * board1 이미지 2개, 댓글 2개, 하트 1개 -게시글작성자
+     * board 1,2,3,4,5 모두 한명이 작성 - 현재 로그인 사용자라고 가정.
+     * borad 6 - NoMember 가 작성
+     * board 1,2,5 - 판매중, board 3 - 거래완료, board 4 - 예약중
+     * board1 이미지 2개, 댓글 2개, 하트 2개 (게시글작성자,NoMember)
      *
-     * --> board5 -> board1 -> board3 순으로 출력 되어야 함.
+     * => board5 -> board2 -> board1 -> board4 -> board3 순으로 출력되어야함.
      */
     @Test
-    void 게시글리스트_조회() throws Exception{
+    void 회원별_판매글_리스트_조회() throws Exception{
         //given
-        Category categoryA = categoryRepository.findByName("디지털기기");
-        Category categoryB = categoryRepository.findByName("게임/취미");
-
-        List<Long> categories = List.of(categoryA.getCategoryId(), categoryB.getCategoryId());
-        SearchDTO searchDTO = createSearchDTO("닌텐도", categories);
+        //board 1,2,3,4,5 모두 한명이 작성 - 현재 로그인 사용자라고 가정.
+        SearchDTO searchDTO = createSearchDTO(loginMemberId);
 
         //when
-        List<BoardResDTO> result = boardService.getAllBoardList(searchDTO, presentId);
+        List<BoardResDTO> result = boardService.getBoardListByMemberId(searchDTO, loginMemberId);
 
         //then
-        assertThat(result).extracting("boardId").containsExactly(5L,1L,3L);
-        for (BoardResDTO boardResDTO : result){
+        assertThat(result).extracting("title")
+                .containsExactly("Title5","Title2","Title1","Title4","Title3");
+        assertThat(result).extracting("writerId")
+                .containsExactly(searchDTO.getMemberId(),searchDTO.getMemberId(),searchDTO.getMemberId()
+                ,searchDTO.getMemberId(),searchDTO.getMemberId());
+        for (BoardResDTO boardResDTO :result){
             System.out.println(boardResDTO);
         }
     }
 
-    private SearchDTO createSearchDTO(String keyword, List<Long> categories) {
-        return SearchDTO.builder()
-                .keyword(keyword)
-                .categoryIdList(categories)
-                .build();
+    @Test
+    void 회원별_판매글_리스트_조회_게시상태_조건O() throws Exception{
+        //given
+        //board 1,2,3,4,5 모두 한명이 작성 - 현재 로그인 사용자라고 가정.
+        SearchDTO searchDTO = createSearchDTO(loginMemberId,PostState.COMPLETION);
+
+        //when
+        List<BoardResDTO> result = boardService.getBoardListByMemberId(searchDTO, loginMemberId);
+
+        //then
+        assertThat(result).extracting("title").containsExactly("Title3");
+        assertThat(result).extracting("writerId").containsExactly(searchDTO.getMemberId());
+        assertThat(result).extracting("postState").containsExactly(searchDTO.getPostState());
+    }
+
+    /**
+     * board 1,2,3,4,5 모두 한명이 작성 - 현재 로그인 사용자라고 가정.
+     * borad 6 - NoMember 가 작성
+     * board 1,2,5 - 판매중, board 3 - 거래완료, board 4 - 예약중
+     * 현재 board2의 판매글을 보고 있다고 가정.
+     * limit를 3개로 했으므로  미리보기 4개 출력
+     * => board5 -> board1 -> board4 -> board3 순으로 출력되어야함.
+     */
+    @Test
+    void 미리보기_판매글리스트_조회() throws Exception{
+        //given
+        //board 1,2,3,4,5 모두 한명이 작성 - 현재 로그인 사용자라고 가정.
+        //현재 board2 판매글을 보고있다고 가정.
+        // => board2의 작성자의 다른 판매글들이 출력되어야 함.
+        SearchDTO searchDTO = createSearchDTO(loginMemberId);
+
+        //when
+        List<BoardPreviewDTO> result = boardService.getPreviewBoardListByMemberId(searchDTO, viewBoardId);
+
+        //then
+        assertThat(result.size()).isEqualTo(4);
+        assertThat(result).extracting("title")
+                .containsExactly("Title5","Title1","Title4","Title3");
+        assertThat(result).extracting("writerId")
+                .containsExactly(searchDTO.getMemberId(),searchDTO.getMemberId()
+                        ,searchDTO.getMemberId(),searchDTO.getMemberId());
+        for (BoardPreviewDTO dto: result){
+            System.out.println(dto);
+        }
+    }
+
+    private SearchDTO createSearchDTO(Long memberId,PostState postState) {
+        return SearchDTO.builder().memberId(memberId).postState(postState).build();
+    }
+    private SearchDTO createSearchDTO(Long memberId) {
+        return SearchDTO.builder().memberId(memberId).build();
     }
 
 

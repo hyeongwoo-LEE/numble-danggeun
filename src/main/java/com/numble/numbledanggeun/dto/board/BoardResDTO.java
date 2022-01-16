@@ -19,6 +19,8 @@ public class BoardResDTO {
 
     private Long boardId;
 
+    private Long writerId;
+
     private String title;
 
     private int price;
@@ -34,8 +36,9 @@ public class BoardResDTO {
     private BoardImgDTO boardImgDTO;
 
     public BoardResDTO(Board board, int commentCount, int heartCount, Long principalId){
-
+        System.out.println("시작---------------");
         boardId = board.getBoardId();
+        writerId = board.getMember().getMemberId();
         title = board.getTitle();
         price = board.getPrice();
         this.commentCount = commentCount;
@@ -55,5 +58,6 @@ public class BoardResDTO {
         if (board.getBoardImgList().size() > 0){
             boardImgDTO= new BoardImgDTO(board.getBoardImgList().get(0));
         }
+        System.out.println("종료---------------");
     }
 }

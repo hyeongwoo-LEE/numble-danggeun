@@ -8,6 +8,7 @@ import com.numble.numbledanggeun.domain.board.PostState;
 import com.numble.numbledanggeun.domain.heart.Heart;
 import com.numble.numbledanggeun.domain.member.Member;
 import com.numble.numbledanggeun.dto.board.BoardDTO;
+import com.numble.numbledanggeun.dto.board.BoardPreviewDTO;
 import com.numble.numbledanggeun.dto.board.BoardResDTO;
 import com.numble.numbledanggeun.dto.board.BoardUpdateDTO;
 import com.numble.numbledanggeun.dto.boardImg.BoardImgDTO;
@@ -117,7 +118,7 @@ public class BoardServiceImpl implements BoardService{
     }
 
     /**
-     * 글 리스트 조회
+     * 판매글 리스트 조회
      */
     @Transactional(readOnly = true)
     @Override
@@ -134,6 +135,37 @@ public class BoardServiceImpl implements BoardService{
 
         return boardResDTOList;
     }
+
+    /**
+     * 회원별 판매상품 리스트 조회
+     */
+    @Transactional(readOnly = true)
+    @Override
+    public List<BoardResDTO> getBoardListByMemberId(SearchDTO searchDTO, Long principalId) {
+
+        List<Object[]> result = boardRepository.getBoardListByMemberId(searchDTO);
+
+        List<BoardResDTO> boardResDTOList = result.stream().map(arr -> new BoardResDTO(
+                (Board) arr[0], //중고글 엔티티
+                (int) arr[1], //댓글 수
+                (int) arr[2], //관심 수
+                principalId)) //사용자 유저 id
+                .collect(Collectors.toList());
+
+        return boardResDTOList;
+    }
+    /**
+     * 판매글 작성자의 다른 판매글 미리보기 리스트 - 현재 상세보기 글 제외
+     */
+    @Override
+    public List<BoardPreviewDTO> getPreviewBoardListByMemberId(SearchDTO searchDTO, Long presentBoardId) {
+        List<Board> result = boardRepository.getPreviewBoardListByMemberId(searchDTO, presentBoardId);
+
+        return result.stream().map(entity -> new BoardPreviewDTO(entity)).collect(Collectors.toList());
+    }
+
+
+
 
     private void saveImg(Board board, List<MultipartFile> imageFiles) throws IOException {
         if(imageFiles != null && imageFiles.size() > 0){

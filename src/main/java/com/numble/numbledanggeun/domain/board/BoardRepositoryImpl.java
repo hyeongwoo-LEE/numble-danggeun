@@ -29,7 +29,7 @@ public class BoardRepositoryImpl implements BoardRepositoryQuerydsl{
     }
 
     /**
-     * 글 리스트 조회
+     * 판매글 리스트 조회
      */
     @Override
     public List<Object[]> getAllBoardList(SearchDTO searchDTO) {
@@ -50,7 +50,45 @@ public class BoardRepositoryImpl implements BoardRepositoryQuerydsl{
         return result.stream().map(t -> t.toArray()).collect(Collectors.toList());
     }
 
+    /**
+     * 글 작성자의 판매상품 리스트 조회
+     */
+    @Override
+    public List<Object[]> getBoardListByMemberId(SearchDTO searchDTO) {
 
+        QBoard board = QBoard.board;
+
+        List<Tuple> result = queryFactory
+                .select(board, board.commentList.size(), board.heartList.size())
+                .from(board)
+                .where(board.member.memberId.eq(searchDTO.getMemberId()),
+                        postStateEq(searchDTO.getPostState()))
+                .orderBy(board.postState.desc(), board.updateDate.desc())
+                .fetch();
+
+        return result.stream().map(t -> t.toArray()).collect(Collectors.toList());
+    }
+
+    /**
+     * 판매글 작성자의 다른 판매글 미리보기 리스트 - 현재 상세보기 글 제외
+     */
+    @Override
+    public List<Board> getPreviewBoardListByMemberId(SearchDTO searchDTO, Long boardId) {
+        QBoard board = QBoard.board;
+
+        return queryFactory
+                .selectFrom(board)
+                .where(board.member.memberId.eq(searchDTO.getMemberId()),
+                        board.boardId.ne(boardId))
+                .orderBy(board.postState.desc(), board.updateDate.desc())
+                .limit(4)
+                .fetch();
+    }
+
+    private BooleanExpression postStateEq(PostState postState) {
+        QBoard board = QBoard.board;
+        return postState!=null ? board.postState.eq(postState):null;
+    }
 
     private BooleanBuilder categoriesEq(List<Long> categories) {
         QCategory category = QCategory.category;

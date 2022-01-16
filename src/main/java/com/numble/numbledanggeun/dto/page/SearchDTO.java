@@ -1,5 +1,6 @@
 package com.numble.numbledanggeun.dto.page;
 
+import com.numble.numbledanggeun.domain.board.PostState;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,4 +19,8 @@ public class SearchDTO {
     private String keyword;
 
     private List<Long> categoryIdList;
+
+    private Long memberId;
+
+    private PostState postState;
 }

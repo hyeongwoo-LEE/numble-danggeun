@@ -9,6 +9,10 @@ public interface BoardRepositoryQuerydsl {
 
     List<Object[]> getAllBoardList(SearchDTO searchDTO);
 
+    List<Object[]> getBoardListByMemberId(SearchDTO searchDTO);
+
+    List<Board> getPreviewBoardListByMemberId(SearchDTO searchDTO, Long boardId);
+
 
 
 }
