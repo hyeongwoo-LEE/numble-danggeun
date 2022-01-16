@@ -22,10 +22,8 @@ public class BoardImg {
     @JoinColumn(name = "board_id", nullable = false)
     private Board board;
 
-    @Column(nullable = false)
     private String folderPath;
 
-    @Column(nullable = false)
     private String filename;
 
     //연관관계 메서드

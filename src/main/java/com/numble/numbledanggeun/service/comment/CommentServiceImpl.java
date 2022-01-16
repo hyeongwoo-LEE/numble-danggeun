@@ -5,10 +5,14 @@ import com.numble.numbledanggeun.domain.board.BoardRepository;
 import com.numble.numbledanggeun.domain.comment.Comment;
 import com.numble.numbledanggeun.domain.comment.CommentRepository;
 import com.numble.numbledanggeun.dto.comment.CommentDTO;
+import com.numble.numbledanggeun.dto.comment.CommentResDTO;
 import com.numble.numbledanggeun.dto.comment.CommentUpdateDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Transactional
 @RequiredArgsConstructor
@@ -68,4 +72,17 @@ public class CommentServiceImpl implements CommentService{
 
         comment.removeComment();
     }
+
+    /**
+     * 댓글 리스트 조회
+     */
+    @Transactional(readOnly = true)
+    @Override
+    public List<CommentResDTO> getCommentList(Long boardId) {
+        List<Comment> result = commentRepository.getCommentList(boardId);
+
+        return result.stream().map(entity -> new CommentResDTO(entity)).collect(Collectors.toList());
+    }
+
+
 }

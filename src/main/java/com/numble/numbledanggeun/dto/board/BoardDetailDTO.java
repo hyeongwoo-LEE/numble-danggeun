@@ -41,7 +41,7 @@ public class BoardDetailDTO {
     @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
     private LocalDateTime updateDate;
 
-    private List<BoardImgDTO> boardImgDTOList;
+    private List<BoardImgDTO> boardImgDTOList = new ArrayList<>();
 
     public BoardDetailDTO(Board board, Long principalId){
 

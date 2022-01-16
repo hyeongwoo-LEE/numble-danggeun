@@ -4,6 +4,7 @@ import com.numble.numbledanggeun.domain.BaseEntity;
 import com.numble.numbledanggeun.domain.board.Board;
 import com.numble.numbledanggeun.domain.member.Member;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class Comment extends BaseEntity {
     @JoinColumn(name = "parent_comment_id")
     private Comment parent;
 
+    @BatchSize(size = 100)
     @Builder.Default
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
     private List<Comment> childList  = new ArrayList<>();
