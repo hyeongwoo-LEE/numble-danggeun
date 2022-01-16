@@ -48,7 +48,7 @@ public class BoardResDTO {
         //관심버튼 상태 체크
         isHeart = false;
         for (Heart heart : board.getHeartList()){
-            if (heart.getMember().getMemberId() == principalId){
+            if (heart.getMember().getMemberId().equals(principalId)){
                 isHeart = true;
                 break;
             }

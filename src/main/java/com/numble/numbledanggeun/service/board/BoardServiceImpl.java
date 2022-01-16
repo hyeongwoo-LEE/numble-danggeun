@@ -7,10 +7,7 @@ import com.numble.numbledanggeun.domain.board.BoardRepository;
 import com.numble.numbledanggeun.domain.board.PostState;
 import com.numble.numbledanggeun.domain.heart.Heart;
 import com.numble.numbledanggeun.domain.member.Member;
-import com.numble.numbledanggeun.dto.board.BoardDTO;
-import com.numble.numbledanggeun.dto.board.BoardPreviewDTO;
-import com.numble.numbledanggeun.dto.board.BoardResDTO;
-import com.numble.numbledanggeun.dto.board.BoardUpdateDTO;
+import com.numble.numbledanggeun.dto.board.*;
 import com.numble.numbledanggeun.dto.boardImg.BoardImgDTO;
 import com.numble.numbledanggeun.dto.page.SearchDTO;
 import com.numble.numbledanggeun.file.FileStore;
@@ -154,9 +151,11 @@ public class BoardServiceImpl implements BoardService{
 
         return boardResDTOList;
     }
+
     /**
      * 판매글 작성자의 다른 판매글 미리보기 리스트 - 현재 상세보기 글 제외
      */
+    @Transactional(readOnly = true)
     @Override
     public List<BoardPreviewDTO> getPreviewBoardListByMemberId(SearchDTO searchDTO, Long presentBoardId) {
         List<Board> result = boardRepository.getPreviewBoardListByMemberId(searchDTO, presentBoardId);
@@ -165,6 +164,16 @@ public class BoardServiceImpl implements BoardService{
     }
 
 
+    /**
+     * 판매글 상세페이지 조회
+     */
+    @Transactional(readOnly = true)
+    @Override
+    public BoardDetailDTO getBoard(Long boardId, Long principalId) {
+        Board board = boardRepository.getBoardWithAll(boardId);
+
+        return new BoardDetailDTO(board, principalId);
+    }
 
 
     private void saveImg(Board board, List<MultipartFile> imageFiles) throws IOException {

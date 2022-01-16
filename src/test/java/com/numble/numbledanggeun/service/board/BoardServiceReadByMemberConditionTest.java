@@ -13,6 +13,7 @@ import com.numble.numbledanggeun.domain.heart.Heart;
 import com.numble.numbledanggeun.domain.heart.HeartRepository;
 import com.numble.numbledanggeun.domain.member.Member;
 import com.numble.numbledanggeun.domain.member.MemberRepository;
+import com.numble.numbledanggeun.dto.board.BoardDetailDTO;
 import com.numble.numbledanggeun.dto.board.BoardPreviewDTO;
 import com.numble.numbledanggeun.dto.board.BoardResDTO;
 import com.numble.numbledanggeun.dto.page.SearchDTO;
@@ -25,7 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 @Transactional
 @SpringBootTest
@@ -114,6 +115,9 @@ public class BoardServiceReadByMemberConditionTest {
         }
     }
 
+    /**
+     * 거래완료인 판매글이 1개이므로 board3 만 출력됨.
+     */
     @Test
     void 회원별_판매글_리스트_조회_게시상태_조건O() throws Exception{
         //given
@@ -127,6 +131,35 @@ public class BoardServiceReadByMemberConditionTest {
         assertThat(result).extracting("title").containsExactly("Title3");
         assertThat(result).extracting("writerId").containsExactly(searchDTO.getMemberId());
         assertThat(result).extracting("postState").containsExactly(searchDTO.getPostState());
+    }
+
+    /**
+     * board1 의 상세 페이지
+     */
+    @Test
+    void 판매글_상세페이지_조회() throws Exception{
+        //given
+        Board board1 = boardRepository.findByTitle("Title1");
+        viewBoardId = board1.getBoardId();
+
+        //when
+        BoardDetailDTO result = boardService.getBoard(viewBoardId, loginMemberId);
+
+        //then
+        assertThat(result.getBoardId()).isEqualTo(board1.getBoardId());
+        assertThat(result.getWriterId()).isEqualTo(board1.getMember().getMemberId());
+        assertThat(result.getWriterNickname()).isEqualTo(board1.getMember().getNickname());
+        assertThat(result.getTitle()).isEqualTo(board1.getTitle());
+        assertThat(result.getContent()).isEqualTo(board1.getContent());
+        assertThat(result.getPrice()).isEqualTo(board1.getPrice());
+        assertThat(result.getIsHeart()).isTrue();
+        assertThat(result.getCategoryName()).isEqualTo(board1.getCategory().getName());
+        assertThat(result.getPostState()).isEqualTo(board1.getPostState().name());
+        assertThat(result.getCreateDate()).isEqualTo(board1.getCreateDate());
+        assertThat(result.getUpdateDate()).isEqualTo(board1.getUpdateDate());
+        assertThat(result.getBoardImgDTOList().size()).isEqualTo(2);
+        assertThat(result.getBoardImgDTOList().get(0).getFilename()).isEqualTo(board1.getBoardImgList().get(0).getFilename());
+        assertThat(result.getBoardImgDTOList().get(1).getFilename()).isEqualTo(board1.getBoardImgList().get(1).getFilename());
     }
 
     /**
