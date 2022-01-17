@@ -153,6 +153,24 @@ public class BoardServiceImpl implements BoardService{
     }
 
     /**
+     * 회원의 관심 목록 리스트
+     */
+    @Transactional(readOnly = true)
+    @Override
+    public List<BoardResDTO> getBoardListOfHeart(Long principalId) {
+        List<Object[]> result = boardRepository.getBoardListOfHeart(principalId);
+
+        List<BoardResDTO> boardResDTOList = result.stream().map(arr -> new BoardResDTO(
+                (Board) arr[0], //중고글 엔티티
+                (int) arr[1], //댓글 수
+                (int) arr[2], //관심 수
+                principalId)) //사용자 유저 id
+                .collect(Collectors.toList());
+
+        return boardResDTOList;
+    }
+
+    /**
      * 판매글 작성자의 다른 판매글 미리보기 리스트 - 현재 상세보기 글 제외
      */
     @Transactional(readOnly = true)

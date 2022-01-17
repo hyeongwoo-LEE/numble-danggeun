@@ -1,6 +1,7 @@
 package com.numble.numbledanggeun.domain.board;
 
 import com.numble.numbledanggeun.domain.category.QCategory;
+import com.numble.numbledanggeun.domain.heart.QHeart;
 import com.numble.numbledanggeun.domain.member.QMember;
 import com.numble.numbledanggeun.dto.board.BoardDTO;
 import com.numble.numbledanggeun.dto.board.BoardResDTO;
@@ -12,6 +13,7 @@ import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import javax.persistence.EntityManager;
@@ -63,6 +65,36 @@ public class BoardRepositoryImpl implements BoardRepositoryQuerydsl{
                 .from(board)
                 .where(board.member.memberId.eq(searchDTO.getMemberId()),
                         postStateEq(searchDTO.getPostState()))
+                .orderBy(board.postState.desc(), board.updateDate.desc())
+                .fetch();
+
+        return result.stream().map(t -> t.toArray()).collect(Collectors.toList());
+    }
+
+    /**
+     * 회원의 관심 목록
+     */
+    @Override
+    public List<Object[]> getBoardListOfHeart(Long principalId) {
+        QBoard board = QBoard.board;
+        QHeart heart = QHeart.heart;
+
+//        List<Tuple> result = queryFactory
+//                .select(board, board.commentList.size(), board.heartList.size())
+//                .from(board)
+//                .join(heart).on(heart.board.boardId.eq(board.boardId))
+//                .where(heart.member.memberId.eq(principalId))
+//                .fetch();
+
+        List<Tuple> result = queryFactory
+                .select(board, board.commentList.size(), board.heartList.size())
+                .from(board)
+                .where(board.boardId.in(
+                        JPAExpressions
+                                .select(heart.board.boardId)
+                                .from(heart)
+                                .where(heart.member.memberId.eq(principalId))
+                ))
                 .orderBy(board.postState.desc(), board.updateDate.desc())
                 .fetch();
 

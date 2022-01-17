@@ -22,8 +22,11 @@ public interface BoardService {
 
     List<BoardResDTO> getBoardListByMemberId(SearchDTO searchDTO, Long principalId);
 
+    List<BoardResDTO> getBoardListOfHeart(Long principalId);
+
     List<BoardPreviewDTO> getPreviewBoardListByMemberId(SearchDTO searchDTO, Long boardId);
 
     BoardDetailDTO getBoard(Long boardId, Long principalId);
+
 
 }

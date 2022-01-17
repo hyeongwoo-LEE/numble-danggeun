@@ -49,6 +49,7 @@ public class BoardServiceReadByMemberConditionTest {
      * borad 6 - NoMember 가 작성
      * board 1,2,5 - 판매중, board 3 - 거래완료, board 4 - 예약중
      * board1 이미지 2개, 댓글 2개, 하트 2개 (게시글작성자,NoMember)
+     * board3 하트 1개 (게시글작성자)
      */
     @BeforeEach
     void before(){
@@ -79,6 +80,7 @@ public class BoardServiceReadByMemberConditionTest {
         createComment(board1.getMember(),board1,"좋아요",parentComment);
 
         createHeart(board1.getMember(),board1);
+        createHeart(board1.getMember(),board3);
 
         //회원별 판매글 리스트 조회시 출력되면 안되는 게시글 생성
         Member NoMember = createMember("NoEmail@naver.com", "NoUsername", "NoNickname");
@@ -92,6 +94,7 @@ public class BoardServiceReadByMemberConditionTest {
      * borad 6 - NoMember 가 작성
      * board 1,2,5 - 판매중, board 3 - 거래완료, board 4 - 예약중
      * board1 이미지 2개, 댓글 2개, 하트 2개 (게시글작성자,NoMember)
+     * board3 하트 1개 (게시글작성자)
      *
      * => board5 -> board2 -> board1 -> board4 -> board3 순으로 출력되어야함.
      */
@@ -134,33 +137,25 @@ public class BoardServiceReadByMemberConditionTest {
     }
 
     /**
-     * board1 의 상세 페이지
+     * board 1,2,3,4,5 모두 한명이 작성 - 현재 로그인 사용자라고 가정.
+     * board 1- 판매중, board 3 - 거래완료
+     * board1 이미지 2개, 댓글 2개, 하트 2개 (게시글작성자,NoMember)
+     * board3 하트 1개 (게시글작성자)
+     *
+     * ==> 현재로그인사용자 == 게시글 작성자 -> board1,board3 관심중
+     * ==> baord1 -> board3 순으로 출력
      */
     @Test
-    void 판매글_상세페이지_조회() throws Exception{
-        //given
-        Board board1 = boardRepository.findByTitle("Title1");
-        viewBoardId = board1.getBoardId();
-
+    void 회원별_관심목록_리스트() throws Exception{
         //when
-        BoardDetailDTO result = boardService.getBoard(viewBoardId, loginMemberId);
+        List<BoardResDTO> result = boardService.getBoardListOfHeart(loginMemberId);
 
         //then
-        assertThat(result.getBoardId()).isEqualTo(board1.getBoardId());
-        assertThat(result.getWriterId()).isEqualTo(board1.getMember().getMemberId());
-        assertThat(result.getWriterNickname()).isEqualTo(board1.getMember().getNickname());
-        assertThat(result.getTitle()).isEqualTo(board1.getTitle());
-        assertThat(result.getContent()).isEqualTo(board1.getContent());
-        assertThat(result.getPrice()).isEqualTo(board1.getPrice());
-        assertThat(result.getIsHeart()).isTrue();
-        assertThat(result.getCategoryName()).isEqualTo(board1.getCategory().getName());
-        assertThat(result.getPostState()).isEqualTo(board1.getPostState().name());
-        assertThat(result.getCreateDate()).isEqualTo(board1.getCreateDate());
-        assertThat(result.getUpdateDate()).isEqualTo(board1.getUpdateDate());
-        assertThat(result.getBoardImgDTOList().size()).isEqualTo(2);
-        assertThat(result.getBoardImgDTOList().get(0).getFilename()).isEqualTo(board1.getBoardImgList().get(0).getFilename());
-        assertThat(result.getBoardImgDTOList().get(1).getFilename()).isEqualTo(board1.getBoardImgList().get(1).getFilename());
+        for (BoardResDTO dto : result){
+            System.out.println(dto);
+        }
     }
+
 
     /**
      * board 1,2,3,4,5 모두 한명이 작성 - 현재 로그인 사용자라고 가정.
@@ -191,6 +186,35 @@ public class BoardServiceReadByMemberConditionTest {
         for (BoardPreviewDTO dto: result){
             System.out.println(dto);
         }
+    }
+
+    /**
+     * board1 의 상세 페이지
+     */
+    @Test
+    void 판매글_상세페이지_조회() throws Exception{
+        //given
+        Board board1 = boardRepository.findByTitle("Title1");
+        viewBoardId = board1.getBoardId();
+
+        //when
+        BoardDetailDTO result = boardService.getBoard(viewBoardId, loginMemberId);
+
+        //then
+        assertThat(result.getBoardId()).isEqualTo(board1.getBoardId());
+        assertThat(result.getWriterId()).isEqualTo(board1.getMember().getMemberId());
+        assertThat(result.getWriterNickname()).isEqualTo(board1.getMember().getNickname());
+        assertThat(result.getTitle()).isEqualTo(board1.getTitle());
+        assertThat(result.getContent()).isEqualTo(board1.getContent());
+        assertThat(result.getPrice()).isEqualTo(board1.getPrice());
+        assertThat(result.getIsHeart()).isTrue();
+        assertThat(result.getCategoryName()).isEqualTo(board1.getCategory().getName());
+        assertThat(result.getPostState()).isEqualTo(board1.getPostState().name());
+        assertThat(result.getCreateDate()).isEqualTo(board1.getCreateDate());
+        assertThat(result.getUpdateDate()).isEqualTo(board1.getUpdateDate());
+        assertThat(result.getBoardImgDTOList().size()).isEqualTo(2);
+        assertThat(result.getBoardImgDTOList().get(0).getFilename()).isEqualTo(board1.getBoardImgList().get(0).getFilename());
+        assertThat(result.getBoardImgDTOList().get(1).getFilename()).isEqualTo(board1.getBoardImgList().get(1).getFilename());
     }
 
     private SearchDTO createSearchDTO(Long memberId,PostState postState) {

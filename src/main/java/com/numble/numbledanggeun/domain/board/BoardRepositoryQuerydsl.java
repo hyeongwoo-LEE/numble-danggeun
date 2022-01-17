@@ -11,6 +11,8 @@ public interface BoardRepositoryQuerydsl {
 
     List<Object[]> getBoardListByMemberId(SearchDTO searchDTO);
 
+    List<Object[]> getBoardListOfHeart(Long principalId);
+
     List<Board> getPreviewBoardListByMemberId(SearchDTO searchDTO, Long boardId);
 
 
