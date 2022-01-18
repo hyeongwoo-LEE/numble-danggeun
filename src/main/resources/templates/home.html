@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>당근마켓</title>
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="../static/css/home.css" th:href="@{/css/home.css}">
+</head>
+
+<body>
+    <div class="all">
+        <div class="inner">
+            <div class="main-container">
+                <div class = "sub-container">
+                    <div class="danggeun-image-container">
+                        <div clss="danggeun-image">
+                           <img src="/image/dageun.png">
+                        </div>
+                    </div>
+                    <div class = "danggeun-text-container">
+                        <div class="danggeun-text1">
+                            당신 근처의 Karrot 마켓
+                        </div>
+                        <div class="danggeun-text2">
+                            이제 내 동내에서 간편하게 중고거래 하자
+                        </div>
+                    </div>
+                </div>
+                <div class="start-button-container">
+                    <a href="#" th:href="@{/signup}">시작하기</a>
+                </div>
+                <div class="sub2-container">
+                    <div>
+                        이미 계정이 있나요?
+                    </div>
+                    <div class="login-container">
+                        <a href="#" th:href="@{/login}">로그인</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+.input-container{
+    padding: 2rem 3rem 3rem 3rem;
+}
+
+.sub-container{
+    padding-top: 1rem;
+}
+
+.form-control{
+    width: 250px;
+    height: 30px;
+    margin-top: 10px;
+}
+
+.signup-button-container{
+    height: 50px;
+    background-color:rgb(255, 145, 0);
+    font-size: larger;
+    color:aliceblue;
+    border-radius: 15px;
+    text-align: center;
+    line-height: 50px;
+    margin-left: 0.3rem;
+    margin-right: 0.3rem;
+}
