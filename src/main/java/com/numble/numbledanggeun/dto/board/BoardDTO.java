@@ -28,14 +28,12 @@ public class BoardDTO {
     @NotBlank
     private String content;
 
-    @NotBlank
-    @Enumerated(EnumType.STRING) //TODO 필요?
-    private Category category;
+    @NotNull
+    private Long categoryId;
 
     @NotNull
     private int price;
 
-    @NotBlank
     private List<MultipartFile> imageFiles;
 
     public Board toEntity(Long memberId){
@@ -43,7 +41,7 @@ public class BoardDTO {
                 .member(Member.builder().memberId(memberId).build())
                 .title(title)
                 .content(content)
-                .category(category)
+                .category(Category.builder().categoryId(categoryId).build())
                 .price(price)
                 .postState(PostState.SALE)
                 .build();

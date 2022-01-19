@@ -12,7 +12,7 @@ import java.util.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString
+@ToString(exclude = {"heartList"})
 @Entity
 public class Member extends BaseEntity {
 
