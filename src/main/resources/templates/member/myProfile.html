@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>당근마켓</title>
+    <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="../../static/css/myProfile.css" th:href="@{/css/myProfile.css}">
+
+</head>
+<body>
+    <div class="all">
+        <div class="inner">
+            <div class="main-container">
+                <div class="sub1-container">
+                    <div>나의 당근</div>
+                    <div class="icon1-container">
+                        <a><img class="icon1" src="/image/search.png"></a>
+                        <a><img class="icon1" src="/image/menu.png"></a>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="sub3-container">
+                    <img class="profile-image" src="image/noProfile.png"/>
+                    <span class="nickname" sec:authentication="principal.member.nickname">닉네임</span>
+                </div>
+
+                <a th:href="@{/members/{id}/edit(id = 1)}"><div class="sub4-container">프로필 수정</div></a>
+                <div class="sub5-container">
+                    <a href="">
+                        <div class="icon3-container">
+                            <img class="icon3" src="image/list.png">
+                            <div class="text4">판매내역</div>
+                        </div>
+                    </a>
+                    <a href="">
+                        <div class="icon3-container">
+                            <img class="icon3" src="image/heart.png">
+                            <div class="text4">관심목록</div>
+                        </div>
+                   </a>
+                    <a class="logout" href="">Log out</a>
+                </div>
+                <hr>
+                <div class="sub2-container">
+                    <div>
+                        <div class="icon2-container"><img src="/image/home.png"></div>
+                        <div class="text2">홈</div>
+                    </div>
+                    <a th:href="@{/members/{id}(id = 1)}">
+                        <div>
+                            <div class="icon2-container"><img src="/image/myProfile.png"></div>
+                            <div class="text3">나의당근</div>
+                        </div>
+                    </a>
+                </div>
+            <div>
+        </div>
+    </div>
+</body>
+</html>

@@ -23,3 +23,15 @@
     margin-left: 0.3rem;
     margin-right: 0.3rem;
 }
+
+.button{
+    height: 50px;
+    background-color:rgb(255, 145, 0);
+    font-size: larger;
+    color:aliceblue;
+    border-style: none;
+    text-align: center;
+    line-height: 50px;
+    margin-left: 0.3rem;
+    margin-right: 0.3rem;
+}

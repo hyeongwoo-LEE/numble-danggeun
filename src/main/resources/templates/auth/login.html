@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>당근마켓</title>
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="../static/css/login.css" th:href="@{/css/login.css}">
+
+</head>
+<body>
+    <div class="all">
+        <div class="inner">
+            <div class="main-container">
+                <h3 class="title">로그인</h3>
+              <form th:action="@{/login}" th:method="post">
+                  <div class="section-container">
+                    <div class="sub-container">
+                        <label>이메일(ID)</label><br/>
+                        <input type="email" name="username" class="form-control" id="username" required="required" placeholder="email">
+                    </div>
+                    <div class="sub-container">
+                        <label>비밀번호(PW)</label><br/>
+                        <input type="password" name="password" class="form-control" id="password" required="required" placeholder="password">
+                    </div>
+                  </div>
+                  <div class="login-button-container">
+                      <button class="button "type="submit">로그인</button>
+                  </div>
+                  <div class="text1">비밀번호를 잊어버리셨나요?</div>
+                  <div class="text2">비밀번호찾기</div>
+              </form>
+            <div>
+    </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>당근마켓</title>
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="../static/css/boardList.css" th:href="@{/css/boardList.css}">
+
+</head>
+<body>
+    <div class="all">
+        <div class="inner">
+            <div class="main-container">
+                <h3 class="sub1-container" sec:authentication="principal.member.nickname">닉네임님동네</h3>
+                <form>
+                    <div class="search-container">
+                        <input class="input-container" name="keyword">
+                        <div class="search-button-container">
+                            <img src="/image/search.png">
+                            <img src="/image/search.png">
+                        </div>
+                    </div>
+                    <hr>
+                </form>
+                <div class="list-container">
+                    <div th:each="dto:${boardResDTOList}">
+                        <a th:href="@{/boards/{id}(id = ${dto.boardId})}">
+                            <div class="list-block-container">
+                                <img class="image" src="/image/search.png">
+                                <div class="text">
+                                    <p th:text="${dto.title}">제목</p>
+                                    <p class="font2">장소</p>
+                                    <p th:text="${dto.price}+'원'">가격</p>
+                                </div>
+                                <div class="icon1-container">
+                                    <div class="image2"><img src="/image/comment.png"></div>
+                                    <div th:if="${dto.commentCount} > 0" th:text="${dto.commentCount}">n</div>
+                                    <div th:unless="${dto.commentCount} > 0">&nbsp;</div>
+
+                                    <div class="image2"><img src="/image/heart.png"></div>
+                                    <div th:if="${dto.heartCount} > 0" th:text="${dto.heartCount}">n</div>
+                                    <div th:unless="${dto.heartCount} > 0">&nbsp;</div>
+                                </div>
+                            </div>
+                        </a>
+                        <hr>
+                    </div>
+                </div>
+
+
+                <div class="sub2-container">
+                    <a th:href="@{/boards}">
+                        <div>
+                            <div class="icon2-container"><img src="/image/home.png"></div>
+                            <div class="text2">홈</div>
+                        </div>
+                    </a>
+                    <a th:href="@{/members/{id}(id = 1)}">
+                        <div>
+                            <div class="icon2-container"><img src="/image/myProfile.png"></div>
+                            <div class="text3">나의당근</div>
+                        </div>
+                    </a>
+
+                </div>
+            <div>
+    </div>
+    </div>
+</body>
+</html>

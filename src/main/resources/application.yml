@@ -16,11 +16,5 @@ spring:
     open-in-view: false
     show-sql: true
 
-  web:
-    resources:
-      chain:
-        enabled: true
-        strategy:
-          content:
-            enabled: true
-            paths: /**
+  thymeleaf:
+    cache: false

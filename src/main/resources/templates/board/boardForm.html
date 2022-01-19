@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>당근마켓</title>
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="../static/css/boardForm.css" th:href="@{/css/boardForm.css}">
+
+</head>
+<body>
+    <div class="all">
+        <div class="inner">
+            <div class="main-container">
+                <form th:action="@{/boards}" th:method="post">
+                    <div class="sub1-container">
+                        <a href="/"><img class="back" src="/image/back.png"></a>
+                        <div class="font">중고거래 글쓰기</div>
+                        <button type="submit" class="button">완료</button>
+                    </div>
+                    <hr>
+                    <div class="sub2-container">
+                        <input type="file"  class="custom-file-input files" id="fileInput" multiple>
+                    </div>
+                    <hr>
+                    <input type="text" class="input-text" name="title" placeholder="제목">
+
+                  
+                    <hr>
+                    <div class="sub5-container">
+                        <select name="categoryId" class="option-control">
+                            <option value="" selected>카테고리</option>
+                            <option th:each="categoryResDTO : ${categoryResDTOList}"
+                                    th:value="${categoryResDTO.categoryId}"
+                                    th:text="${categoryResDTO.name}"></option>
+                        </select>
+                    </div>
+                    <hr>
+                    <input type="number" class="input-text" name="price" placeholder="가격(원)">
+    
+                    <hr>
+                    <input type="textarea" class="input-text2" name="content"
+                    placeholder="게시글 내용을 작성해주세요 가짜 품목 및 판매금지품목은 게시가 제한됩니다.">
+                </form>
+              
+            </div>
+        </div>
+    </div>
+</body>
+</html>

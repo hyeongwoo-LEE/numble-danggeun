@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>당근마켓</title>
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="../static/css/signup.css" th:href="@{/css/signup.css}">
+
+</head>
+<body>
+    <div class="all">
+        <div class="inner">
+            <div class="main-container">
+                <form th:action="@{/signup}" th:method="post">
+                    <div class="input-container">
+                        <h3>회원가입</h3>
+                        <div class="sub-container">
+                            <label>이메일(ID)</label><br/>
+                            <input type="email" name="email" class="form-control" id="email">
+                        </div>
+                        <div class="sub-container">
+                            <label>비밀번호(PW)</label><br/>
+                            <input type="password" name="password" class="form-control" id="password">
+                        </div>
+                        <div class="sub-container">
+                            <label>이름</label><br/>
+                            <input type="text" name="username" class="form-control" id="username">
+                        </div>
+                        <div class="sub-container">
+                            <label>핸드폰번호</label><br/>
+                            <input type="text" name="phone" class="form-control" id="phone">
+                        </div>
+                        <div class="sub-container">
+                            <label>닉네임</label><br/>
+                            <input type="text" name="nickname" class="form-control" id="nickname">
+                        </div>
+                    </div>
+                    <div class="signup-button-container">
+                        <button class="button" type="submit">가입하기</button>
+                  </div>         
+                </form>
+            <div>
+        </div>
+    </div>
+</body>
+</html>

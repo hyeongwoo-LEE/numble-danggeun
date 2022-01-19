@@ -1,0 +1,54 @@
+.sub1-container{
+    width: 100%;
+    margin-top: 15px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    display: flex;
+    justify-content: space-between ;
+    line-height: 40px;
+}
+
+.back{
+    max-width: 40px;
+    padding-top: 5px;
+}
+
+.font{
+    font-weight: bold;
+    font-size: large;
+    height: auto;
+    line-height: 53px;
+}
+
+.button{
+    font-weight: bold;
+    color: rgb(255, 145, 0);
+    font-size: large;
+}
+
+.sub2-container{
+    height: 90px;
+}
+
+.sub5-container{
+    height: 50px;
+    line-height: 50px;
+    padding-left: 0.8rem;
+}
+
+
+.input-text{
+    border-style: none;
+    font-size: medium;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+}
+
+.input-text2{
+    width: 100%;
+    border-style: none;
+    font-size: medium;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    height: 200px;
+    text-overflow:clip;
+    
+}

@@ -15,11 +15,24 @@
 
 .form-control{
     width: 250px;
-    height: 30px;
+    height: 35px;
     margin-top: 10px;
 }
 
 .login-button-container{
+    height: 50px;
+    background-color:rgb(255, 145, 0);
+    font-size: larger;
+    color:aliceblue;
+    border-radius: 15px;
+    text-align: center;
+    line-height: 50px;
+    margin-left: 0.3rem;
+    margin-right: 0.3rem;
+}
+
+.button{
+    border-style: none;
     height: 50px;
     background-color:rgb(255, 145, 0);
     font-size: larger;
