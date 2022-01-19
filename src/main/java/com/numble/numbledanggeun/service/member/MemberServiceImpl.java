@@ -4,6 +4,7 @@ import com.numble.numbledanggeun.domain.baordImg.BoardImg;
 import com.numble.numbledanggeun.domain.board.Board;
 import com.numble.numbledanggeun.domain.member.Member;
 import com.numble.numbledanggeun.domain.member.MemberRepository;
+import com.numble.numbledanggeun.dto.member.MemberResDTO;
 import com.numble.numbledanggeun.dto.member.MemberUpdateDTO;
 import com.numble.numbledanggeun.dto.member.SignupDTO;
 import com.numble.numbledanggeun.file.FileStore;
@@ -67,6 +68,18 @@ public class MemberServiceImpl implements MemberService{
         memberRepository.save(member);
 
         return member;
+    }
+
+    /**
+     * 회원 프로필 조회
+     */
+    @Transactional(readOnly = true)
+    @Override
+    public MemberResDTO getProfile(Long principalId) {
+        Member member = memberRepository.findById(principalId).orElseThrow(() ->
+                new IllegalStateException("존재하지 않은 회원입니다."));
+
+        return new MemberResDTO(member);
     }
 
     /**

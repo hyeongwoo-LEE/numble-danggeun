@@ -1,6 +1,7 @@
 package com.numble.numbledanggeun.service.member;
 
 import com.numble.numbledanggeun.domain.member.Member;
+import com.numble.numbledanggeun.dto.member.MemberResDTO;
 import com.numble.numbledanggeun.dto.member.MemberUpdateDTO;
 import com.numble.numbledanggeun.dto.member.SignupDTO;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ public interface MemberService {
 
     Member join(SignupDTO signupDTO);
 
-    void modify(MemberUpdateDTO memberUpdateDTO, Long principalId) throws IOException;
+    MemberResDTO getProfile(Long principalId);
 
+    void modify(MemberUpdateDTO memberUpdateDTO, Long principalId) throws IOException;
 }
