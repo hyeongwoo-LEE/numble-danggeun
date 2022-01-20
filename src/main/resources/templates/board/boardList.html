@@ -17,7 +17,7 @@
                         <input class="input-container" name="keyword">
                         <div class="search-button-container">
                             <img src="/image/search.png">
-                            <img src="/image/search.png">
+                            <img src="/image/menu.png">
                         </div>
                     </div>
                     <hr>
@@ -30,12 +30,15 @@
                                 <div class="text">
                                     <p th:text="${dto.title}">제목</p>
                                     <p class="font2">장소</p>
-                                    <p th:text="${dto.price}+'원'">가격</p>
+                                    <p th:if="${dto.postState} == 'SALE'" th:text="${dto.price}+'원'">가격</p>
+                                    <div th:if="${dto.postState} == 'RESERVATION'" class="post-re" th:text="예약중">예약중</div>
+                                    <div th:if="${dto.postState} == 'COMPLETION'" class="post-com" th:text="거래완료">거래완료</div>
                                 </div>
                                 <div class="icon1-container">
+                                    <div th:if="${dto.commentCount} > 0">
                                     <div class="image2"><img src="/image/comment.png"></div>
-                                    <div th:if="${dto.commentCount} > 0" th:text="${dto.commentCount}">n</div>
-                                    <div th:unless="${dto.commentCount} > 0">&nbsp;</div>
+                                    <div th:text="${dto.commentCount}">n</div>
+                                    </div>
 
                                     <div class="image2"><img src="/image/heart.png"></div>
                                     <div th:if="${dto.heartCount} > 0" th:text="${dto.heartCount}">n</div>
@@ -46,8 +49,6 @@
                         <hr>
                     </div>
                 </div>
-
-
                 <div class="sub2-container">
                     <a th:href="@{/boards}">
                         <div>
@@ -55,7 +56,7 @@
                             <div class="text2">홈</div>
                         </div>
                     </a>
-                    <a th:href="@{/members/{id}(id = 1)}">
+                    <a th:href="@{/profile}">
                         <div>
                             <div class="icon2-container"><img src="/image/myProfile.png"></div>
                             <div class="text3">나의당근</div>

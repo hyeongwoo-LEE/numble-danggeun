@@ -24,7 +24,7 @@ public class MemberController {
     /**
      * 회원 프로필
      */
-    @GetMapping("/members/{id}")
+    @GetMapping("/profile")
     public String readProfile(Model model,
                               @AuthenticationPrincipal PrincipalDetails principalDetails){
         MemberResDTO memberResDTO = memberService.getProfile(principalDetails.getMember().getMemberId());
@@ -37,7 +37,7 @@ public class MemberController {
     /**
      * 회원 수정 폼
      */
-    @GetMapping("/members/{id}/edit")
+    @GetMapping("/profile/edit")
     public String updateForm(Model model,
                              @AuthenticationPrincipal PrincipalDetails principalDetails){
 
@@ -51,7 +51,7 @@ public class MemberController {
     /**
      * 회원 수정
      */
-    @PostMapping("/members/{id}/edit")
+    @PostMapping("/profile/edit")
     public String updateMember(MemberUpdateDTO memberUpdateDTO,
                                @AuthenticationPrincipal PrincipalDetails principalDetails) throws IOException {
 

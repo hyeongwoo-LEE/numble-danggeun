@@ -31,7 +31,7 @@ public class BoardResDTO {
 
     private Boolean isHeart;
 
-    private PostState postState;
+    private String postState;
 
     private BoardImgDTO boardImgDTO;
 
@@ -43,7 +43,7 @@ public class BoardResDTO {
         price = board.getPrice();
         this.commentCount = commentCount;
         this.heartCount = heartCount;
-        postState = board.getPostState();
+        postState = board.getPostState().toString();
 
         //관심버튼 상태 체크
         isHeart = false;

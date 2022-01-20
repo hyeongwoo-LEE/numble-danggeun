@@ -71,6 +71,25 @@
     top :580px;
 }
 
+.post-re{
+    background-color: rgb(117, 114, 114);
+    border-radius: 10px;
+    height: 30px;
+    width: 60px;
+    text-align: center;
+    line-height: 30px;
+    color: white;
+}
+
+.post-com{
+    background-color: black;
+    border-radius: 10px;
+    height: 30px;
+    width: 60px;
+    text-align: center;
+    line-height: 30px;
+    color: white;
+}
 
 .icon2-container{
     max-width: 30px;

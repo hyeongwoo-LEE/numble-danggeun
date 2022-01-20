@@ -15,12 +15,12 @@ public class AuthController {
 
     private final MemberService memberService;
 
-    @GetMapping("/members/new")
+    @GetMapping("/signup")
     public String signupForm(){
         return "/auth/signup";
     }
 
-    @PostMapping("/members")
+    @PostMapping("/signup")
     public String signupForm(SignupDTO signupDTO){
 
         memberService.join(signupDTO);
