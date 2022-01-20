@@ -1,8 +1,6 @@
 package com.numble.numbledanggeun.controller;
 
-import com.numble.numbledanggeun.dto.board.BoardDTO;
-import com.numble.numbledanggeun.dto.board.BoardResDTO;
-import com.numble.numbledanggeun.dto.board.BoardUpdateDTO;
+import com.numble.numbledanggeun.dto.board.*;
 import com.numble.numbledanggeun.dto.category.CategoryResDTO;
 import com.numble.numbledanggeun.dto.page.SearchDTO;
 import com.numble.numbledanggeun.security.auth.PrincipalDetails;
@@ -87,11 +85,31 @@ public class BoardController {
     /**
      * 판매글 삭제
      */
-    @PostMapping("/board/{id}/delete")
+    @PostMapping("/boards/{id}/delete")
     public String deleteBoard(@PathVariable Long id){
         return null;
     }
 
+    /**
+     * 판매글 상세 페이지
+     */
+    @GetMapping("/boards/{id}")
+    public String getBoard(@PathVariable("id") Long boardId, Model model,
+                           @AuthenticationPrincipal PrincipalDetails principalDetails){
+
+        //판매글 상세정보
+        BoardDetailDTO boardDetailDTO = boardService.getBoard(
+                boardId, principalDetails.getMember().getMemberId());
+
+        //글 작성자 다른 판매 상품 미리보기 리스트
+        List<BoardPreviewDTO> boardPreviewDTOList =
+                boardService.getPreviewBoardListInDetailView(boardId);
+
+        model.addAttribute("boardDetailDTO", boardDetailDTO);
+        model.addAttribute("boardPreviewDTOList", boardPreviewDTOList);
+
+        return "/board/boardDetail";
+    }
 
 
 }
