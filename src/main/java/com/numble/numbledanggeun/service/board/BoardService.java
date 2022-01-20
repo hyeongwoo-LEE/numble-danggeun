@@ -20,7 +20,7 @@ public interface BoardService {
 
     List<BoardResDTO> getAllBoardList(SearchDTO searchDTO, Long principalId);
 
-    List<BoardResDTO> getBoardListByMemberId(SearchDTO searchDTO, Long principalId);
+    List<BoardResDTO> getBoardListByMemberId(Long memberId, SearchDTO searchDTO, Long principalId);
 
     List<BoardResDTO> getBoardListOfHeart(Long principalId);
 

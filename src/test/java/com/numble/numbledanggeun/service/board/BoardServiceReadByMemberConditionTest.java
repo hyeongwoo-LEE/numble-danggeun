@@ -102,17 +102,16 @@ public class BoardServiceReadByMemberConditionTest {
     void 회원별_판매글_리스트_조회() throws Exception{
         //given
         //board 1,2,3,4,5 모두 한명이 작성 - 현재 로그인 사용자라고 가정.
-        SearchDTO searchDTO = createSearchDTO(loginMemberId);
-
+        SearchDTO searchDTO = new SearchDTO();
         //when
-        List<BoardResDTO> result = boardService.getBoardListByMemberId(searchDTO, loginMemberId);
+        List<BoardResDTO> result = boardService.getBoardListByMemberId(loginMemberId, searchDTO, loginMemberId);
 
         //then
         assertThat(result).extracting("title")
                 .containsExactly("Title5","Title2","Title1","Title4","Title3");
         assertThat(result).extracting("writerId")
-                .containsExactly(searchDTO.getMemberId(),searchDTO.getMemberId(),searchDTO.getMemberId()
-                ,searchDTO.getMemberId(),searchDTO.getMemberId());
+                .containsExactly(loginMemberId,loginMemberId,loginMemberId
+                ,loginMemberId,loginMemberId);
         for (BoardResDTO boardResDTO :result){
             System.out.println(boardResDTO);
         }
@@ -125,15 +124,16 @@ public class BoardServiceReadByMemberConditionTest {
     void 회원별_판매글_리스트_조회_게시상태_조건O() throws Exception{
         //given
         //board 1,2,3,4,5 모두 한명이 작성 - 현재 로그인 사용자라고 가정.
-        SearchDTO searchDTO = createSearchDTO(loginMemberId,PostState.COMPLETION);
+        SearchDTO searchDTO = createSearchDTO(PostState.COMPLETION);
 
         //when
-        List<BoardResDTO> result = boardService.getBoardListByMemberId(searchDTO, loginMemberId);
+        List<BoardResDTO> result = boardService.getBoardListByMemberId(
+                loginMemberId, searchDTO, loginMemberId);
 
         //then
         assertThat(result).extracting("title").containsExactly("Title3");
-        assertThat(result).extracting("writerId").containsExactly(searchDTO.getMemberId());
-        assertThat(result).extracting("postState").containsExactly(searchDTO.getPostState());
+        assertThat(result).extracting("writerId").containsExactly(loginMemberId);
+        assertThat(result).extracting("postState").containsExactly(searchDTO.getPostState().toString());
     }
 
     /**
@@ -171,7 +171,6 @@ public class BoardServiceReadByMemberConditionTest {
         //board 1,2,3,4,5 모두 한명이 작성 - 현재 로그인 사용자라고 가정.
         //현재 board2 판매글을 보고있다고 가정.
         // => board2의 작성자의 다른 판매글들이 출력되어야 함.
-        SearchDTO searchDTO = createSearchDTO(loginMemberId);
 
         //when
         List<BoardPreviewDTO> result = boardService.getPreviewBoardListInDetailView(viewBoardId);
@@ -181,8 +180,7 @@ public class BoardServiceReadByMemberConditionTest {
         assertThat(result).extracting("title")
                 .containsExactly("Title5","Title1","Title4","Title3");
         assertThat(result).extracting("writerId")
-                .containsExactly(searchDTO.getMemberId(),searchDTO.getMemberId()
-                        ,searchDTO.getMemberId(),searchDTO.getMemberId());
+                .containsExactly(loginMemberId,loginMemberId,loginMemberId,loginMemberId);
         for (BoardPreviewDTO dto: result){
             System.out.println(dto);
         }
@@ -217,13 +215,9 @@ public class BoardServiceReadByMemberConditionTest {
         assertThat(result.getBoardImgDTOList().get(1).getFilename()).isEqualTo(board1.getBoardImgList().get(1).getFilename());
     }
 
-    private SearchDTO createSearchDTO(Long memberId,PostState postState) {
-        return SearchDTO.builder().memberId(memberId).postState(postState).build();
+    private SearchDTO createSearchDTO(PostState postState) {
+        return SearchDTO.builder().postState(postState).build();
     }
-    private SearchDTO createSearchDTO(Long memberId) {
-        return SearchDTO.builder().memberId(memberId).build();
-    }
-
 
     private Category createCategory(String name) {
         Category category = Category.builder()

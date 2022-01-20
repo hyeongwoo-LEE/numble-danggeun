@@ -20,7 +20,5 @@ public class SearchDTO {
 
     private List<Long> categoryIdList;
 
-    private Long memberId;
-
     private PostState postState;
 }

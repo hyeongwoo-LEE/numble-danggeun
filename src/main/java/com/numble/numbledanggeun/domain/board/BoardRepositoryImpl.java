@@ -56,14 +56,14 @@ public class BoardRepositoryImpl implements BoardRepositoryQuerydsl{
      * 글 작성자의 판매상품 리스트 조회
      */
     @Override
-    public List<Object[]> getBoardListByMemberId(SearchDTO searchDTO) {
+    public List<Object[]> getBoardListByMemberId(Long memberId, SearchDTO searchDTO) {
 
         QBoard board = QBoard.board;
 
         List<Tuple> result = queryFactory
                 .select(board, board.commentList.size(), board.heartList.size())
                 .from(board)
-                .where(board.member.memberId.eq(searchDTO.getMemberId()),
+                .where(board.member.memberId.eq(memberId),
                         postStateEq(searchDTO.getPostState()))
                 .orderBy(board.postState.desc(), board.updateDate.desc())
                 .fetch();

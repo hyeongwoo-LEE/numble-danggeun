@@ -9,7 +9,7 @@ public interface BoardRepositoryQuerydsl {
 
     List<Object[]> getAllBoardList(SearchDTO searchDTO);
 
-    List<Object[]> getBoardListByMemberId(SearchDTO searchDTO);
+    List<Object[]> getBoardListByMemberId(Long memberId, SearchDTO searchDTO);
 
     List<Object[]> getBoardListOfHeart(Long principalId);
 

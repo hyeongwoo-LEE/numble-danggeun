@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
 import java.util.List;
@@ -109,6 +110,23 @@ public class BoardController {
         model.addAttribute("boardPreviewDTOList", boardPreviewDTOList);
 
         return "/board/boardDetail";
+    }
+
+    /**
+     * 회원별 판매글 리스트 조회
+     */
+    @GetMapping("/boards/members/{id}")
+    public String getBoardListByMemberId(@PathVariable("id") Long writerId,
+                                         SearchDTO searchDTO, Model model,
+                                         @AuthenticationPrincipal PrincipalDetails principalDetails){
+
+        List<BoardResDTO> boardResDTOList = boardService
+                .getBoardListByMemberId(writerId, searchDTO, principalDetails.getMember().getMemberId());
+
+        model.addAttribute("boardResDTOList", boardResDTOList);
+
+        return null;
+
     }
 
 

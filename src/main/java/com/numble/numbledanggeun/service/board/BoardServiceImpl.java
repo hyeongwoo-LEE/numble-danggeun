@@ -138,9 +138,9 @@ public class BoardServiceImpl implements BoardService{
      */
     @Transactional(readOnly = true)
     @Override
-    public List<BoardResDTO> getBoardListByMemberId(SearchDTO searchDTO, Long principalId) {
+    public List<BoardResDTO> getBoardListByMemberId(Long memberId, SearchDTO searchDTO, Long principalId) {
 
-        List<Object[]> result = boardRepository.getBoardListByMemberId(searchDTO);
+        List<Object[]> result = boardRepository.getBoardListByMemberId(memberId, searchDTO);
 
         List<BoardResDTO> boardResDTOList = result.stream().map(arr -> new BoardResDTO(
                 (Board) arr[0], //중고글 엔티티
