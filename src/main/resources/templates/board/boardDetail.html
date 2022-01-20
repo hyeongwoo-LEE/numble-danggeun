@@ -12,7 +12,7 @@
         <div class="inner">
             <div class="detail-main-container">
                 <div class="sub1-container">
-                    <a th:href="@{/boards}"><img class="icon1" src="/image/back.png"></a>
+                    <a href="javascript:history.back();"><img class="icon1" src="/image/back.png"></a>
                     <a th:href="@{/boards}"><img class="icon1" src="/image/home.png"></a>
                 </div>
                 <img class="image" src="https://images.velog.io/images/kados22/post/0e43ee9f-3ecf-46af-9885-b70a5a78ed2e/%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%87%E1%85%A1%E1%86%AB%20Class%20Card%20%E1%84%8A%E1%85%A5%E1%86%B7%E1%84%82%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%AF%203.png">
@@ -40,7 +40,7 @@
                     <span sec:authentication="principal.member.nickname">닉네임</span>
                     <span>님의 판매 상품</span>
                     </div>
-                    <a class="all-view" href="" >모두보기</a>
+                    <a class="all-view" th:href="@{/boards/members/{id}(id=${boardDetailDTO.writerId})}" >모두보기</a>
                 </div>
                 <div class="sub5-container">
                     <div th:each="dto : ${boardPreviewDTOList}">

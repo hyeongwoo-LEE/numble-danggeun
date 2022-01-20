@@ -123,9 +123,10 @@ public class BoardController {
         List<BoardResDTO> boardResDTOList = boardService
                 .getBoardListByMemberId(writerId, searchDTO, principalDetails.getMember().getMemberId());
 
+        model.addAttribute("writerId", writerId);
         model.addAttribute("boardResDTOList", boardResDTOList);
 
-        return null;
+        return "/board/memberBoardList";
 
     }
 

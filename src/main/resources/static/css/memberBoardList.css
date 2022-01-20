@@ -50,6 +50,27 @@
     margin-left: 1.5rem;
     width: 90px;
     margin-top: 1rem;
+    font-size: small;
+}
+
+.post-re{
+    background-color: rgb(117, 114, 114);
+    border-radius: 10px;
+    height: 30px;
+    width: 60px;
+    text-align: center;
+    line-height: 30px;
+    color: white;
+}
+
+.post-com{
+    background-color: black;
+    border-radius: 10px;
+    height: 30px;
+    width: 60px;
+    text-align: center;
+    line-height: 30px;
+    color: white;
 }
 
 .font2{

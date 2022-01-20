@@ -12,115 +12,37 @@
         <div class="inner">
             <div class="main-container">
                 <div class="sub1-container">
-                    <a><img class="icon1" src="/image/back.png"></a>
+                    <a href="javascript:history.back();"><img class="icon1" src="/image/back.png"></a>
                     <div style="line-height: 30px;">판매상품 보기</div>
                 </div>
                 <div class="sub2-container">
-                    <div>전체</div>
-                    <div>판매중</div>
-                    <div>거래완료</div>
+                    <a th:href="@{/boards/members/{id}(id=${writerId})}">전체</a>
+                    <a th:href="@{/boards/members/{id}(id=${writerId},postState='SALE')}">판매중</a>
+                    <a th:href="@{/boards/members/{id}(id=${writerId},postState='COMPLETION')}">거래완료</a>
                 </div>
                 <hr>
                 <div class="sub3-container">
-                    <div>
-                        <a>
+                    <div th:each="dto : ${boardResDTOList}">
+                        <a th:href="@{/boards/{id} (id=${dto.boardId})}">
                             <div class="list-block-container">
                                 <img class="image" src="/image/search.png">
                                 <div class="text">
-                                    <div>제목</div>
+                                    <div th:text="${dto.title}">제목</div>
                                     <div class="font2">장소</div>
-                                    <div>가격</div>
+                                    <p th:if="${dto.postState} == 'SALE'" th:text="${dto.price}+'원'">가격</p>
+                                    <div th:if="${dto.postState} == 'RESERVATION'" class="post-re" th:text="예약중">예약중</div>
+                                    <div th:if="${dto.postState} == 'COMPLETION'" class="post-com" th:text="거래완료">거래완료</div>
                                 </div>
+
                                 <div class="icon2-container">
-                                    <div class="icon2"><img src="/image/comment.png"></div>
-                                    <div>n</div>
-                                    <div class="icon2"><img src="/image/heart.png"></div>
-                                    <div >n</div>
-                                </div>
-                            </div>
-                        </a>
-                        <hr>
-                        <a>
-                            <div class="list-block-container">
-                                <img class="image" src="/image/search.png">
-                                <div class="text">
-                                    <div>제목</div>
-                                    <div class="font2">장소</div>
-                                    <div>가격</div>
-                                </div>
-                                <div class="icon2-container">
-                                    <div class="icon2"><img src="/image/comment.png"></div>
-                                    <div>n</div>
-                                    <div class="icon2"><img src="/image/heart.png"></div>
-                                    <div >n</div>
-                                </div>
-                            </div>
-                        </a>
-                        <hr>
-                        <a>
-                            <div class="list-block-container">
-                                <img class="image" src="/image/search.png">
-                                <div class="text">
-                                    <div>제목</div>
-                                    <div class="font2">장소</div>
-                                    <div>가격</div>
-                                </div>
-                                <div class="icon2-container">
-                                    <div class="icon2"><img src="/image/comment.png"></div>
-                                    <div>n</div>
-                                    <div class="icon2"><img src="/image/heart.png"></div>
-                                    <div >n</div>
-                                </div>
-                            </div>
-                        </a>
-                        <hr>
-                        <a>
-                            <div class="list-block-container">
-                                <img class="image" src="/image/search.png">
-                                <div class="text">
-                                    <div>제목</div>
-                                    <div class="font2">장소</div>
-                                    <div>가격</div>
-                                </div>
-                                <div class="icon2-container">
-                                    <div class="icon2"><img src="/image/comment.png"></div>
-                                    <div>n</div>
-                                    <div class="icon2"><img src="/image/heart.png"></div>
-                                    <div >n</div>
-                                </div>
-                            </div>
-                        </a>
-                        <hr>
-                        <a>
-                            <div class="list-block-container">
-                                <img class="image" src="/image/search.png">
-                                <div class="text">
-                                    <div>제목</div>
-                                    <div class="font2">장소</div>
-                                    <div>가격</div>
-                                </div>
-                                <div class="icon2-container">
-                                    <div class="icon2"><img src="/image/comment.png"></div>
-                                    <div>n</div>
-                                    <div class="icon2"><img src="/image/heart.png"></div>
-                                    <div >n</div>
-                                </div>
-                            </div>
-                        </a>
-                        <hr>
-                        <a>
-                            <div class="list-block-container">
-                                <img class="image" src="/image/search.png">
-                                <div class="text">
-                                    <div>제목</div>
-                                    <div class="font2">장소</div>
-                                    <div>가격</div>
-                                </div>
-                                <div class="icon2-container">
-                                    <div class="icon2"><img src="/image/comment.png"></div>
-                                    <div>n</div>
-                                    <div class="icon2"><img src="/image/heart.png"></div>
-                                    <div >n</div>
+                                    <div th:if="${dto.commentCount} >0">
+                                        <div class="icon2"><img src="/image/comment.png"></div>
+                                        <div th:text="${dto.commentCount}">n</div>
+                                    </div>
+                                    <div th:if="${dto.heartCount}>0">
+                                        <div class="icon2"><img src="/image/heart.png"></div>
+                                        <div th:text="${dto.heartCount}">n</div>
+                                    </div>
                                 </div>
                             </div>
                         </a>
