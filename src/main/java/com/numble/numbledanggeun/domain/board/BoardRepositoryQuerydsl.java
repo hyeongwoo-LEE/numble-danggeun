@@ -13,7 +13,7 @@ public interface BoardRepositoryQuerydsl {
 
     List<Object[]> getBoardListOfHeart(Long principalId);
 
-    List<Board> getPreviewBoardListByMemberId(SearchDTO searchDTO, Long boardId);
+    List<Board> getPreviewBoardListInDetailView(Long boardId);
 
 
 

@@ -175,8 +175,9 @@ public class BoardServiceImpl implements BoardService{
      */
     @Transactional(readOnly = true)
     @Override
-    public List<BoardPreviewDTO> getPreviewBoardListByMemberId(SearchDTO searchDTO, Long presentBoardId) {
-        List<Board> result = boardRepository.getPreviewBoardListByMemberId(searchDTO, presentBoardId);
+    public List<BoardPreviewDTO> getPreviewBoardListInDetailView(Long boardId) {
+
+        List<Board> result = boardRepository.getPreviewBoardListInDetailView(boardId);
 
         return result.stream().map(entity -> new BoardPreviewDTO(entity)).collect(Collectors.toList());
     }

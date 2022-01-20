@@ -105,13 +105,17 @@ public class BoardRepositoryImpl implements BoardRepositoryQuerydsl{
      * 판매글 작성자의 다른 판매글 미리보기 리스트 - 현재 상세보기 글 제외
      */
     @Override
-    public List<Board> getPreviewBoardListByMemberId(SearchDTO searchDTO, Long boardId) {
+    public List<Board> getPreviewBoardListInDetailView(Long boardId) {
         QBoard board = QBoard.board;
+        QBoard subBoard = new QBoard("sub");
 
         return queryFactory
                 .selectFrom(board)
-                .where(board.member.memberId.eq(searchDTO.getMemberId()),
-                        board.boardId.ne(boardId))
+                .where(board.boardId.ne(boardId),
+                        board.member.memberId.eq(JPAExpressions.select(subBoard.member.memberId)
+                                .from(subBoard)
+                                .where(subBoard.boardId.eq(boardId)))
+                )
                 .orderBy(board.postState.desc(), board.updateDate.desc())
                 .limit(4)
                 .fetch();

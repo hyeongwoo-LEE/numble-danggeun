@@ -174,7 +174,7 @@ public class BoardServiceReadByMemberConditionTest {
         SearchDTO searchDTO = createSearchDTO(loginMemberId);
 
         //when
-        List<BoardPreviewDTO> result = boardService.getPreviewBoardListByMemberId(searchDTO, viewBoardId);
+        List<BoardPreviewDTO> result = boardService.getPreviewBoardListInDetailView(viewBoardId);
 
         //then
         assertThat(result.size()).isEqualTo(4);

@@ -1,0 +1,60 @@
+.sub1-container{
+    display: flex;
+    background-color: white;
+    position: fixed;
+    height: 40px;
+    padding-left: 1rem;
+    margin-top: 10px;
+}
+.icon1{
+    max-width: 30px;
+    margin-right: 10px;
+}
+
+.sub2-container{
+    margin-top: 70px;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 15px;
+    padding-left: 0.3rem;
+    font-weight: bold;
+}
+
+.sub3-container{
+    overflow: scroll;
+    height: 524px;
+}
+
+.list-block-container{
+    display: flex;
+    height: 114px;
+}
+
+.image{
+    max-width: 100px;
+    margin-left: 1rem;
+}
+
+.icon2-container{
+    padding-top: 65px;
+    display: flex;
+}
+
+.icon2{
+    max-width: 25px;
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+.text{
+    margin-left: 1.5rem;
+    width: 90px;
+    margin-top: 1rem;
+}
+
+.font2{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: small;
+    color: rgb(145, 150, 150);
+}
