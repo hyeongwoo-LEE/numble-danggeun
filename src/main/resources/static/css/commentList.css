@@ -1,0 +1,113 @@
+.sub1-container{
+    display: flex;
+    background-color: white;
+    position: fixed;
+    height: 60px;
+    padding-left: 1rem;
+    width: 360px;
+    padding-top: 15px;
+}
+.icon1{
+    max-width: 30px;
+    margin-right: 10px;
+}
+
+.sub2-container{
+    margin-top: 60px;
+    padding-left: 0.3rem;
+
+}
+
+.board-info-container{
+    margin-top: 2px;
+    display: flex;
+    height: 100px;
+}
+
+.image{
+    max-width: 100px;
+    margin-left: 0.5rem;
+}
+
+.text{
+    margin-left: 1.5rem;
+    width: 90px;
+    padding-top: 10px;
+}
+
+.font2{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: small;
+    color: rgb(145, 150, 150);
+}
+.sub3-container{
+    overflow: scroll;
+    height: 452px;
+}
+
+.list-block-container{
+    display: flex;
+    height: 130px;
+    margin-left: 1.5rem;
+}
+
+.image2-container{
+    margin-top: 30px;
+}
+
+.image2{
+    max-width: 50px;
+}
+
+.image3{
+    max-width: 20px;
+}
+
+.text-container{
+    margin-left: 1.3rem;
+    width: 230px;
+}
+
+.member-info-container{
+    display: flex;
+    justify-content: space-between;
+    font-size: small;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.comment-container{
+    height: 70px;
+    width: 230px;
+    border-style: solid;
+    border-color: rgb(176, 177, 179);
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    color: rgb(104, 101, 101);
+    border-width: thin;
+}
+
+.command-container{
+    font-size: x-small;
+    padding-left: 5px;
+    padding-right: 5px;
+    display: flex;
+    justify-content: right;
+    color: darkgray;
+    padding-top: 5px;
+}
+
+.button{
+    background-color: rgb(255, 145, 0);
+    border-radius: 5px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    width: 320px;
+    position: fixed;
+    height: 40px;
+    line-height: 40px;
+    color: white;
+    font-size: large;
+    text-align: center;
+    top: 590px;
+}

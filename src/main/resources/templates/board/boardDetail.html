@@ -58,8 +58,8 @@
                     <img class="icon3" src="/image/heart.png">
                     
                     <img class="icon3" src="/image/comment.png">
-                    <a href="" style="color: rgb(255, 255, 255);" class="button">댓글보기</a>
-                    <a href="" style="color: rgb(255, 255, 255);" class="button">댓글 남기기</a>
+                    <a th:href="@{/boards/{id}/comments (id=${boardDetailDTO.boardId})}" style="color: rgb(255, 255, 255);" class="button">댓글보기</a>
+                    <a th:href="@{/boards/{id}/comments/new (id=${boardDetailDTO.boardId})}" style="color: rgb(255, 255, 255);" class="button">댓글 남기기</a>
                 </div>
             <div>
     </div>

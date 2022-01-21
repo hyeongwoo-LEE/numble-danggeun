@@ -1,0 +1,37 @@
+.sub1-container{
+    display: flex;
+    background-color: white;
+    position: fixed;
+    height: 60px;
+    padding-left: 1rem;
+    width: 360px;
+    padding-top: 15px;
+}
+.icon1{
+    max-width: 30px;
+    margin-right: 10px;
+}
+
+.input-container{
+    margin-top: 70px;
+    height: 500px;
+}
+
+.input{
+    width: 330px;
+    height: 470px;
+    margin-left: 1rem;
+}
+
+.button{
+    background-color: rgb(255, 145, 0);
+    border-radius: 5px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    width: 320px;
+    line-height: 40px;
+    color: white;
+    font-size: large;
+    text-align: center;
+    height: 40px;
+}
