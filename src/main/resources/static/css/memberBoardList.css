@@ -50,6 +50,12 @@
     display: flex;
 }
 
+.image{
+    margin-left: 1rem;
+    max-width: 104px;
+}
+
+
 .text{
     margin-left: 1.5rem;
     width: 90px;
