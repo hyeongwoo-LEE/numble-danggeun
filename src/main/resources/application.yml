@@ -17,4 +17,4 @@ spring:
     show-sql: true
 
   thymeleaf:
-    cache: false
+    cache: false 

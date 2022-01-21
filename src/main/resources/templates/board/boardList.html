@@ -35,14 +35,14 @@
                                     <div th:if="${dto.postState} == 'COMPLETION'" class="post-com" th:text="거래완료">거래완료</div>
                                 </div>
                                 <div class="icon1-container">
-                                    <div th:if="${dto.commentCount} > 0">
-                                    <div class="image2"><img src="/image/comment.png"></div>
-                                    <div th:text="${dto.commentCount}">n</div>
+                                    <div class="if-container" th:if="${dto.commentCount} > 0">
+                                        <div class="image2"><img src="/image/comment.png"></div>
+                                        <div th:text="${dto.commentCount}">n</div>
                                     </div>
-
-                                    <div class="image2"><img src="/image/heart.png"></div>
-                                    <div th:if="${dto.heartCount} > 0" th:text="${dto.heartCount}">n</div>
-                                    <div th:unless="${dto.heartCount} > 0">&nbsp;</div>
+                                    <div class="if-container" th:if="${dto.heartCount} > 0">
+                                        <div class="image2"><img src="/image/heart.png"></div>
+                                        <div th:text="${dto.heartCount}">n</div>
+                                    </div>
                                 </div>
                             </div>
                         </a>

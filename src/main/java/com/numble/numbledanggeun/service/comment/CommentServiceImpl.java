@@ -28,7 +28,8 @@ public class CommentServiceImpl implements CommentService{
     @Transactional
     @Override
     public Comment register(CommentDTO commentDTO, Long principalId) {
-
+        System.out.println("=====================");
+        System.out.println(commentDTO);
         Board board = boardRepository.findById(commentDTO.getBoardId()).orElseThrow(() ->
                 new IllegalStateException("존재하지 않은 글입니다."));
 

@@ -50,12 +50,15 @@
 
 .icon1-container{
     padding-top: 65px;
-    margin-left: 1rem;
+    display: flex;
+}
+
+.if-container{
     display: flex;
 }
 
 .image2{
-    max-width: 25px;
+    max-width: 22px;
     margin-left: 5px;
     margin-right: 5px;
 }

@@ -35,11 +35,11 @@
                                 </div>
 
                                 <div class="icon2-container">
-                                    <div th:if="${dto.commentCount} >0">
+                                    <div class="if-container" th:if="${dto.commentCount} > 0">
                                         <div class="icon2"><img src="/image/comment.png"></div>
                                         <div th:text="${dto.commentCount}">n</div>
                                     </div>
-                                    <div th:if="${dto.heartCount}>0">
+                                    <div class="if-container" th:if="${dto.heartCount} > 0">
                                         <div class="icon2"><img src="/image/heart.png"></div>
                                         <div th:text="${dto.heartCount}">n</div>
                                     </div>

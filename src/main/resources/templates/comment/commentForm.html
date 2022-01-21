@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>당근마켓</title>
-    <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
-    <link rel="stylesheet" href="../../static/css/commentForm.css" th:href="@{/css/commentForm.css}">
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="../static/css/commentForm.css" th:href="@{/css/commentForm.css}">
 
 </head>
 <body>
@@ -12,7 +12,7 @@
         <div class="inner">
             <div class="main-container">
                 <div class="sub1-container">
-                    <a><img class="icon1" src="/image/back.png"></a>
+                    <a href="javascript:history.back();"><img class="icon1" src="/image/back.png"></a>
                     <div style="line-height: 30px;">댓글 남기기</div>
                 </div>
                 <form th:action="@{/comments}" method="post">

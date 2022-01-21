@@ -41,9 +41,13 @@
 }
 
 .icon2{
-    max-width: 25px;
+    max-width: 22px;
     margin-left: 10px;
     margin-right: 5px;
+}
+
+.if-container{
+    display: flex;
 }
 
 .text{

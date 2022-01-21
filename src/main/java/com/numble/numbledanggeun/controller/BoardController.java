@@ -69,16 +69,16 @@ public class BoardController {
     /**
      * 판매글 수정 폼
      */
-    @GetMapping("/boards/{id}/edit")
-    public String updateForm(@PathVariable Long id){
+    @GetMapping("/boards/{boardId}/edit")
+    public String updateForm(@PathVariable Long boardId){
         return null;
     }
 
     /**
      * 판매글 수정
      */
-    @PostMapping("/boards/{id}/edit")
-    public String updateBoard(@PathVariable Long id, BoardUpdateDTO boardUpdateDTO,
+    @PostMapping("/boards/{boardId}/edit")
+    public String updateBoard(@PathVariable Long boardId, BoardUpdateDTO boardUpdateDTO,
                               @AuthenticationPrincipal PrincipalDetails principalDetails){
         return null;
     }
@@ -86,16 +86,16 @@ public class BoardController {
     /**
      * 판매글 삭제
      */
-    @PostMapping("/boards/{id}/delete")
-    public String deleteBoard(@PathVariable Long id){
+    @PostMapping("/boards/{boardId}/delete")
+    public String deleteBoard(@PathVariable Long boardId){
         return null;
     }
 
     /**
      * 판매글 상세 페이지
      */
-    @GetMapping("/boards/{id}")
-    public String getBoard(@PathVariable("id") Long boardId, Model model,
+    @GetMapping("/boards/{boardId}")
+    public String getBoard(@PathVariable("boardId") Long boardId, Model model,
                            @AuthenticationPrincipal PrincipalDetails principalDetails){
 
         //판매글 상세정보
@@ -115,8 +115,8 @@ public class BoardController {
     /**
      * 회원별 판매글 리스트 조회
      */
-    @GetMapping("/boards/members/{id}")
-    public String getBoardListByMemberId(@PathVariable("id") Long writerId,
+    @GetMapping("/boards/members/{memberId}")
+    public String getBoardListByMemberId(@PathVariable("memberId") Long writerId,
                                          SearchDTO searchDTO, Model model,
                                          @AuthenticationPrincipal PrincipalDetails principalDetails){
 
