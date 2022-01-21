@@ -11,15 +11,15 @@
     <div class="all">
         <div class="inner">
             <div class="main-container">
-                <form th:action="@{/boards}" th:method="post">
+                <form th:action="@{/boards}" th:method="post" enctype="multipart/form-data">
                     <div class="sub1-container">
-                        <a href="/"><img class="back" src="/image/back.png"></a>
+                        <a href="/boards"><img class="back" src="/image/back.png"></a>
                         <div class="font">중고거래 글쓰기</div>
                         <button type="submit" class="button">완료</button>
                     </div>
                     <hr>
                     <div class="sub2-container">
-                        <input type="file"  class="custom-file-input files" id="fileInput" multiple>
+                        <input type="file"  class="custom-file-input files" name="imageFiles" multiple>
                     </div>
                     <hr>
                     <input type="text" class="input-text" name="title" placeholder="제목">

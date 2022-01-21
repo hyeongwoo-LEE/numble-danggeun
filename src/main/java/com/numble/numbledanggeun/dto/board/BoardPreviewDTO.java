@@ -21,7 +21,7 @@ public class BoardPreviewDTO {
 
     private int price;
 
-    private BoardImgDTO boardImgDTO;
+    private BoardImgDTO boardImgDTO = new BoardImgDTO();
 
     public BoardPreviewDTO(Board board){
         boardId = board.getBoardId();

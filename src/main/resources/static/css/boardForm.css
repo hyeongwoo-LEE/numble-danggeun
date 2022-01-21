@@ -24,6 +24,8 @@
     font-weight: bold;
     color: rgb(255, 145, 0);
     font-size: large;
+    border-style: none;
+    background-color: white;
 }
 
 .sub2-container{

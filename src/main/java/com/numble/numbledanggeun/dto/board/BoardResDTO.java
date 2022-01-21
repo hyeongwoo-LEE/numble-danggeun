@@ -33,7 +33,7 @@ public class BoardResDTO {
 
     private String postState;
 
-    private BoardImgDTO boardImgDTO;
+    private BoardImgDTO boardImgDTO = new BoardImgDTO();
 
     public BoardResDTO(Board board, int commentCount, int heartCount, Long principalId){
         System.out.println("시작---------------");

@@ -63,6 +63,16 @@
     margin-right: 5px;
 }
 
+.icon4-container{
+    position: fixed;
+    top: 510px;
+    margin-left: 290px;
+}
+
+.icon4{
+    max-width: 35px;
+}
+
 .sub2-container{
     display: flex;
     margin-top: 35px;
@@ -93,6 +103,7 @@
     line-height: 30px;
     color: white;
 }
+
 
 .icon2-container{
     max-width: 30px;

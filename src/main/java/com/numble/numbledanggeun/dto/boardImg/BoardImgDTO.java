@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BoardImgDTO {
 
-    private String folderPath;
+    private String folderPath = "";
 
-    private String filename;
+    private String filename = "";
 
     public BoardImgDTO(BoardImg boardImg){
         folderPath = boardImg.getFolderPath();

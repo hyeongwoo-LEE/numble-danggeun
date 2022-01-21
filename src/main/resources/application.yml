@@ -16,5 +16,10 @@ spring:
     open-in-view: false
     show-sql: true
 
+
   thymeleaf:
-    cache: false 
+    cache: false
+  servlet:
+    multipart:
+      max-request-size: 30MB
+      max-file-size: 10MB
