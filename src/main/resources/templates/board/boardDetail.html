@@ -57,8 +57,13 @@
                 </div>
                 <hr>
                 <div class="sub6-container">
-                    <img class="icon3" src="/image/heart.png">
-                    
+                    <form th:if="${boardDetailDTO.isHeart} == true" th:action="@{/boards/{id}/hearts/delete (id=${boardDetailDTO.boardId})}", method="post">
+                        <button class="button2" type="submit"><img class="icon3" src="/image/fullHeart.png"></button>
+                    </form>
+                    <form th:if="${boardDetailDTO.isHeart} == false" th:action="@{/boards/{id}/hearts (id=${boardDetailDTO.boardId})}", method="post">
+                        <button class="button2" type="submit"><img class="icon3" src="/image/heart.png"></button>
+                    </form>
+
                     <img class="icon3" src="/image/comment.png">
                     <a th:href="@{/boards/{id}/comments (id=${boardDetailDTO.boardId})}" style="color: rgb(255, 255, 255);" class="button">댓글보기</a>
                     <a th:href="@{/boards/{id}/comments/new (id=${boardDetailDTO.boardId})}" style="color: rgb(255, 255, 255);" class="button">댓글 남기기</a>

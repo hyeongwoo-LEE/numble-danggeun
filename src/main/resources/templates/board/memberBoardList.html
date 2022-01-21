@@ -42,7 +42,8 @@
                                         <div th:text="${dto.commentCount}">n</div>
                                     </div>
                                     <div class="if-container" th:if="${dto.heartCount} > 0">
-                                        <div class="icon2"><img src="/image/heart.png"></div>
+                                        <div th:if="${dto.isHeart} == true"  class="image2"><img src="/image/fullHeart.png"></div>
+                                        <div th:if="${dto.isHeart} == false"  class="image2"><img src="/image/heart.png"></div>
                                         <div th:text="${dto.heartCount}">n</div>
                                     </div>
                                 </div>
