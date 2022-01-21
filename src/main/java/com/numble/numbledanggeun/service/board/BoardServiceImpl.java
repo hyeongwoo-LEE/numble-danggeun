@@ -194,6 +194,19 @@ public class BoardServiceImpl implements BoardService{
         return new BoardDetailDTO(board, principalId);
     }
 
+    /**
+     * 간단한 판매글 정보 (댓글 리스트 뷰에 사용)
+     */
+    @Transactional(readOnly = true)
+    @Override
+    public BoardPreviewDTO getSimpleBoard(Long boardId) {
+
+        Board board = boardRepository.findById(boardId).orElseThrow(() ->
+                new IllegalStateException("존재하지 않은 판매글입니다."));
+
+        return new BoardPreviewDTO(board);
+    }
+
 
     private void saveImg(Board board, List<MultipartFile> imageFiles) throws IOException {
         if(imageFiles != null && imageFiles.size() > 0){

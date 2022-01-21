@@ -28,5 +28,7 @@ public interface BoardService {
 
     BoardDetailDTO getBoard(Long boardId, Long principalId);
 
+    BoardPreviewDTO getSimpleBoard(Long boardId);
+
 
 }
