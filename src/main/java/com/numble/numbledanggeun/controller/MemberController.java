@@ -1,8 +1,11 @@
 package com.numble.numbledanggeun.controller;
 
+import com.numble.numbledanggeun.dto.board.BoardResDTO;
 import com.numble.numbledanggeun.dto.member.MemberResDTO;
 import com.numble.numbledanggeun.dto.member.MemberUpdateDTO;
+import com.numble.numbledanggeun.dto.page.SearchDTO;
 import com.numble.numbledanggeun.security.auth.PrincipalDetails;
+import com.numble.numbledanggeun.service.board.BoardService;
 import com.numble.numbledanggeun.service.member.MemberService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -13,12 +16,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.IOException;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
 public class MemberController {
 
     private final MemberService memberService;
+    private final BoardService boardService;
 
 
     /**
@@ -60,5 +65,36 @@ public class MemberController {
         return "redirect:/members/"+principalDetails.getMember().getMemberId();
     }
 
+    /**
+     * 판매내역
+     */
+    @GetMapping("/profile/sales")
+    public String saleList(SearchDTO searchDTO, Model model,
+                           @AuthenticationPrincipal PrincipalDetails principalDetails){
 
+        System.out.println("--------");
+        System.out.println(searchDTO);
+        Long principalId = principalDetails.getMember().getMemberId();
+        List<BoardResDTO> boardResDTOList = boardService.getBoardListByMemberId(principalId, searchDTO, principalId);
+
+        model.addAttribute("postState", searchDTO.getPostState());
+        model.addAttribute("boardResDTOList", boardResDTOList);
+
+        return "/member/myBoardList";
+    }
+
+
+    /**
+     * 관심목록
+     */
+    @GetMapping("/profile/hearts")
+    public String heartList(Model model,
+                            @AuthenticationPrincipal PrincipalDetails principalDetails){
+
+        List<BoardResDTO> boardResDTOList =
+                boardService.getBoardListOfHeart(principalDetails.getMember().getMemberId());
+        model.addAttribute("boardResDTOList", boardResDTOList);
+
+        return "/member/myHeartList";
+    }
 }

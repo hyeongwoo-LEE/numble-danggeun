@@ -1,5 +1,6 @@
 package com.numble.numbledanggeun.controller;
 
+import com.numble.numbledanggeun.domain.board.PostState;
 import com.numble.numbledanggeun.dto.board.*;
 import com.numble.numbledanggeun.dto.category.CategoryResDTO;
 import com.numble.numbledanggeun.dto.page.SearchDTO;
@@ -81,6 +82,24 @@ public class BoardController {
     public String updateBoard(@PathVariable Long boardId, BoardUpdateDTO boardUpdateDTO,
                               @AuthenticationPrincipal PrincipalDetails principalDetails){
         return null;
+    }
+
+    /**
+     * 판매글 게시상태 수정
+     */
+    @PostMapping("/boards/{boardId}/postState-edit")
+    public String updatePostStateOfBoard(@PathVariable("boardId") Long boardId,
+                                         @RequestParam(value = "postState") String postState){
+
+        boardService.modifyPostState(boardId,PostState.valueOf(postState.toUpperCase()));
+
+
+        if (postState.equals(PostState.COMPLETION.toString())){
+            return "redirect:/profile/sales?postState="+PostState.COMPLETION.toString();
+        }
+        else{
+            return "redirect:/profile/sales?postState="+PostState.SALE.toString();
+        }
     }
 
     /**

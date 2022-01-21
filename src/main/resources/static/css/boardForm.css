@@ -26,6 +26,7 @@
     font-size: large;
     border-style: none;
     background-color: white;
+    cursor: pointer;
 }
 
 .sub2-container{

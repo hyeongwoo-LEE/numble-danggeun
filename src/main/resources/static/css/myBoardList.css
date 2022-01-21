@@ -2,9 +2,10 @@
     display: flex;
     background-color: white;
     position: fixed;
-    height: 40px;
+    height: 60px;
     padding-left: 1rem;
-    margin-top: 10px;
+    width: 360px;
+    padding-top: 15px;
 }
 .icon1{
     max-width: 30px;
@@ -25,12 +26,19 @@
     height: 524px;
 }
 
+.info-list-block-container{
+    display: flex;
+}
+
 .list-block-container{
     display: flex;
     height: 114px;
 }
 
-
+.image{
+    max-width: 100px;
+    margin-left: 1rem;
+}
 
 .icon2-container{
     padding-top: 65px;
@@ -38,7 +46,7 @@
 }
 
 .icon2{
-    max-width: 22px;
+    max-width: 25px;
     margin-left: 10px;
     margin-right: 5px;
 }
@@ -47,23 +55,35 @@
     display: flex;
 }
 
-.image{
-    margin-left: 1rem;
-    max-width: 104px;
-}
-
-.image2{
-    max-width: 22px;
-    margin-left: 5px;
-    margin-right: 5px;
-}
-
 
 .text{
     margin-left: 1.5rem;
     width: 90px;
     margin-top: 1rem;
     font-size: small;
+}
+
+.font2{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: small;
+    color: rgb(145, 150, 150);
+}
+
+.postState-modify-container{
+    display: flex;
+    height: 35px;
+}
+
+.text2{
+    margin: 0 auto;
+    margin-top: 5px;
+}
+
+.button2{
+    background-color: white;
+    border-style: none;
+    cursor: pointer;
 }
 
 .post-re{
@@ -84,11 +104,4 @@
     text-align: center;
     line-height: 30px;
     color: white;
-}
-
-.font2{
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-size: small;
-    color: rgb(145, 150, 150);
 }

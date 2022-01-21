@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>당근마켓</title>
+    <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="../../static/css/myHeartList.css" th:href="@{/css/myHeartList.css}">
+</head>
+<body>
+    <div class="all">
+        <div class="inner">
+            <div class="main-container">
+                <div class="sub1-container">
+                    <a th:href="@{/profile}"><img class="icon1" src="/image/back.png"></a>
+                    <div style="line-height: 30px;">관심목록</div>
+                </div>
+                <div class="sub3-container">
+                    <hr>
+                    <div th:each="dto:${boardResDTOList}">
+                        <a th:href="@{/boards/{id} (id=${dto.boardId})}">
+                            <div class="list-block-container">
+                                <img class="image" th:src="@{/img/{filename}
+                                (filename= ${dto.boardImgDTO.filename}, folderPath = ${dto.boardImgDTO.folderPath}) }"
+                                     alt="" onerror="this.src='https://images.velog.io/images/kados22/post/0e43ee9f-3ecf-46af-9885-b70a5a78ed2e/%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%87%E1%85%A1%E1%86%AB%20Class%20Card%20%E1%84%8A%E1%85%A5%E1%86%B7%E1%84%82%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%AF%203.png'">
+                                <div class="text">
+                                    <div th:text="${dto.title}">제목</div>
+                                    <div class="font2">장소</div>
+                                    <p th:if="${dto.postState} == 'SALE'" th:text="${dto.price}+'원'">가격</p>
+                                    <div th:if="${dto.postState} == 'RESERVATION'" class="post-re" th:text="예약중">예약중</div>
+                                    <div th:if="${dto.postState} == 'COMPLETION'" class="post-com" th:text="거래완료">거래완료</div>
+                                </div>
+                                <div class="icon2-container">
+                                    <div class="if-container" th:if="${dto.commentCount} > 0">
+                                        <div class="icon2"><img src="/image/comment.png"></div>
+                                        <div th:text="${dto.commentCount}">n</div>
+                                    </div>
+                                    <div class="if-container" th:if="${dto.heartCount} > 0">
+                                        <div th:if="${dto.isHeart} == true" class="icon2"><img src="/image/fullHeart.png"></div>
+                                        <div th:if="${dto.isHeart} == false" class="icon2"><img src="/image/heart.png"></div>
+                                        <div th:text="${dto.heartCount}">n</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <hr>
+                    </div>
+                </div>
+            <div>
+    </div>
+    </div>
+</body>
+</html>

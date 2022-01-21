@@ -18,6 +18,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 import static org.aspectj.util.LangUtil.isEmpty;
@@ -64,7 +65,7 @@ public class BoardRepositoryImpl implements BoardRepositoryQuerydsl{
                 .select(board, board.commentList.size(), board.heartList.size())
                 .from(board)
                 .where(board.member.memberId.eq(memberId),
-                        postStateEq(searchDTO.getPostState()))
+                        postStateEq(PostState.valueOf(searchDTO.getPostState().toUpperCase())))
                 .orderBy(board.postState.desc(), board.updateDate.desc())
                 .fetch();
 

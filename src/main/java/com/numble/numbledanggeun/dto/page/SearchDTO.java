@@ -20,5 +20,5 @@ public class SearchDTO {
 
     private List<Long> categoryIdList;
 
-    private PostState postState;
+    private String postState;
 }

@@ -158,11 +158,13 @@
     line-height: 40px;
     width: 90px;
     text-align: center;
+    cursor: pointer;
 }
 
 .button2{
     border-style: none;
     background-color: white;
+    cursor: pointer;
 }
 
 
