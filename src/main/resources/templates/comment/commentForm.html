@@ -18,6 +18,7 @@
                 <form th:action="@{/comments}" method="post">
                     <div class="input-container">
                         <hr>
+                        <input type="hidden" name="parentId" th:value="${parentId}">
                         <input type="hidden" name="boardId" th:value="${boardId}">
                         <input type="hidden" name="parentId" value="">
                         <input class="input" type="text" name="content" placeholder="댓글을 남겨주세요" />

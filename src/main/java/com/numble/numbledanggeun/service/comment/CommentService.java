@@ -13,7 +13,7 @@ public interface CommentService {
 
     void modify(CommentUpdateDTO commentUpdateDTO);
 
-    void remove(Long commentId);
+    Long remove(Long commentId);
 
     List<CommentResDTO> getCommentList(Long boardId);
 

@@ -34,6 +34,8 @@ public class CommentResDTO {
     private MemberImgDTO memberImgDTO;
 
     public CommentResDTO(Comment comment){
+
+        System.out.println("----------댓글 리스트 조회 시작--------------");
         commentId = comment.getCommentId();
         writerId = comment.getMember().getMemberId();
         writerNickname = comment.getMember().getNickname();
@@ -53,6 +55,8 @@ public class CommentResDTO {
         if (comment.getMember().getFolderPath() != null && comment.getMember().getFilename() != null){
             memberImgDTO = new MemberImgDTO(comment.getMember().getFolderPath(),comment.getMember().getFilename());
         }
+
+        System.out.println("----------댓글 리스트 조회 종료--------------");
 
     }
 

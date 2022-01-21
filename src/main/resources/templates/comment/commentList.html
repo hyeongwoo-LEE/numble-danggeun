@@ -11,7 +11,7 @@
         <div class="inner">
             <div class="main-container">
                 <div class="sub1-container">
-                    <a href="javascript:history.back();"><img class="icon1" src="/image/back.png"></a>
+                    <a th:href="@{/boards/{id} (id=${previewDTO.boardId})}"><img class="icon1" src="/image/back.png"></a>
                     <div style="line-height: 30px;">댓글 보기</div>
                 </div>
                 <div class="sub2-container">
@@ -29,8 +29,12 @@
                 <div class="sub3-container">
                     <div th:each="dto : ${commentResDTOList}">
                         <div class="list-block-container">
-                            <div class="image2-container"><img class="image2" src="/image/noProfile.png"></div>
-                            <div class="text-container">
+                            <div th:if="${dto.isExist} == false">삭제된 댓글입니다.</div>
+                            <div th:if="${dto.isExist} == true" class="image2-container">
+                                <img class="image2" src="/image/noProfile.png">
+                                <a th:href="@{/boards/{id}/comments/new(id= ${previewDTO.boardId}, parentId =${dto.commentId})}" style="font-size: x-small">대댓글 달기</a>
+                            </div>
+                            <div th:if="${dto.isExist} == true" class="text-container">
                                 <div class="member-info-container">
                                     <p th:text="${dto.writerNickname}">닉네임</p>
                                     <p th:text="${#temporals.format(dto.updateDate, 'yyyy/MM/dd')}">시간</p>
@@ -38,14 +42,42 @@
                                 <div class="comment-container" th:text="${dto.content}">comment</div>
 
                                 <div th:if="${principalId} == ${dto.writerId}" class="command-container">
-                                    <a>edit &nbsp;</a><a>delete</a>
+                                    <a th:href="@{/comments/{id}/edit (id = ${dto.commentId})}">edit &nbsp;</a>
+                                    <form th:action="@{/comments/{id}/delete (id = ${dto.commentId})}" method="post">
+                                        <button class="delete" type="submit" onclick="del();">delete</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                         <hr>
+                        <div th:each="childDTO : ${dto.childList}">
+                            <div class="list-block-container">
+                                <div><img class="image3" src="/image/down.png"></div>
+                                <div th:if="${childDTO.isExist} == false">삭제된 댓글입니다.</div>
+                                <div th:if="${childDTO.isExist} == true" class="image2-container">
+                                    <img class="image2" src="/image/noProfile.png">
+                                    <a th:href="@{/boards/{id}/comments/new(id= ${previewDTO.boardId}, parentId =${dto.commentId})}" style="font-size: x-small">대댓글 달기</a>
+                                </div>
+                                <div th:if="${childDTO.isExist} == true" class="text-container">
+                                    <div class="member-info-container">
+                                        <p th:text="${childDTO.writerNickname}">닉네임</p>
+                                        <p th:text="${#temporals.format(dto.updateDate, 'yyyy/MM/dd')}">시간</p>
+                                    </div>
+                                    <div class="comment-container" th:text="${childDTO.content}">comment</div>
+
+                                    <div th:if="${principalId} == ${childDTO.writerId}" class="command-container">
+                                        <a th:href="@{/comments/{id}/edit (id = ${childDTO.commentId})}">edit &nbsp;</a>
+                                        <form th:action="@{/comments/{id}/delete (id = ${childDTO.commentId})}" method="post">
+                                            <button class="delete" type="submit" onclick="del();">delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
                     </div>
                 </div>
-                <a class="button">댓글 남기기</a>
+                <a th:href="@{/boards/{id}/comments/new (id = ${previewDTO.boardId})}" class="button" style="color: rgb(255, 255, 255);">댓글 남기기</a>
             <div>
     </div>
     </div>

@@ -67,11 +67,13 @@ public class CommentServiceImpl implements CommentService{
      */
     @Transactional
     @Override
-    public void remove(Long commentId) {
+    public Long remove(Long commentId) {
         Comment comment = commentRepository.findById(commentId).orElseThrow(() ->
                 new IllegalStateException("존재하지 않는 댓글입니다."));
 
         comment.removeComment();
+
+        return comment.getBoard().getBoardId();
     }
 
     /**

@@ -113,9 +113,10 @@ class CommentServiceImplTest {
         Comment comment = createComment(member, board, "댓글삭제테스트");
 
         //when
-        commentService.remove(comment.getCommentId());
+        Long boardId = commentService.remove(comment.getCommentId());
 
         //then
+        assertThat(boardId).isEqualTo(comment.getBoard().getBoardId());
         Comment findComment = commentRepository.findById(comment.getCommentId()).get();
         assertThat(findComment.getIsExist()).isFalse();
     }

@@ -97,6 +97,13 @@
     padding-top: 5px;
 }
 
+.delete{
+    background-color: white;
+    border-style: none;
+    color:  darkgray;
+    font-size: x-small;
+}
+
 .button{
     background-color: rgb(255, 145, 0);
     border-radius: 5px;

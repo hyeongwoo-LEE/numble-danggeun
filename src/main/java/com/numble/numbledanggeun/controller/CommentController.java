@@ -10,10 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -45,9 +42,11 @@ public class CommentController {
      * 댓글 생성 폼
      */
     @GetMapping("/boards/{boardId}/comments/new")
-    public String createForm(@PathVariable("boardId") Long boardId, Model model){
+    public String createForm(@PathVariable("boardId") Long boardId, Model model,
+                             @RequestParam(value = "parentId",required = false) Long parentId){
 
         model.addAttribute("boardId", boardId);
+        model.addAttribute("parentId", parentId);
 
         return "/comment/commentForm";
     }
@@ -63,6 +62,28 @@ public class CommentController {
 
         return "redirect:/boards/"+commentDTO.getBoardId()+"/comments";
 
+    }
+
+    /**
+     * 댓글 수정 폼
+     */
+    @GetMapping("/comments/{commentId}/edit")
+    public String modifyComment(){
+        return null;
+    }
+
+    /**
+     * 댓글 수정
+     */
+
+    /**
+     * 댓글 삭제
+     */
+    @PostMapping("/comments/{commentId}/delete")
+    public String deleteComment(@PathVariable("commentId") Long commentId){
+        Long boardId = commentService.remove(commentId);
+
+        return "redirect:/boards/"+boardId+"/comments";
     }
 
 }
