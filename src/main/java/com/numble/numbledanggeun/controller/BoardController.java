@@ -104,10 +104,10 @@ public class BoardController {
 
 
         if (postState.equals(PostState.COMPLETION.toString())){
-            return "redirect:/profile/sales?postState="+PostState.COMPLETION.toString();
+            return "redirect:/profile/sales?postState="+PostState.SALE.toString();
         }
         else{
-            return "redirect:/profile/sales?postState="+PostState.SALE.toString();
+            return "redirect:/profile/sales?postState="+PostState.COMPLETION.toString();
         }
     }
 
@@ -127,7 +127,10 @@ public class BoardController {
      */
     @PostMapping("/boards/{boardId}/delete")
     public String deleteBoard(@PathVariable Long boardId){
-        return null;
+
+        boardService.remove(boardId);
+
+        return "redirect:/profile/sales";
     }
 
     /**

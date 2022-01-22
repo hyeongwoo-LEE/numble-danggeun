@@ -16,9 +16,9 @@
                         <a href="javascript:history.back();"><img class="icon1" src="/image/back.png"></a>
                         <a th:href="@{/boards}"><img class="icon1" src="/image/home.png"></a>
                     </div>
-                    <div>
+                    <div class="icon5-container">
                         <a th:href="@{/boards/{id}/edit (id=${boardDetailDTO.boardId})}"><img class="icon4" src="/image/edit.png"></a>
-                        <a th:href="@{/}"><img class="icon4" src="/image/delete.png"></a>
+                        <form th:action="@{/boards/{id}/delete (id=${boardDetailDTO.boardId})}" method="post"><button type="submit" class="button2"><img class="icon4" src="/image/delete.png"></button></form>
                     </div>
                 </div>
                 <img class="image" th:src="@{/img/{filename}
