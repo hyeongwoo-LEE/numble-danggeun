@@ -12,7 +12,7 @@
         <div class="inner">
             <div class="main-container">
                 <form th:action="@{/boards/{id}/image-delete (id=${boardUpdateResDTO.boardId})}" method="post"><button type="submit" class="button2">기존 이미지 삭제</button> </form>
-                <form th:action="@{/boards/{id}/edit (id = ${boardUpdateResDTO.boardId})}">
+                <form th:action="@{/boards/{id}/edit (id = ${boardUpdateResDTO.boardId})}" method="post" enctype="multipart/form-data">
                     <div class="sub1-container">
                         <a th:href="@{/profile/sales/boards/{id} (id =${boardUpdateResDTO.boardId})}"><img class="back" src="/image/back.png"></a>
                         <div class="font">중고거래 글쓰기</div>
@@ -20,13 +20,13 @@
                     </div>
                     <hr>
                     <div class="sub2-container">
-                        <input type="file"  class="custom-file-input files" id="fileInput" multiple>
+                        <input type="file" name="imageFiles" multiple>
                     </div>
                     <hr>
                     <input type="text" class="input-text" name="title" th:value="${boardUpdateResDTO.title}" required="required">
                     <hr>
                     <div class="sub5-container">
-                        <select name="categoryId" class="option-control", required="required">
+                        <select name="categoryId" class="option-control" required="required">
                             <option th:value="${boardUpdateResDTO.categoryId}" selected>카테고리</option>
                             <option th:each="categoryResDTO : ${categoryResDTOList}"
                                     th:value="${categoryResDTO.categoryId}"

@@ -14,33 +14,36 @@
             <div class="sub1-container">
                 <div>나의 당근</div>
                 <div class="icon1-container">
-                    <a><img class="icon1" src="/image/search.png"></a>
-                    <a><img class="icon1" src="/image/menu.png"></a>
+                    <img class="icon1" src="/image/search.png">
+                    <img class="icon1" src="/image/menu.png">
                 </div>
             </div>
             <hr>
-            <form>
+            <form th:action="@{/profile/edit}" method="post" enctype="multipart/form-data">
                 <div class="profile-image-container">
-                    <img class="profile-image" src="image/noProfile.png">
-                    <div class="icon2-container"><img class="icon2" src="image/camera.png"></div>
+                    <img class="profile-image" th:src="@{/img/{filename}
+                                (filename= ${memberResDTO.memberImgDTO.filename}, folderPath = ${memberResDTO.memberImgDTO.folderPath}) }"
+                         alt="" onerror="this.src='/image/noProfile.png'">
                 </div>
 
-                <input type="text" class="update-nickname-container" placeholder="닉네임"/>
+                <input type="text" name="nickname" th:value="${memberResDTO.nickname}" class="update-nickname-container" placeholder="닉네임" required="required">
 
                 <div class="button2-container">
                     <input type="file" name="imageFile">
                     <div class="select-container">
-                        <img class="icon3" src="image/album.png">
+                        <img class="icon3" src="/image/album.png">
                         <div class="text">앨범에서 선택</div>
                     </div>
-                    <a><div class="delete-container">
-                        <img class="icon3" src="/image/delete.png">
-                        <div class="text">프로필 사진 삭제</div>
-                    </div></a>
                 </div>
                 <button type="submit" class="button">
                     완료
                 </button>
+            </form>
+            <form th:action="@{/profile/image-delete}" method="post">
+                <div class="delete-container">
+                    <img class="icon3" src="/image/delete.png">
+                    <button type="submit" class="button4">프로필 사진 삭제</button>
+                </div>
             </form>
             <div>
             </div>

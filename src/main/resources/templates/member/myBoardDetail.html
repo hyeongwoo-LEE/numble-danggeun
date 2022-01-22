@@ -26,7 +26,9 @@
                                 (filename= ${boardDetailDTO.boardImgDTOList[0].filename}, folderPath = ${boardDetailDTO.boardImgDTOList[0].folderPath}) }"
                      alt="" onerror="this.src='https://images.velog.io/images/kados22/post/0e43ee9f-3ecf-46af-9885-b70a5a78ed2e/%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%87%E1%85%A1%E1%86%AB%20Class%20Card%20%E1%84%8A%E1%85%A5%E1%86%B7%E1%84%82%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%AF%203.png'">
                 <div class="sub2-container">
-                    <img class="icon2" src="/image/noProfile.png">
+                    <img class="icon2" th:src="@{/img/{filename}
+                                (filename= ${boardDetailDTO.memberImgDTO.filename}, folderPath = ${boardDetailDTO.memberImgDTO.folderPath}) }"
+                         alt="" onerror="this.src='/image/noProfile.png'">
                     <p th:text="${boardDetailDTO.writerNickname}">닉네임</p>
                 </div>
                 <hr>

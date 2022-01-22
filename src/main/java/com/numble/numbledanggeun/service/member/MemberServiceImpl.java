@@ -100,7 +100,7 @@ public class MemberServiceImpl implements MemberService{
 
         member.changeNickname(memberUpdateDTO.getNickname());
 
-        if (memberUpdateDTO.getImageFile() != null){
+        if (!memberUpdateDTO.getImageFile().getOriginalFilename().isEmpty()){
             //서버에 컴퓨터에 저장된 사진 삭제
             fileRemove(member);
 

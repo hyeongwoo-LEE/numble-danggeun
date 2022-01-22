@@ -31,7 +31,7 @@ public class CommentResDTO {
     @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
     private LocalDateTime updateDate;
 
-    private MemberImgDTO memberImgDTO;
+    private MemberImgDTO memberImgDTO = new MemberImgDTO();
 
     public CommentResDTO(Comment comment){
 
@@ -52,7 +52,7 @@ public class CommentResDTO {
         }
 
         //회원 프로필 사진
-        if (comment.getMember().getFolderPath() != null && comment.getMember().getFilename() != null){
+        if (!comment.getMember().getFilename().isBlank() || !comment.getMember().getFolderPath().isBlank()){
             memberImgDTO = new MemberImgDTO(comment.getMember().getFolderPath(),comment.getMember().getFilename());
         }
 

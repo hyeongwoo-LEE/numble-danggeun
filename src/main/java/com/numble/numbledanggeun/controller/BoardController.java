@@ -89,11 +89,11 @@ public class BoardController {
      * 판매글 수정
      */
     @PostMapping("/boards/{boardId}/edit")
-    public String updateBoard(BoardUpdateDTO boardUpdateDTO) throws IOException {
+    public String updateBoard(@PathVariable Long boardId, BoardUpdateDTO boardUpdateDTO) throws IOException {
 
         boardService.modify(boardUpdateDTO);
 
-        return "/member/myBoardDetail";
+        return "redirect:/profile/sales/boards/"+boardId;
     }
 
     /**

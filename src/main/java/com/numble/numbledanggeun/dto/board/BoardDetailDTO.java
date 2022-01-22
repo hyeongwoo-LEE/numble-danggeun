@@ -3,6 +3,7 @@ package com.numble.numbledanggeun.dto.board;
 import com.numble.numbledanggeun.domain.board.Board;
 import com.numble.numbledanggeun.domain.heart.Heart;
 import com.numble.numbledanggeun.dto.boardImg.BoardImgDTO;
+import com.numble.numbledanggeun.dto.memberImg.MemberImgDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,8 @@ public class BoardDetailDTO {
     private Long writerId;
 
     private String writerNickname;
+
+    private MemberImgDTO memberImgDTO = new MemberImgDTO();
 
     private String title;
 
@@ -64,6 +67,11 @@ public class BoardDetailDTO {
                 isHeart = true;
                 break;
             }
+        }
+
+        //작성자 프로필 사진
+        if (!board.getMember().getFilename().isBlank()|| !board.getMember().getFolderPath().isBlank()){
+            memberImgDTO = new MemberImgDTO(board.getMember().getFolderPath(),board.getMember().getFilename());
         }
 
         //판매글 사진

@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface BoardImgRepository extends JpaRepository<BoardImg,Long> {
 
-    @Modifying(clearAutomatically = true, flushAutomatically = true)
+    @Modifying(flushAutomatically = true)
     @Query("delete from BoardImg bi where bi.board = :board")
     void deleteByBoard(@Param("board") Board board);
 

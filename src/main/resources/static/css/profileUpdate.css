@@ -65,12 +65,12 @@
     margin-right: 2rem;
     border-radius: 10px;
     padding-top: 10px;
-    height: 130px;
+    height: 100px;
 }
 
 .select-container{
 
-    margin-top: 10px;
+    margin-top: 15px;
     font-size: small;
     display: flex;
     height: 30px;
@@ -106,3 +106,8 @@
     top: 631px;
 }
 
+.button4{
+    background-color: white;
+    border-style: none;
+    font-size: small;
+}

@@ -11,7 +11,7 @@ public class MemberResDTO {
 
     private String nickname;
 
-    private MemberImgDTO memberImgDTO;
+    private MemberImgDTO memberImgDTO = new MemberImgDTO();
 
     public MemberResDTO(Member member){
         memberId = member.getMemberId();

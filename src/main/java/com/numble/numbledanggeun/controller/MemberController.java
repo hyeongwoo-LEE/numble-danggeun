@@ -10,6 +10,7 @@ import com.numble.numbledanggeun.service.board.BoardService;
 import com.numble.numbledanggeun.service.member.MemberService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -64,7 +65,18 @@ public class MemberController {
 
         memberService.modify(memberUpdateDTO,principalDetails.getMember().getMemberId());
 
-        return "redirect:/members/"+principalDetails.getMember().getMemberId();
+        return "redirect:/profile";
+    }
+
+    /**
+     * 회원 프로필 사진 삭제
+     */
+    @PostMapping("profile/image-delete")
+    public String removeImageOfMember(@AuthenticationPrincipal PrincipalDetails principalDetails){
+
+        memberService.removeImage(principalDetails.getMember().getMemberId());
+
+        return "redirect:/profile";
     }
 
     /**
@@ -74,8 +86,6 @@ public class MemberController {
     public String saleList(SearchDTO searchDTO, Model model,
                            @AuthenticationPrincipal PrincipalDetails principalDetails){
 
-        System.out.println("--------");
-        System.out.println(searchDTO);
         Long principalId = principalDetails.getMember().getMemberId();
         List<BoardResDTO> boardResDTOList = boardService.getBoardListByMemberId(principalId, searchDTO, principalId);
 

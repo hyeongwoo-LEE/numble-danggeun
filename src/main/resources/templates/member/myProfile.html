@@ -21,7 +21,9 @@
                 <hr>
 
                 <div class="sub3-container">
-                    <img class="profile-image" src="/image/noProfile.png"/>
+                    <img class="profile-image" th:src="@{/img/{filename}
+                                (filename= ${memberResDTO.memberImgDTO.filename}, folderPath = ${memberResDTO.memberImgDTO.folderPath}) }"
+                         alt="" onerror="this.src='/image/noProfile.png'">
                     <span class="nickname" sec:authentication="principal.member.nickname">닉네임</span>
                 </div>
 

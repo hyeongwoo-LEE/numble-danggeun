@@ -28,7 +28,7 @@ public class FileStore {
 
         List<ResultFileStore> storeFileResult = new ArrayList<>();
 
-        if (!multipartFiles.isEmpty()) {
+        if (!multipartFiles.isEmpty() && multipartFiles.size() > 0) {
             for (MultipartFile multipartFile : multipartFiles) {
 
                 storeFileResult.add(storeFile(multipartFile));
@@ -42,7 +42,7 @@ public class FileStore {
 
     public ResultFileStore storeFile(MultipartFile multipartFile) throws IOException {
 
-        if(multipartFile.isEmpty()){
+        if(multipartFile.isEmpty() || multipartFile == null){
             return null;
         }
 

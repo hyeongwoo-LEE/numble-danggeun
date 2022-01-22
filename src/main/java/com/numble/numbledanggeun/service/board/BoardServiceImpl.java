@@ -5,10 +5,7 @@ import com.numble.numbledanggeun.domain.baordImg.BoardImgRepository;
 import com.numble.numbledanggeun.domain.board.Board;
 import com.numble.numbledanggeun.domain.board.BoardRepository;
 import com.numble.numbledanggeun.domain.board.PostState;
-import com.numble.numbledanggeun.domain.heart.Heart;
-import com.numble.numbledanggeun.domain.member.Member;
 import com.numble.numbledanggeun.dto.board.*;
-import com.numble.numbledanggeun.dto.boardImg.BoardImgDTO;
 import com.numble.numbledanggeun.dto.page.SearchDTO;
 import com.numble.numbledanggeun.file.FileStore;
 import com.numble.numbledanggeun.file.ResultFileStore;
@@ -19,8 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,7 +64,7 @@ public class BoardServiceImpl implements BoardService{
 
         // imageFiles - null 일 경우 변동사항 x
         //새로운 이미지 저장 - 기존 이미지 모두 삭제 후 -> 새로운 이미지 저장
-        if (boardUpdateDTO.getImageFiles() != null || boardUpdateDTO.getImageFiles().size()>0){
+        if (!boardUpdateDTO.getImageFiles().get(0).getOriginalFilename().isEmpty()){
             //기존 해당 사진 모두 삭제
             List<BoardImg> boardImgList = boardImgRepository.findBoardImgByBoard(board);
 
@@ -245,7 +240,7 @@ public class BoardServiceImpl implements BoardService{
 
 
     private void saveImg(Board board, List<MultipartFile> imageFiles) throws IOException {
-        if(imageFiles != null && imageFiles.size() > 0){
+        if(!imageFiles.get(0).getOriginalFilename().isEmpty()){
             List<ResultFileStore> resultFileStores = fileStore.storeFiles(imageFiles);
 
             //사진 저장
@@ -261,6 +256,8 @@ public class BoardServiceImpl implements BoardService{
                 .folderPath(resultFileStore.getFolderPath())
                 .filename(resultFileStore.getStoreFilename())
                 .build();
+
+
         boardImg.setBoard(board);
 
         return boardImg;

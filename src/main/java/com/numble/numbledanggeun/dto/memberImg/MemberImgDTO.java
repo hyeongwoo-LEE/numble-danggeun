@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MemberImgDTO {
 
-    private String folderPath;
+    private String folderPath = "";
 
-    private String filename;
+    private String filename = "";
 }
