@@ -216,7 +216,7 @@ public class BoardServiceReadByMemberConditionTest {
     }
 
     private SearchDTO createSearchDTO(PostState postState) {
-        return SearchDTO.builder().postState(postState).build();
+        return SearchDTO.builder().postState(postState.toString()).build();
     }
 
     private Category createCategory(String name) {

@@ -1,0 +1,30 @@
+.sub1-container{
+    display: flex;
+    background-color: white;
+    position: fixed;
+    height: 40px;
+    padding-left: 1rem;
+    margin-top: 10px;
+}
+.icon1{
+    max-width: 30px;
+    margin-right: 10px;
+}
+
+.sub2-container{
+    margin-top: 70px;
+}
+
+.category-container{
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.list-category{
+    width: 105px;
+    height: 90px;
+    text-align: center;
+    line-height: 90px;
+}

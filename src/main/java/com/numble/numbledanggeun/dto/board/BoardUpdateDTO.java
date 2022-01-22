@@ -38,6 +38,5 @@ public class BoardUpdateDTO {
     @NotNull
     private int price;
 
-    @NotBlank
     private List<MultipartFile> imageFiles;
 }

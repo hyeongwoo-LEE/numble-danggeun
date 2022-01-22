@@ -65,7 +65,7 @@ public class BoardRepositoryImpl implements BoardRepositoryQuerydsl{
                 .select(board, board.commentList.size(), board.heartList.size())
                 .from(board)
                 .where(board.member.memberId.eq(memberId),
-                        postStateEq(PostState.valueOf(searchDTO.getPostState().toUpperCase())))
+                        postStateEq(searchDTO.getPostState()))
                 .orderBy(board.postState.desc(), board.updateDate.desc())
                 .fetch();
 
@@ -122,9 +122,10 @@ public class BoardRepositoryImpl implements BoardRepositoryQuerydsl{
                 .fetch();
     }
 
-    private BooleanExpression postStateEq(PostState postState) {
+    private BooleanExpression postStateEq(String postState) {
         QBoard board = QBoard.board;
-        return postState!=null ? board.postState.eq(postState):null;
+
+        return postState!=null ? board.postState.eq(PostState.valueOf(postState.toUpperCase())):null;
     }
 
     private BooleanBuilder categoriesEq(List<Long> categories) {

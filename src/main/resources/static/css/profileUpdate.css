@@ -1,0 +1,71 @@
+.sub1-container{
+    width: 100%;
+    margin-top: 20px;
+    padding-left: 1.5rem;
+    padding-right: 2rem;
+    display: flex;
+    justify-content: space-between ;
+    line-height: 40px;
+    height: 40px;
+   
+}
+.icon1-container{
+
+    height: 100%;
+    padding-top: 5px;
+}
+.icon1{
+    max-width: 30px;
+    height: 30px;
+}
+
+.profile-image-container{
+    margin-top: 50px;
+    margin-bottom: 35px;
+    display: flex;
+    justify-content: center;
+}
+
+.profile-image{
+    max-width: 123px;
+}
+
+.icon2-container{
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    position: relative;
+    bottom: 0px;
+    padding-top: 100px;
+}
+
+.icon2{
+    max-width: 30px;
+}
+
+.update-nickname-container{
+    display: flex;
+    justify-content: center;
+    border-style:solid;
+    border-radius: 5px;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    height: 40px;
+    line-height: 35px;
+    font-size: large;
+    font-weight:550;
+    text-align: center;
+    width: 340px;
+    height: 45px;
+}
+
+.button{
+    width: 360px;
+    height: 45px;
+    background-color:darkgrey;
+    font-size: x-large;
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    position: fixed;
+    top: 631px;
+}
+

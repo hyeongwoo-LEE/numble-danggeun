@@ -67,19 +67,22 @@ public class BoardServiceImpl implements BoardService{
         board.changeContent(boardUpdateDTO.getContent());
         board.changePrice(boardUpdateDTO.getPrice());
 
-        //TODO 수정 필요 - 사진 변경 없을 시 imageFiles - null 값을 넘어옴
-        /* 여기서부터 img 변경 */
-        //기존 해당 사진 모두 삭제
-        List<BoardImg> boardImgList = boardImgRepository.findBoardImgByBoard(board);
+        // imageFiles - null 일 경우 변동사항 x
+        //새로운 이미지 저장 - 기존 이미지 모두 삭제 후 -> 새로운 이미지 저장
+        if (boardUpdateDTO.getImageFiles() != null || boardUpdateDTO.getImageFiles().size()>0){
+            //기존 해당 사진 모두 삭제
+            List<BoardImg> boardImgList = boardImgRepository.findBoardImgByBoard(board);
 
-        //서버에 컴퓨터에 저장된 사진 삭제
-        fileRemove(boardImgList);
+            //서버에 컴퓨터에 저장된 사진 삭제
+            fileRemove(boardImgList);
 
-        //boardImg 삭제
-        boardImgRepository.deleteByBoard(board);
+            //boardImg 삭제
+            boardImgRepository.deleteByBoard(board);
 
-        //새로운 사진 저장
-        saveImg(board, boardUpdateDTO.getImageFiles());
+            //새로운 사진 저장
+            saveImg(board, boardUpdateDTO.getImageFiles());
+        }
+
     }
 
     /**
@@ -93,6 +96,27 @@ public class BoardServiceImpl implements BoardService{
                 new IllegalStateException("존재하지 않는 글입니다."));
 
         board.changePostState(postState);
+    }
+
+
+    /**
+     * 판매글 사진 삭제
+     */
+    @Transactional
+    @Override
+    public void removeImage(Long boardId) {
+
+        Board board = boardRepository.findById(boardId).orElseThrow(() ->
+                new IllegalStateException("존재하지 않는 글입니다."));
+
+        //기존 해당 사진 모두 삭제
+        List<BoardImg> boardImgList = boardImgRepository.findBoardImgByBoard(board);
+
+        //서버에 컴퓨터에 저장된 사진 삭제
+        fileRemove(boardImgList);
+
+        //boardImg 삭제
+        boardImgRepository.deleteByBoard(board);
     }
 
     /**

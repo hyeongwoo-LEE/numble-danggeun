@@ -16,6 +16,8 @@ public interface BoardService {
 
     void modifyPostState(Long boardId, PostState postState);
 
+    void removeImage(Long boardId);
+
     void remove(Long boardId);
 
     List<BoardResDTO> getAllBoardList(SearchDTO searchDTO, Long principalId);

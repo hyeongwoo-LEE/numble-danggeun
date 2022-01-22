@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -75,7 +76,7 @@ class BoardServiceImplTest {
         //board 검증
         assertThat(board.getBoardId()).isNotNull();
         assertThat(board.getMember().getMemberId()).isEqualTo(member.getMemberId());
-        assertThat(board.getCategory()).isEqualTo(category);
+        assertThat(board.getCategory().getCategoryId()).isEqualTo(category.getCategoryId());
         assertThat(board.getTitle()).isEqualTo(boardDTO.getTitle());
         assertThat(board.getContent()).isEqualTo(boardDTO.getContent());
         assertThat(board.getPrice()).isEqualTo(boardDTO.getPrice());
@@ -155,6 +156,20 @@ class BoardServiceImplTest {
 
         //then
         assertThat(board.getPostState()).isEqualTo(PostState.COMPLETION);
+    }
+
+    @Test
+    void 이미지_삭제() throws Exception{
+        //given
+        Board board = boardRepository.findAll().get(0);
+
+        //when
+        boardService.removeImage(board.getBoardId());
+
+        //then
+        List<BoardImg> boardImgList = boardImgRepository.findBoardImgByBoard(board);
+        assertThat(boardImgList.size()).isEqualTo(0);
+
     }
 
     private BoardUpdateDTO createBoardUpdateDTO(Long boardId,Category category, String title, String content, int price, List<MultipartFile> imageFiles) {

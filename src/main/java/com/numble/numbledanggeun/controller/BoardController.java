@@ -28,7 +28,7 @@ public class BoardController {
     private final CategoryService categoryService;
 
     /**
-     * 판매글 리스트
+     * 전체 판매글 리스트
      */
     @GetMapping("/boards")
     public String boardList(SearchDTO searchDTO, Model model,
@@ -100,6 +100,17 @@ public class BoardController {
         else{
             return "redirect:/profile/sales?postState="+PostState.SALE.toString();
         }
+    }
+
+    /**
+     * 판매글 이미지 삭제
+     */
+    @PostMapping("/boards/{boardId}/image-delete")
+    public String deleteImageOfBoard(@PathVariable Long boardId){
+
+        boardService.removeImage(boardId);
+
+        return "redirect:/boards/"+boardId+"/edit";
     }
 
     /**

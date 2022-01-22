@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>당근마켓</title>
+    <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="../../static/css/myBoardDetail.css" th:href="@{/css/myBoardDetail.css}">
+
+</head>
+<body>
+    <div class="all">
+        <div class="inner">
+            <div class="main-container">
+                <div class="sub1-container">
+                    <div>
+                        <a><img class="icon1" src="/image/back.png"></a>
+                        <a><img class="icon1" src="/image/home.png"></a>
+                    </div>
+                    <div>
+                        <a><img class="icon4" src="/image/edit.png"></a>
+                        <a onclick="del();"><img class="icon4" src="/image/delete.png"></a>
+                    </div>
+                </div>
+                <img class="image" src="https://images.velog.io/images/kados22/post/0e43ee9f-3ecf-46af-9885-b70a5a78ed2e/%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%87%E1%85%A1%E1%86%AB%20Class%20Card%20%E1%84%8A%E1%85%A5%E1%86%B7%E1%84%82%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%AF%203.png">
+                <div class="sub2-container">
+                    <img class="icon2" src="/image/noProfile.png">
+                    <p>닉네임</p>
+                </div>
+                <hr>
+                <div class="sub3-container">
+                    <div class="info-container">
+                        <p class="info-sub">제목</p>
+                        <p>가격</p>
+                    </div>
+                    <div class="info-container">
+                        <p class="info-sub">카테고리</p>
+                        <p>게시시간</p>
+                    </div>
+                    <div class="content">본문</div>
+                    <div class="heart-container">
+                        <p>관심</p>&nbsp;<p>1</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="sub6-container">
+                    <img class="icon3" src="/image/heart.png">
+                    
+                    <img class="icon3" src="/image/comment.png">
+                    <a href="" style="color: rgb(255, 255, 255);" class="button">댓글보기</a>
+                    <a href="" style="color: rgb(255, 255, 255);" class="button">댓글 남기기</a>
+                </div>
+            <div>
+    </div>
+    </div>
+</body>
+
+<script type="text/javascript">
+    function del() {
+      if (confirm("정말 삭제하시겠습니까?"))
+        list_ok.submit();
+     }
+    </script>
+</html>
