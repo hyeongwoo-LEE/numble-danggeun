@@ -34,6 +34,9 @@ public class BoardController {
     public String boardList(SearchDTO searchDTO, Model model,
                             @AuthenticationPrincipal PrincipalDetails principalDetails){
 
+        System.out.println("==================");
+        System.out.println(searchDTO);
+
         List<BoardResDTO> boardResDTOList =
                 boardService.getAllBoardList(searchDTO, principalDetails.getMember().getMemberId());
 

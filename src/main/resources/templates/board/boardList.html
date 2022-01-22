@@ -12,12 +12,12 @@
         <div class="inner">
             <div class="main-container">
                 <h3 class="sub1-container" sec:authentication="principal.member.nickname">닉네임님동네</h3>
-                <form>
+                <form th:action="@{/boards}" method="get">
                     <div class="search-container">
                         <input class="input-container" name="keyword">
                         <div class="search-button-container">
-                            <img src="/image/search.png">
-                            <img src="/image/menu.png">
+                            <button type="submit" class="enter"><img class="button3" src="/image/search.png"></button>
+                            <a th:href="@{/categorys}"><img class="button3" src="/image/menu.png"></a>
                         </div>
                     </div>
                     <hr>

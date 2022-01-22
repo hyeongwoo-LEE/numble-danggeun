@@ -7,21 +7,30 @@
     border-bottom: 1px;
     color:rgb(129, 138, 138);
     width: 90%;
+    justify-content: space-between;
+
+}
+
+.enter{
+    background-color: transparent;
+    cursor: pointer;
+    border-style: none;
+    width: 50px;
 }
 
 .input-container{
     margin-left: 1rem ;
-    width: 250px;
+    width: 270px;
     height: 30px;
 }
 .search-button-container{
     display: flex;
-    padding-left: 5px;
-    max-width: 30px;
+    margin-left: 1.3rem;
 }
 
-.list{
-
+.button3{
+    max-width: 30px;
+    margin-right: 10px;
 }
 
 .list-container{

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>당근마켓</title>
@@ -17,20 +17,16 @@
                 </div>
                 <div class="sub2-container">
                     <hr>
-                    <div class="category-container">
-                        <div class="list-category">
-                            디지털 기기
+                    <h4 style="text-align: center">필터링하고 싶은 카테고리를 체크해주세요.</h4>
+                    <h5 style="text-align: center">>중복체크 가능 </h5>
+                    <form th:action="@{/boards}", method="get">
+                        <div class="category-container">
+                            <div class="list-category" th:each="dto : ${categoryList}">
+                                <label><input type="checkbox" name="categoryIdList" th:text="${dto.name}" th:value="${dto.categoryId}"></label>
+                            </div>
                         </div>
-                        <div class="list-category">
-                            디지털 기기
-                        </div>
-                        <div class="list-category">
-                            디지털 기기
-                        </div>
-                        <div class="list-category">
-                            디지털 기기
-                        </div>
-                    </div>
+                        <button type="submit" class="button">검색하기</button>
+                    </form>
                 </div>
             </div>
         </div>

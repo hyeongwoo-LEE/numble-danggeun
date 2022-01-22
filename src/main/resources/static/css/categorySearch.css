@@ -25,6 +25,23 @@
 .list-category{
     width: 105px;
     height: 90px;
-    text-align: center;
+    padding-left: 1rem;
     line-height: 90px;
+}
+
+.button{
+    background-color: rgb(255, 145, 0);
+    border-style: none;
+    cursor: pointer;
+    width: 200px;
+    height: 40px;
+    border-radius: 5px;
+    display: flex;
+    line-height: 40px;
+    text-align: center;
+    margin-top: 50px;
+    margin-left: 70px;
+    font-size: large;
+    color: white;
+    padding-left: 4rem;
 }
