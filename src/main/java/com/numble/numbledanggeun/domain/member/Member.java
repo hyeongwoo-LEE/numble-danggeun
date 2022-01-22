@@ -34,9 +34,11 @@ public class Member extends BaseEntity {
     @Column(nullable = false)
     private String phone;
 
-    private String folderPath;
+    @Builder.Default
+    private String folderPath = "";
 
-    private String filename;
+    @Builder.Default
+    private String filename = "";
 
     @Builder.Default
     @OneToMany(mappedBy = "member",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)

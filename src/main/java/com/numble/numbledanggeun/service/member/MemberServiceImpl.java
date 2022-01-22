@@ -1,7 +1,11 @@
 package com.numble.numbledanggeun.service.member;
 
 import com.numble.numbledanggeun.domain.baordImg.BoardImg;
+import com.numble.numbledanggeun.domain.baordImg.BoardImgRepository;
 import com.numble.numbledanggeun.domain.board.Board;
+import com.numble.numbledanggeun.domain.board.BoardRepository;
+import com.numble.numbledanggeun.domain.comment.Comment;
+import com.numble.numbledanggeun.domain.comment.CommentRepository;
 import com.numble.numbledanggeun.domain.member.Member;
 import com.numble.numbledanggeun.domain.member.MemberRepository;
 import com.numble.numbledanggeun.dto.member.MemberResDTO;
@@ -13,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +31,9 @@ public class MemberServiceImpl implements MemberService{
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final FileStore fileStore;
+    private final BoardRepository boardRepository;
+    private final CommentRepository commentRepository;
+    private final BoardImgRepository boardImgRepository;
 
     /**
      * 닉네임 중복체크
@@ -94,7 +100,6 @@ public class MemberServiceImpl implements MemberService{
 
         member.changeNickname(memberUpdateDTO.getNickname());
 
-        //TODO 기존 이미지 삭제 - 기본 이미지로 설정시 로직 필요
         if (memberUpdateDTO.getImageFile() != null){
             //서버에 컴퓨터에 저장된 사진 삭제
             fileRemove(member);
@@ -106,11 +111,88 @@ public class MemberServiceImpl implements MemberService{
         }
     }
 
-    private void fileRemove(Member member) {
-        String folderPath = member.getFolderPath();
-        String storeFileName = member.getFilename();
+    /**
+     * 회원 프로필 삭제
+     */
+    @Transactional
+    @Override
+    public void removeImage(Long principalId) {
 
-        File file = new File(fileStore.getFullPath(folderPath, storeFileName));
-        file.delete();
+        Member member = memberRepository.findById(principalId).orElseThrow(() ->
+                new IllegalStateException("존재하지 않은 회원입니다."));
+
+        //기존 프로필 사진 삭제
+        //서버 컴퓨터 이미지 파일 삭제
+        fileRemove(member);
+
+        member.changeFilename("");
+        member.changeFolderPath("");
+    }
+
+    /**
+     * 회원 탈퇴
+     *
+     * 서버 컴퓨터에 저장된 boardImg 삭제 -> boardImg 삭제 -> 작성한 board 삭제(cascade - comment,heart 삭제)
+     * -> 작성한 댓글 isExist = false 처리 -> 서버 컴퓨터에 저장된 프로필 사진 삭제 ->  member 삭제 (cascade - heart 삭제)
+     */
+    @Transactional
+    @Override
+    public void remove(Long principalId) {
+
+        Member member = memberRepository.findById(principalId).orElseThrow(() ->
+                new IllegalStateException("존재하지 않은 회원입니다."));
+
+        //boardImg 삭제
+        List<Board> boardList = boardRepository.findByMember(member);
+        boardList.forEach(b -> boardImgRemove(b));
+
+        //작성한 board 삭제(cascade - comment,heart 삭제)
+        boardRepository.deleteByMember(member);
+
+        //작성한 댓글 isExist = false 처리
+        List<Comment> commentList = commentRepository.getCommentByMember(member);
+        commentList.forEach(c -> c.removeComment());
+
+        //서버 컴퓨터에 저장된 프로필 사진 삭제
+        fileRemove(member);
+
+        // 삭제 (cascade - heart 삭제)
+        memberRepository.deleteById(principalId);
+    }
+
+    private void boardImgRemove(Board board) {
+        List<BoardImg> boardImgList = boardImgRepository.findBoardImgByBoard(board);
+
+        //서버 컴퓨터에 저장된 boardImg 파일 삭제
+        fileRemove(boardImgList);
+
+        //boardImg 삭제
+        boardImgRepository.deleteByBoard(board);
+    }
+
+    private void fileRemove(Member member) {
+
+        if(!member.getFilename().isBlank()|| !member.getFolderPath().isBlank()){
+            String folderPath = member.getFolderPath();
+            String storeFileName = member.getFilename();
+
+            File file = new File(fileStore.getFullPath(folderPath, storeFileName));
+            file.delete();
+        }
+    }
+
+    private void fileRemove(List<BoardImg> boardImgList) {
+
+        if(boardImgList != null && boardImgList.size() > 0 ){
+
+            for(BoardImg boardImg: boardImgList){
+                String folderPath = boardImg.getFolderPath();
+                String storeFileName = boardImg.getFilename();
+
+                File file = new File(fileStore.getFullPath(folderPath, storeFileName));
+                file.delete();
+            }
+        }
+
     }
 }

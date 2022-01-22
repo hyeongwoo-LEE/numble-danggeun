@@ -19,4 +19,8 @@ public interface MemberService {
     MemberResDTO getProfile(Long principalId);
 
     void modify(MemberUpdateDTO memberUpdateDTO, Long principalId) throws IOException;
+
+    void removeImage(Long principalId);
+
+    void remove(Long principalId);
 }
