@@ -175,7 +175,7 @@ class BoardServiceImplTest {
     private BoardUpdateDTO createBoardUpdateDTO(Long boardId,Category category, String title, String content, int price, List<MultipartFile> imageFiles) {
         return BoardUpdateDTO.builder()
                 .boardId(boardId)
-                .category(category)
+                .categoryId(category.getCategoryId())
                 .title(title)
                 .content(content)
                 .price(price)

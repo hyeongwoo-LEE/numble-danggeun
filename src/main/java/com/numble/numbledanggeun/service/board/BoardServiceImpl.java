@@ -62,7 +62,7 @@ public class BoardServiceImpl implements BoardService{
                 new IllegalStateException("존재하지 않는 글입니다."));
 
         //변경감지
-        board.changeCategory(boardUpdateDTO.getCategory());
+        board.changeCategory(boardUpdateDTO.getCategoryId());
         board.changeTitle(boardUpdateDTO.getTitle());
         board.changeContent(boardUpdateDTO.getContent());
         board.changePrice(boardUpdateDTO.getPrice());
@@ -229,6 +229,18 @@ public class BoardServiceImpl implements BoardService{
                 new IllegalStateException("존재하지 않은 판매글입니다."));
 
         return new BoardPreviewDTO(board);
+    }
+
+    /**
+     * 판매글 단건 조회
+     */
+    @Transactional(readOnly = true)
+    @Override
+    public BoardUpdateResDTO findOne(Long boardId) {
+        Board board = boardRepository.findById(boardId).orElseThrow(() ->
+                new IllegalStateException("존재하지 않은 글입니다."));
+
+        return new BoardUpdateResDTO(board);
     }
 
 

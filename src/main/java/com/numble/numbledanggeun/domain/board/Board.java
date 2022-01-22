@@ -61,8 +61,8 @@ public class Board extends BaseEntity {
     @OneToMany(mappedBy = "board",fetch = FetchType.LAZY)
     private List<BoardImg> boardImgList = new ArrayList<>();
 
-    public void changeCategory(Category category){
-        this.category = category;
+    public void changeCategory(Long categoryId){
+        this.category = Category.builder().categoryId(categoryId).build();
     }
 
     public void changeTitle(String title){

@@ -31,9 +31,8 @@ public class BoardUpdateDTO {
     @NotBlank
     private String content;
 
-    @NotBlank
-    @Enumerated(EnumType.STRING) //TODO 필요?
-    private Category category;
+    @NotNull
+    private Long categoryId;
 
     @NotNull
     private int price;

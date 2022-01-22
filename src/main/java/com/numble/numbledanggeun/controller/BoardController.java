@@ -71,17 +71,26 @@ public class BoardController {
      * 판매글 수정 폼
      */
     @GetMapping("/boards/{boardId}/edit")
-    public String updateForm(@PathVariable Long boardId){
-        return null;
+    public String updateForm(@PathVariable Long boardId, Model model){
+
+        List<CategoryResDTO> categoryResDTOList = categoryService.getCategoryList();
+        BoardUpdateResDTO boardUpdateResDTO = boardService.findOne(boardId);
+
+        model.addAttribute("categoryResDTOList", categoryResDTOList);
+        model.addAttribute("boardUpdateResDTO", boardUpdateResDTO);
+
+        return "/board/boardUpdate";
     }
 
     /**
      * 판매글 수정
      */
     @PostMapping("/boards/{boardId}/edit")
-    public String updateBoard(@PathVariable Long boardId, BoardUpdateDTO boardUpdateDTO,
-                              @AuthenticationPrincipal PrincipalDetails principalDetails){
-        return null;
+    public String updateBoard(BoardUpdateDTO boardUpdateDTO) throws IOException {
+
+        boardService.modify(boardUpdateDTO);
+
+        return "/member/myBoardDetail";
     }
 
     /**

@@ -11,9 +11,10 @@
     <div class="all">
         <div class="inner">
             <div class="main-container">
-                <form>
+                <form th:action="@{/boards/{id}/image-delete (id=${boardUpdateResDTO.boardId})}" method="post"><button type="submit" class="button2">기존 이미지 삭제</button> </form>
+                <form th:action="@{/boards/{id}/edit (id = ${boardUpdateResDTO.boardId})}">
                     <div class="sub1-container">
-                        <a href="/"><img class="back" src="/image/back.png"></a>
+                        <a th:href="@{/profile/sales/boards/{id} (id =${boardUpdateResDTO.boardId})}"><img class="back" src="/image/back.png"></a>
                         <div class="font">중고거래 글쓰기</div>
                         <button type="submit" class="button">완료</button>
                     </div>
@@ -22,25 +23,22 @@
                         <input type="file"  class="custom-file-input files" id="fileInput" multiple>
                     </div>
                     <hr>
-                    <input type="text" class="input-text" placeholder="제목">
-
-                  
+                    <input type="text" class="input-text" name="title" th:value="${boardUpdateResDTO.title}" required="required">
                     <hr>
                     <div class="sub5-container">
-                        <select name="categoryName" class="option-control">
-                            <option value="">카테고리</option>
-                            <option th:each="member : ${members}"
-                                    th:value="${member.id}"
-                                    th:text="${member.name}"></option>
+                        <select name="categoryId" class="option-control", required="required">
+                            <option th:value="${boardUpdateResDTO.categoryId}" selected>카테고리</option>
+                            <option th:each="categoryResDTO : ${categoryResDTOList}"
+                                    th:value="${categoryResDTO.categoryId}"
+                                    th:text="${categoryResDTO.name}"></option>
                         </select>
                     </div>
                     <hr>
-                    <input type="number" class="input-text" placeholder="가격(원)">
+                    <input type="number" class="input-text" name="price" th:value="${boardUpdateResDTO.price}" required="required">
     
                     <hr>
-                    <input type="textarea
-                    " class="input-text2" 
-                    placeholder="게시글 내용을 작성해주세요 가짜 품목 및 판매금지품목은 게시가 제한됩니다.">
+                    <input type="textarea" class="input-text2"
+                           name="content" th:value="${boardUpdateResDTO.content}" required="required">
 
                 </form>
               

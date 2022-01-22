@@ -13,41 +13,47 @@
             <div class="main-container">
                 <div class="sub1-container">
                     <div>
-                        <a><img class="icon1" src="/image/back.png"></a>
-                        <a><img class="icon1" src="/image/home.png"></a>
+                        <a href="javascript:history.back();"><img class="icon1" src="/image/back.png"></a>
+                        <a th:href="@{/boards}"><img class="icon1" src="/image/home.png"></a>
                     </div>
                     <div>
-                        <a><img class="icon4" src="/image/edit.png"></a>
-                        <a onclick="del();"><img class="icon4" src="/image/delete.png"></a>
+                        <a th:href="@{/boards/{id}/edit (id=${boardDetailDTO.boardId})}"><img class="icon4" src="/image/edit.png"></a>
+                        <a th:href="@{/}"><img class="icon4" src="/image/delete.png"></a>
                     </div>
                 </div>
-                <img class="image" src="https://images.velog.io/images/kados22/post/0e43ee9f-3ecf-46af-9885-b70a5a78ed2e/%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%87%E1%85%A1%E1%86%AB%20Class%20Card%20%E1%84%8A%E1%85%A5%E1%86%B7%E1%84%82%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%AF%203.png">
+                <img class="image" th:src="@{/img/{filename}
+                                (filename= ${boardDetailDTO.boardImgDTOList[0].filename}, folderPath = ${boardDetailDTO.boardImgDTOList[0].folderPath}) }"
+                     alt="" onerror="this.src='https://images.velog.io/images/kados22/post/0e43ee9f-3ecf-46af-9885-b70a5a78ed2e/%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%87%E1%85%A1%E1%86%AB%20Class%20Card%20%E1%84%8A%E1%85%A5%E1%86%B7%E1%84%82%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%AF%203.png'">
                 <div class="sub2-container">
                     <img class="icon2" src="/image/noProfile.png">
-                    <p>닉네임</p>
+                    <p th:text="${boardDetailDTO.writerNickname}">닉네임</p>
                 </div>
                 <hr>
+                <div th:if="${boardDetailDTO.postState} == 'RESERVATION'" class="post-re" th:text="예약중">예약중</div>
+                <div th:if="${boardDetailDTO.postState} == 'COMPLETION'" class="post-com" th:text="거래완료">거래완료</div>
                 <div class="sub3-container">
                     <div class="info-container">
-                        <p class="info-sub">제목</p>
-                        <p>가격</p>
+                        <p th:text="'제목: '+${boardDetailDTO.title}" class="info-sub">제목</p>
+                        <p th:text="'가격: '+${boardDetailDTO.price}+'원'">가격</p>
                     </div>
                     <div class="info-container">
-                        <p class="info-sub">카테고리</p>
-                        <p>게시시간</p>
+                        <p th:text="${'카테고리: '+boardDetailDTO.categoryName}" class="info-sub">카테고리</p>
+                        <p th:text="'게시시간: '+${#temporals.format(boardDetailDTO.updateDate, 'yyyy/MM/dd')}">게시시간</p>
                     </div>
-                    <div class="content">본문</div>
-                    <div class="heart-container">
-                        <p>관심</p>&nbsp;<p>1</p>
-                    </div>
+                    <div class="content" th:text="'본문: '+${boardDetailDTO.content}">본문</div>
                 </div>
                 <hr>
                 <div class="sub6-container">
-                    <img class="icon3" src="/image/heart.png">
+                    <form th:if="${boardDetailDTO.isHeart} == true" th:action="@{/boards/{id}/hearts/delete (id=${boardDetailDTO.boardId})}", method="post">
+                        <button class="button2" type="submit"><img class="icon3" src="/image/fullHeart.png"></button>
+                    </form>
+                    <form th:if="${boardDetailDTO.isHeart} == false" th:action="@{/boards/{id}/hearts (id=${boardDetailDTO.boardId})}", method="post">
+                        <button class="button2" type="submit"><img class="icon3" src="/image/heart.png"></button>
+                    </form>
                     
                     <img class="icon3" src="/image/comment.png">
-                    <a href="" style="color: rgb(255, 255, 255);" class="button">댓글보기</a>
-                    <a href="" style="color: rgb(255, 255, 255);" class="button">댓글 남기기</a>
+                    <a th:href="@{/boards/{id}/comments (id=${boardDetailDTO.boardId})}" style="color: rgb(255, 255, 255);" class="button">댓글보기</a>
+                    <a th:href="@{/boards/{id}/comments/new (id=${boardDetailDTO.boardId})}" style="color: rgb(255, 255, 255);" class="button">댓글 남기기</a>
                 </div>
             <div>
     </div>

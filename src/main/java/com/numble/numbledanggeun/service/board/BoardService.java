@@ -32,5 +32,6 @@ public interface BoardService {
 
     BoardPreviewDTO getSimpleBoard(Long boardId);
 
+    BoardUpdateResDTO findOne(Long boardId);
 
 }

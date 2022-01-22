@@ -1,5 +1,6 @@
 package com.numble.numbledanggeun.controller;
 
+import com.numble.numbledanggeun.dto.board.BoardDetailDTO;
 import com.numble.numbledanggeun.dto.board.BoardResDTO;
 import com.numble.numbledanggeun.dto.member.MemberResDTO;
 import com.numble.numbledanggeun.dto.member.MemberUpdateDTO;
@@ -13,6 +14,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.IOException;
@@ -81,6 +83,21 @@ public class MemberController {
         model.addAttribute("boardResDTOList", boardResDTOList);
 
         return "/member/myBoardList";
+    }
+
+    /**
+     * 판매 상세 페이지
+     */
+    @GetMapping("/profile/sales/boards/{boardId}")
+    public String getSaleDetailBoard(@PathVariable Long boardId, Model model,
+                                     @AuthenticationPrincipal PrincipalDetails principalDetails){
+
+        BoardDetailDTO boardDetailDTO =
+                boardService.getBoard(boardId, principalDetails.getMember().getMemberId());
+
+        model.addAttribute("boardDetailDTO", boardDetailDTO);
+
+        return "/member/myBoardDetail";
     }
 
 

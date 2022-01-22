@@ -23,7 +23,7 @@
                 <div class="sub3-container">
                     <div th:each="dto:${boardResDTOList}">
                         <div class="info-list-block-container">
-                            <a th:href="@{/boards/{id} (id=${dto.boardId})}">
+                            <a th:href="@{/profile/sales/boards/{id} (id=${dto.boardId})}">
                                 <div class="list-block-container">
                                     <img class="image" th:src="@{/img/{filename}
                                 (filename= ${dto.boardImgDTO.filename}, folderPath = ${dto.boardImgDTO.folderPath}) }"

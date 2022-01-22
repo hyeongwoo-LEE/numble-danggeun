@@ -29,6 +29,11 @@
     cursor: pointer;
 }
 
+.button2{
+    cursor: pointer;
+    width: 100px;
+}
+
 .sub2-container{
     height: 90px;
 }

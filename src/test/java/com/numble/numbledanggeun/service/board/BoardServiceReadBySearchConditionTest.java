@@ -68,10 +68,10 @@ public class BoardServiceReadBySearchConditionTest {
         Category categoryA = categoryRepository.save(createCategory("디지털기기"));
         Category categoryB = categoryRepository.save(createCategory("게임/취미"));
 
-        board1.changeCategory(categoryA);
-        board2.changeCategory(categoryA);
-        board3.changeCategory(categoryB);
-        board5.changeCategory(categoryB);
+        board1.changeCategory(categoryA.getCategoryId());
+        board2.changeCategory(categoryA.getCategoryId());
+        board3.changeCategory(categoryB.getCategoryId());
+        board5.changeCategory(categoryB.getCategoryId());
 
         board1.changeTitle("닌텐도 팔아요!");
         board3.changeTitle("닌텐도 같이할 사람~");
