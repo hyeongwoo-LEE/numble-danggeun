@@ -7,7 +7,7 @@
     justify-content: space-between ;
     line-height: 40px;
     height: 40px;
-   
+
 }
 .icon1-container{
 
@@ -56,6 +56,43 @@
     text-align: center;
     width: 340px;
     height: 45px;
+}
+
+.button2-container{
+    margin-top: 60px;
+    background-color: darkgrey;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    border-radius: 10px;
+    padding-top: 10px;
+    height: 130px;
+}
+
+.select-container{
+
+    margin-top: 10px;
+    font-size: small;
+    display: flex;
+    height: 30px;
+    width: 280px;
+    margin-left: 2rem;
+}
+
+.delete-container{
+    display: flex;
+    margin-left: 2rem;
+    margin-top: 15px;
+}
+
+.icon3{
+    max-width: 30px;
+}
+
+.text{
+    height: 30px;
+    line-height: 30px;
+    margin-left: 10px;
+    font-size: small;
 }
 
 .button{

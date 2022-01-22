@@ -3,37 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>당근마켓</title>
-    <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
-    <link rel="stylesheet" href="../../static/css/profileUpdate.css" th:href="@{/css/profileUpdate.css}">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/profileUpdate.css">
 
 </head>
 <body>
-    <div class="all">
-        <div class="inner">
-            <div class="main-container">
-                <div class="sub1-container">
-                    <div>나의 당근</div>
-                    <div class="icon1-container">
-                        <a><img class="icon1" src="/image/search.png"></a>
-                        <a><img class="icon1" src="/image/menu.png"></a>
-                    </div>
+<div class="all">
+    <div class="inner">
+        <div class="main-container">
+            <div class="sub1-container">
+                <div>나의 당근</div>
+                <div class="icon1-container">
+                    <a><img class="icon1" src="/image/search.png"></a>
+                    <a><img class="icon1" src="/image/menu.png"></a>
                 </div>
-                <hr>
-                <form>
-                    <div class="profile-image-container">
-                        <img class="profile-image" src="image/noProfile.png">
-                        <div class="icon2-container"><img class="icon2" src="image/camera.png"></div>
+            </div>
+            <hr>
+            <form>
+                <div class="profile-image-container">
+                    <img class="profile-image" src="image/noProfile.png">
+                    <div class="icon2-container"><img class="icon2" src="image/camera.png"></div>
+                </div>
+
+                <input type="text" class="update-nickname-container" placeholder="닉네임"/>
+
+                <div class="button2-container">
+                    <input type="file" name="imageFile">
+                    <div class="select-container">
+                        <img class="icon3" src="image/album.png">
+                        <div class="text">앨범에서 선택</div>
                     </div>
-                    
-                    <input type="text" class="update-nickname-container" placeholder="닉네임"/>
-                     
-                
-                    <button type="submit" class="button">
-                        완료
-                    </button>
-                </form>
+                    <a><div class="delete-container">
+                        <img class="icon3" src="/image/delete.png">
+                        <div class="text">프로필 사진 삭제</div>
+                    </div></a>
+                </div>
+                <button type="submit" class="button">
+                    완료
+                </button>
+            </form>
             <div>
-    </div>
-    </div>
+            </div>
+        </div>
 </body>
 </html>
