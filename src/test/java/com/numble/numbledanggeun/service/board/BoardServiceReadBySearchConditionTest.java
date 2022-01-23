@@ -47,6 +47,7 @@ public class BoardServiceReadBySearchConditionTest {
      * board 3만 게시글상태 - 완료, 나머진 모두 판매중
      * board1 이미지 2개, 댓글 2개, 하트 1개 (게시글작성자)
      */
+    /*
     @BeforeEach
     void before(){
         IntStream.rangeClosed(1,5).forEach(i -> {
@@ -94,6 +95,7 @@ public class BoardServiceReadBySearchConditionTest {
      *
      * --> board5 -> board1 -> board3 순으로 출력 되어야 함.
      */
+    /*
     @Transactional
     @Test
     void 판매글리스트_조회() throws Exception{
@@ -112,7 +114,7 @@ public class BoardServiceReadBySearchConditionTest {
         for (BoardResDTO boardResDTO : result){
             System.out.println(boardResDTO);
         }
-    }
+    }*/
 
     private SearchDTO createSearchDTO(String keyword, List<Long> categories) {
         return SearchDTO.builder()
