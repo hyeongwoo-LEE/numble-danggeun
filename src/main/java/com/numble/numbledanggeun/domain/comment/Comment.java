@@ -38,7 +38,7 @@ public class Comment extends BaseEntity {
     private Boolean isExist = true;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "parent_comment_id")
+    @JoinColumn(name = "parent_id")
     private Comment parent;
 
     @BatchSize(size = 100)

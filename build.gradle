@@ -5,7 +5,7 @@ buildscript {
 }
 
 plugins {
-	id 'org.springframework.boot' version '2.6.2'
+	id 'org.springframework.boot' version '2.5.7'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	//querydsl 추가
 	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
@@ -43,6 +43,13 @@ dependencies {
 	//querydsl 추가
 	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
 	annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
+
+	// https://mvnrepository.com/artifact/mysql/mysql-connector-java
+	implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.23'
+
+	//secret manager
+	implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap:3.0.3'
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws-secrets-manager-config:2.2.6.RELEASE'
 }
 
 test {

@@ -1,5 +1,5 @@
 server:
-  port: 8092
+  port: 5000
 
 spring:
 #  datasource:
@@ -19,7 +19,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true

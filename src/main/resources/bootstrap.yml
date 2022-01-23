@@ -1,0 +1,7 @@
+aws:
+  secretsmanager:
+    name: numble-danggeun
+cloud:
+  aws:
+    region:
+      static: ap-northeast-2
