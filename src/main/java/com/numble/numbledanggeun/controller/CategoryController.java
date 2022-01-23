@@ -21,7 +21,7 @@ public class CategoryController {
         List<CategoryResDTO> categoryList = categoryService.getCategoryList();
         model.addAttribute("categoryList",categoryList);
 
-        return "/board/categorySearch";
+        return "board/categorySearch";
     }
 
 }

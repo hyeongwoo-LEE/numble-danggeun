@@ -35,7 +35,7 @@ public class CommentController {
         model.addAttribute("previewDTO", previewDTO);
         model.addAttribute("commentResDTOList", commentResDTOList);
 
-        return "/comment/commentList";
+        return "comment/commentList";
     }
 
     /**
@@ -48,7 +48,7 @@ public class CommentController {
         model.addAttribute("boardId", boardId);
         model.addAttribute("parentId", parentId);
 
-        return "/comment/commentForm";
+        return "comment/commentForm";
     }
 
     /**
@@ -64,17 +64,6 @@ public class CommentController {
 
     }
 
-    /**
-     * 댓글 수정 폼
-     */
-    @GetMapping("/comments/{commentId}/edit")
-    public String modifyComment(){
-        return null;
-    }
-
-    /**
-     * 댓글 수정
-     */
 
     /**
      * 댓글 삭제

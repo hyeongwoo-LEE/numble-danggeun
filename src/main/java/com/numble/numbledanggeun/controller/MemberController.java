@@ -39,7 +39,7 @@ public class MemberController {
 
         model.addAttribute("memberResDTO", memberResDTO);
 
-        return "/member/myProfile";
+        return "member/myProfile";
     }
 
     /**
@@ -53,7 +53,7 @@ public class MemberController {
 
         model.addAttribute("memberResDTO", memberResDTO);
 
-        return "/member/profileUpdate";
+        return "member/profileUpdate";
     }
 
     /**
@@ -92,7 +92,7 @@ public class MemberController {
         model.addAttribute("postState", searchDTO.getPostState());
         model.addAttribute("boardResDTOList", boardResDTOList);
 
-        return "/member/myBoardList";
+        return "member/myBoardList";
     }
 
     /**
@@ -107,7 +107,7 @@ public class MemberController {
 
         model.addAttribute("boardDetailDTO", boardDetailDTO);
 
-        return "/member/myBoardDetail";
+        return "member/myBoardDetail";
     }
 
 
@@ -122,6 +122,6 @@ public class MemberController {
                 boardService.getBoardListOfHeart(principalDetails.getMember().getMemberId());
         model.addAttribute("boardResDTOList", boardResDTOList);
 
-        return "/member/myHeartList";
+        return "member/myHeartList";
     }
 }

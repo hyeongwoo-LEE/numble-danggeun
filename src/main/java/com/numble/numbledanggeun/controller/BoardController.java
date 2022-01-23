@@ -42,7 +42,7 @@ public class BoardController {
 
         model.addAttribute("boardResDTOList", boardResDTOList);
 
-        return "/board/boardList";
+        return "board/boardList";
     }
 
     /**
@@ -54,7 +54,7 @@ public class BoardController {
         List<CategoryResDTO> categoryResDTOList = categoryService.getCategoryList();
         model.addAttribute("categoryResDTOList", categoryResDTOList);
 
-        return "/board/boardForm";
+        return "board/boardForm";
     }
 
     /**
@@ -82,7 +82,7 @@ public class BoardController {
         model.addAttribute("categoryResDTOList", categoryResDTOList);
         model.addAttribute("boardUpdateResDTO", boardUpdateResDTO);
 
-        return "/board/boardUpdate";
+        return "board/boardUpdate";
     }
 
     /**
@@ -154,7 +154,7 @@ public class BoardController {
         model.addAttribute("boardDetailDTO", boardDetailDTO);
         model.addAttribute("boardPreviewDTOList", boardPreviewDTOList);
 
-        return "/board/boardDetail";
+        return "board/boardDetail";
     }
 
     /**
@@ -171,7 +171,7 @@ public class BoardController {
         model.addAttribute("writerId", writerId);
         model.addAttribute("boardResDTOList", boardResDTOList);
 
-        return "/board/memberBoardList";
+        return "board/memberBoardList";
 
     }
 
