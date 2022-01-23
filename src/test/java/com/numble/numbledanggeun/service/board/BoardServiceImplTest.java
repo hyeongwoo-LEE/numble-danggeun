@@ -7,6 +7,10 @@ import com.numble.numbledanggeun.domain.board.BoardRepository;
 import com.numble.numbledanggeun.domain.board.PostState;
 import com.numble.numbledanggeun.domain.category.Category;
 import com.numble.numbledanggeun.domain.category.CategoryRepository;
+import com.numble.numbledanggeun.domain.comment.Comment;
+import com.numble.numbledanggeun.domain.comment.CommentRepository;
+import com.numble.numbledanggeun.domain.heart.Heart;
+import com.numble.numbledanggeun.domain.heart.HeartRepository;
 import com.numble.numbledanggeun.domain.member.Member;
 import com.numble.numbledanggeun.domain.member.MemberRepository;
 import com.numble.numbledanggeun.dto.board.BoardDTO;
@@ -24,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.as;
@@ -39,16 +44,27 @@ class BoardServiceImplTest {
     @Autowired MemberRepository memberRepository;
     @Autowired CategoryRepository categoryRepository;
     @Autowired BoardImgRepository boardImgRepository;
+    @Autowired CommentRepository commentRepository;
+    @Autowired HeartRepository heartRepository;
+
+    private Long boardImgId;
+    private Long commentId;
+    private Long heartId;
 
     /**
-     * member 1, category 1, board 1, boardImg 1 생성
+     * member 1, category 1, board 1, boardImg 1, comment 1, heart 1 생성
      */
     @BeforeEach
     void before(){
         Member member = createMember("beforeEmail@naver.com", "beforeName", "beforeNick", "010-1111-1111");
         Category category = createCategory("beforeCategory");
         Board board = createBoard(member, category, "beforeTitle", "beforeContent");
-        createBoardImg(board, UUID.randomUUID().toString() + "filename", "/before");
+        BoardImg boardImg = createBoardImg(board, UUID.randomUUID().toString() + "filename", "/before");
+        boardImgId = boardImg.getBoardImgId();
+        Comment comment = createComment(member, board, "testContent");
+        commentId = comment.getCommentId();
+        Heart heart = createHeart(member, board);
+        heartId = heart.getHeartId();
     }
 
     @Test
@@ -173,6 +189,34 @@ class BoardServiceImplTest {
 
     }
 
+    /*
+    @Test
+    void 글삭제() throws Exception{
+        //given
+        Board board = boardRepository.findAll().get(0);
+
+        //when
+        boardService.remove(board.getBoardId());
+
+        //then
+        //삭제한 board1의 boardImg1 레코드 검색 (boardImg 삭제)
+        NoSuchElementException e1 = assertThrows(NoSuchElementException.class,
+                () -> (boardImgRepository.findById(boardImgId)).get());
+
+        //삭제한 board1의 작성한 comment 레코드 검색 (comment 삭제)
+        NoSuchElementException e2 = assertThrows(NoSuchElementException.class,
+                () -> (commentRepository.findById(commentId)).get());
+
+        //삭제한 board1에 추가한 heart 레코드 검색 (heart 삭제)
+        NoSuchElementException e3 = assertThrows(NoSuchElementException.class,
+                () -> (heartRepository.findById(heartId)).get());
+
+        assertThat(e1.getMessage()).isEqualTo("No value present");
+        assertThat(e2.getMessage()).isEqualTo("No value present");
+        assertThat(e3.getMessage()).isEqualTo("No value present");
+
+    }*/
+
     private BoardUpdateDTO createBoardUpdateDTO(Long boardId,Category category, String title, String content, int price, List<MultipartFile> imageFiles) {
         return BoardUpdateDTO.builder()
                 .boardId(boardId)
@@ -241,6 +285,24 @@ class BoardServiceImplTest {
         boardImgRepository.save(boardImg);
 
         return boardImg;
+    }
+
+    private Comment createComment(Member member, Board board, String content) {
+        Comment comment = Comment.builder()
+                .member(member)
+                .content(content)
+                .isExist(true)
+                .build();
+        comment.setBoard(board);
+        return commentRepository.save(comment);
+    }
+
+    private Heart createHeart(Member member, Board board) {
+        Heart heart = new Heart();
+        heart.setMember(member);
+        heart.setBoard(board);
+        heartRepository.save(heart);
+        return heart;
     }
 
 }

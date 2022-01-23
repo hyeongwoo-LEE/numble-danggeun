@@ -6,6 +6,7 @@ import com.numble.numbledanggeun.domain.board.Board;
 import com.numble.numbledanggeun.domain.board.BoardRepository;
 import com.numble.numbledanggeun.domain.comment.Comment;
 import com.numble.numbledanggeun.domain.comment.CommentRepository;
+import com.numble.numbledanggeun.domain.heart.HeartRepository;
 import com.numble.numbledanggeun.domain.member.Member;
 import com.numble.numbledanggeun.domain.member.MemberRepository;
 import com.numble.numbledanggeun.dto.member.MemberResDTO;
@@ -35,6 +36,7 @@ public class MemberServiceImpl implements MemberService{
     private final BoardRepository boardRepository;
     private final CommentRepository commentRepository;
     private final BoardImgRepository boardImgRepository;
+    private final HeartRepository heartRepository;
 
     /**
      * 닉네임 중복체크
@@ -113,7 +115,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     /**
-     * 회원 프로필 삭제
+     * 회원 프로필 사진 삭제
      */
     @Transactional
     @Override
@@ -143,9 +145,15 @@ public class MemberServiceImpl implements MemberService{
         Member member = memberRepository.findById(principalId).orElseThrow(() ->
                 new CustomException("존재하지 않은 회원입니다."));
 
-        //boardImg 삭제
         List<Board> boardList = boardRepository.findByMember(member);
+        //boardImg 삭제
         boardList.forEach(b -> boardImgRemove(b));
+
+        //작성한 board의 댓글 모두 삭제
+        boardList.forEach(b -> commentRepository.deleteByBoard(b));
+
+        //작성한 board의 관심 모두 삭제
+        boardList.forEach(b -> heartRepository.deleteByBoard(b));
 
         //작성한 board 삭제(cascade - comment,heart 삭제)
         boardRepository.deleteByMember(member);
