@@ -12,11 +12,13 @@ import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -33,9 +35,6 @@ public class BoardController {
     @GetMapping("/boards")
     public String boardList(SearchDTO searchDTO, Model model,
                             @AuthenticationPrincipal PrincipalDetails principalDetails){
-
-        System.out.println("==================");
-        System.out.println(searchDTO);
 
         List<BoardResDTO> boardResDTOList =
                 boardService.getAllBoardList(searchDTO, principalDetails.getMember().getMemberId());
@@ -61,10 +60,9 @@ public class BoardController {
      * 판매글 등록
      */
     @PostMapping("/boards")
-    public String createBoard(BoardDTO boardDTO,
+    public String createBoard(@Valid BoardDTO boardDTO, BindingResult bindingResult,
                               @AuthenticationPrincipal PrincipalDetails principalDetails) throws IOException {
-        System.out.println("-----------------------");
-        System.out.println(boardDTO);
+
         boardService.register(boardDTO, principalDetails.getMember().getMemberId());
 
         return "redirect:/boards";
@@ -89,7 +87,8 @@ public class BoardController {
      * 판매글 수정
      */
     @PostMapping("/boards/{boardId}/edit")
-    public String updateBoard(@PathVariable Long boardId, BoardUpdateDTO boardUpdateDTO) throws IOException {
+    public String updateBoard(@PathVariable Long boardId,
+                              @Valid BoardUpdateDTO boardUpdateDTO, BindingResult bindingResult) throws IOException {
 
         boardService.modify(boardUpdateDTO);
 

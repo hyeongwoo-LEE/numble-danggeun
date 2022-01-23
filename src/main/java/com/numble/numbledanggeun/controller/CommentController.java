@@ -10,8 +10,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -55,7 +57,7 @@ public class CommentController {
      * 댓글 생성
      */
     @PostMapping("/comments")
-    public String createComment(CommentDTO commentDTO,
+    public String createComment(@Valid CommentDTO commentDTO, BindingResult bindingResult,
                                 @AuthenticationPrincipal PrincipalDetails principalDetails){
 
         commentService.register(commentDTO, principalDetails.getMember().getMemberId());

@@ -5,9 +5,12 @@ import com.numble.numbledanggeun.dto.member.SignupDTO;
 import com.numble.numbledanggeun.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @Controller
@@ -21,7 +24,7 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public String signupForm(SignupDTO signupDTO){
+    public String signupForm(@Valid SignupDTO signupDTO, BindingResult bindingResult){
 
         memberService.join(signupDTO);
 

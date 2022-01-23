@@ -6,6 +6,7 @@ import com.numble.numbledanggeun.domain.category.Category;
 import com.numble.numbledanggeun.domain.comment.Comment;
 import com.numble.numbledanggeun.domain.heart.Heart;
 import com.numble.numbledanggeun.domain.member.Member;
+import com.numble.numbledanggeun.handler.exception.CustomException;
 import lombok.*;
 import org.hibernate.annotations.BatchSize;
 
@@ -75,7 +76,7 @@ public class Board extends BaseEntity {
 
     public void changePrice(int price){
         if (price <= 0){
-            throw new IllegalStateException("가격이 0원 미만일 수 없습니다.");
+            throw new CustomException("가격이 0원 미만일 수 없습니다.");
         }else{
             this.price = price;
         }

@@ -6,6 +6,7 @@ import com.numble.numbledanggeun.domain.heart.Heart;
 import com.numble.numbledanggeun.domain.heart.HeartRepository;
 import com.numble.numbledanggeun.domain.member.Member;
 import com.numble.numbledanggeun.domain.member.MemberRepository;
+import com.numble.numbledanggeun.handler.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,10 +28,10 @@ public class HeartServiceImpl implements HeartService{
     public Heart heart(Long memberId, Long boardId) {
 
         Member member = memberRepository.findById(memberId).orElseThrow(() ->
-                new IllegalStateException("존재하지 않는 회원입니다."));
+                new CustomException("존재하지 않는 회원입니다."));
 
         Board board = boardRepository.findById(boardId).orElseThrow(() ->
-                new IllegalStateException("존재하지 않는 글입니다."));
+                new CustomException("존재하지 않는 글입니다."));
 
         Heart heart = new Heart();
         heart.setMember(member);

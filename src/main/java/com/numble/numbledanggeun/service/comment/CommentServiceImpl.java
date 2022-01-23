@@ -7,6 +7,7 @@ import com.numble.numbledanggeun.domain.comment.CommentRepository;
 import com.numble.numbledanggeun.dto.comment.CommentDTO;
 import com.numble.numbledanggeun.dto.comment.CommentResDTO;
 import com.numble.numbledanggeun.dto.comment.CommentUpdateDTO;
+import com.numble.numbledanggeun.handler.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,17 +29,15 @@ public class CommentServiceImpl implements CommentService{
     @Transactional
     @Override
     public Comment register(CommentDTO commentDTO, Long principalId) {
-        System.out.println("=====================");
-        System.out.println(commentDTO);
         Board board = boardRepository.findById(commentDTO.getBoardId()).orElseThrow(() ->
-                new IllegalStateException("존재하지 않은 글입니다."));
+                new CustomException("존재하지 않은 글입니다."));
 
         Comment comment;
 
         //대댓글인 경우
         if (commentDTO.getParentId() != null){
             Comment parent = commentRepository.findById(commentDTO.getParentId()).orElseThrow(() ->
-                    new IllegalStateException("존재하는 부모댓글이 없습니다."));
+                    new CustomException("존재하는 부모댓글이 없습니다."));
 
             comment = commentDTO.toEntity(board, principalId, parent);
         }
@@ -57,7 +56,7 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public void modify(CommentUpdateDTO commentUpdateDTO) {
         Comment comment = commentRepository.findById(commentUpdateDTO.getCommentId()).orElseThrow(() ->
-                new IllegalStateException("존재하지 않는 댓글입니다."));
+                new CustomException("존재하지 않는 댓글입니다."));
 
         comment.changeContent(commentUpdateDTO.getContent());
     }
@@ -69,7 +68,7 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public Long remove(Long commentId) {
         Comment comment = commentRepository.findById(commentId).orElseThrow(() ->
-                new IllegalStateException("존재하지 않는 댓글입니다."));
+                new CustomException("존재하지 않는 댓글입니다."));
 
         comment.removeComment();
 

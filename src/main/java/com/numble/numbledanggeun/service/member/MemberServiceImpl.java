@@ -13,6 +13,7 @@ import com.numble.numbledanggeun.dto.member.MemberUpdateDTO;
 import com.numble.numbledanggeun.dto.member.SignupDTO;
 import com.numble.numbledanggeun.file.FileStore;
 import com.numble.numbledanggeun.file.ResultFileStore;
+import com.numble.numbledanggeun.handler.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -61,7 +62,7 @@ public class MemberServiceImpl implements MemberService{
         Optional<Member> result = memberRepository.findByNickname(signupDTO.getNickname());
 
         if (result.isPresent()){
-            throw new IllegalStateException("이미 등록된 ID 입니다.");
+            throw new CustomException("이미 등록된 닉네임 입니다.");
         }
 
         //password 암호화
@@ -83,7 +84,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public MemberResDTO getProfile(Long principalId) {
         Member member = memberRepository.findById(principalId).orElseThrow(() ->
-                new IllegalStateException("존재하지 않은 회원입니다."));
+                new CustomException("존재하지 않은 회원입니다."));
 
         return new MemberResDTO(member);
     }
@@ -96,7 +97,7 @@ public class MemberServiceImpl implements MemberService{
     public void modify(MemberUpdateDTO memberUpdateDTO, Long principalId) throws IOException {
 
         Member member = memberRepository.findById(principalId).orElseThrow(() ->
-                new IllegalStateException("존재하지 않은 회원입니다."));
+                new CustomException("존재하지 않은 회원입니다."));
 
         member.changeNickname(memberUpdateDTO.getNickname());
 
@@ -119,7 +120,7 @@ public class MemberServiceImpl implements MemberService{
     public void removeImage(Long principalId) {
 
         Member member = memberRepository.findById(principalId).orElseThrow(() ->
-                new IllegalStateException("존재하지 않은 회원입니다."));
+                new CustomException("존재하지 않은 회원입니다."));
 
         //기존 프로필 사진 삭제
         //서버 컴퓨터 이미지 파일 삭제
@@ -140,7 +141,7 @@ public class MemberServiceImpl implements MemberService{
     public void remove(Long principalId) {
 
         Member member = memberRepository.findById(principalId).orElseThrow(() ->
-                new IllegalStateException("존재하지 않은 회원입니다."));
+                new CustomException("존재하지 않은 회원입니다."));
 
         //boardImg 삭제
         List<Board> boardList = boardRepository.findByMember(member);

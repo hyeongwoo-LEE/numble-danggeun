@@ -11,6 +11,7 @@ import com.numble.numbledanggeun.domain.member.Member;
 import com.numble.numbledanggeun.domain.member.MemberRepository;
 import com.numble.numbledanggeun.dto.board.BoardDTO;
 import com.numble.numbledanggeun.dto.board.BoardUpdateDTO;
+import com.numble.numbledanggeun.handler.exception.CustomException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -138,7 +139,7 @@ class BoardServiceImplTest {
                 0, imgFiles);
 
         //when
-        IllegalStateException e = assertThrows(IllegalStateException.class,
+        CustomException e = assertThrows(CustomException.class,
                 () -> boardService.modify(boardUpdateDTO));
 
         //then

@@ -9,6 +9,7 @@ import com.numble.numbledanggeun.dto.board.*;
 import com.numble.numbledanggeun.dto.page.SearchDTO;
 import com.numble.numbledanggeun.file.FileStore;
 import com.numble.numbledanggeun.file.ResultFileStore;
+import com.numble.numbledanggeun.handler.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,7 +55,7 @@ public class BoardServiceImpl implements BoardService{
     public void modify(BoardUpdateDTO boardUpdateDTO) throws IOException {
 
         Board board = boardRepository.findById(boardUpdateDTO.getBoardId()).orElseThrow(() ->
-                new IllegalStateException("존재하지 않는 글입니다."));
+                new CustomException("존재하지 않는 글입니다."));
 
         //변경감지
         board.changeCategory(boardUpdateDTO.getCategoryId());
@@ -88,7 +89,7 @@ public class BoardServiceImpl implements BoardService{
     public void modifyPostState(Long boardId, PostState postState) {
 
         Board board = boardRepository.findById(boardId).orElseThrow(() ->
-                new IllegalStateException("존재하지 않는 글입니다."));
+                new CustomException("존재하지 않는 글입니다."));
 
         board.changePostState(postState);
     }
@@ -102,7 +103,7 @@ public class BoardServiceImpl implements BoardService{
     public void removeImage(Long boardId) {
 
         Board board = boardRepository.findById(boardId).orElseThrow(() ->
-                new IllegalStateException("존재하지 않는 글입니다."));
+                new CustomException("존재하지 않는 글입니다."));
 
         //기존 해당 사진 모두 삭제
         List<BoardImg> boardImgList = boardImgRepository.findBoardImgByBoard(board);
@@ -122,7 +123,7 @@ public class BoardServiceImpl implements BoardService{
     public void remove(Long boardId) {
 
         Board board = boardRepository.findById(boardId).orElseThrow(() ->
-                new IllegalStateException("존재하지 않는 글입니다."));
+                new CustomException("존재하지 않는 글입니다."));
 
         //서버 컴퓨터에서 글 사진파일 삭제 -> boardImg 삭제 -> board 삭제 (cascade - comment, heart)
         List<BoardImg> boardImgList = boardImgRepository.findBoardImgByBoard(board);
@@ -221,7 +222,7 @@ public class BoardServiceImpl implements BoardService{
     public BoardPreviewDTO getSimpleBoard(Long boardId) {
 
         Board board = boardRepository.findById(boardId).orElseThrow(() ->
-                new IllegalStateException("존재하지 않은 판매글입니다."));
+                new CustomException("존재하지 않은 판매글입니다."));
 
         return new BoardPreviewDTO(board);
     }
@@ -233,7 +234,7 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public BoardUpdateResDTO findOne(Long boardId) {
         Board board = boardRepository.findById(boardId).orElseThrow(() ->
-                new IllegalStateException("존재하지 않은 글입니다."));
+                new CustomException("존재하지 않은 글입니다."));
 
         return new BoardUpdateResDTO(board);
     }

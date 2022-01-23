@@ -2,6 +2,7 @@ package com.numble.numbledanggeun.security.auth;
 
 import com.numble.numbledanggeun.domain.member.Member;
 import com.numble.numbledanggeun.domain.member.MemberRepository;
+import com.numble.numbledanggeun.handler.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,7 +23,7 @@ public class PrincipalDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         Member member = memberRepository.findByEmail(email).orElseThrow(() ->
-                new IllegalStateException("존재하지 않은 회원입니다."));
+                new CustomException("존재하지 않은 회원입니다."));
 
         return new PrincipalDetails(member); //시큐리티 세션에 유저 정보가 저장됨.
     }
