@@ -60,7 +60,7 @@
                                 <div th:if="${childDTO.isExist} == false">삭제된 댓글입니다.</div>
                                 <div th:if="${childDTO.isExist} == true" class="image2-container">
                                     <img class="image2" th:src="@{/img/{filename}
-                                (filename= ${dto.memberImgDTO.filename}, folderPath = ${dto.memberImgDTO.folderPath}) }"
+                                (filename= ${childDTO.memberImgDTO.filename}, folderPath = ${childDTO.memberImgDTO.folderPath}) }"
                                          alt="" onerror="this.src='/image/noProfile.png'">
                                     <a th:href="@{/boards/{id}/comments/new(id= ${previewDTO.boardId}, parentId =${dto.commentId})}" style="font-size: x-small">대댓글 달기</a>
                                 </div>
