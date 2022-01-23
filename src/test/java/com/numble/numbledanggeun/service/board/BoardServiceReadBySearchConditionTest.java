@@ -96,6 +96,7 @@ public class BoardServiceReadBySearchConditionTest {
      *
      * --> board5 -> board1 -> board3 순으로 출력 되어야 함.
      */
+    
     @Test
     void 판매글리스트_조회() throws Exception{
         //given
