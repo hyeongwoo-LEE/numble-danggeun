@@ -15,12 +15,10 @@ import com.numble.numbledanggeun.domain.member.Member;
 import com.numble.numbledanggeun.domain.member.MemberRepository;
 import com.numble.numbledanggeun.dto.board.BoardResDTO;
 import com.numble.numbledanggeun.dto.page.SearchDTO;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -96,7 +94,7 @@ public class BoardServiceReadBySearchConditionTest {
      *
      * --> board5 -> board1 -> board3 순으로 출력 되어야 함.
      */
-    
+    @Transactional
     @Test
     void 판매글리스트_조회() throws Exception{
         //given
